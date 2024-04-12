@@ -22,7 +22,9 @@
     font-size: 2rem;
     margin-right: 15px;
 }
-.
+.navbar-links{
+    display: none;
+}
 .menu-icon{
     font-size: 1.5rem;
 }
