@@ -8,7 +8,7 @@ open.addEventListener('click', () => {
     close.style.display = 'block';
     navIcon.style.display = 'block';
     navbarLinks.style.display = 'block';
-   
+     navbarLinks.classList.add('show-nav');
 
 });
 
