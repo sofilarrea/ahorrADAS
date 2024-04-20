@@ -1,6 +1,25 @@
 .nav-icon{
   display: none;
 }
-.links navbar-links{
-  display: block;
+.navbar-links-desktop {
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+
+}
+
+.navbar-links-desktop li {
+  margin-right: 20px;
+  padding: 5px
+  list-style: none;
+
+}
+
+.navbar-links-desktop li a{
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: white;
+}
+.navbar-links-desktop li i{
+  margin-right: 10px;
 }
