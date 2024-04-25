@@ -35,8 +35,6 @@ body{
     display: none; /* Inicialmente oculto */
     background-color: #fff;
     box-shadow: 0 8px 16px rgba(10,10,10,.1);
-
-
 }
 .navbar-links i{
     margin-right: 10px;
@@ -47,11 +45,12 @@ body{
 .navbar-links a{
     color: #4a4a4a;
     text-decoration: none;
-
-
 }
 .navbar-links.show-nav {
     display: block;
+}
+.nav-icon{
+  margin-right: 25px;
 }
 #close{
     display: none;
