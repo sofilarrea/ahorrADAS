@@ -2,25 +2,25 @@
 .nav-icon{
   display: none;
 }
-.navbar-desktop {
+.navbar-links-desktop {
   display: flex;
   text-decoration: none;
   list-style: none;
 
 }
 
-.navbar-desktop li {
+.navbar-links-desktop li {
   margin-right: 20px;
   padding: 5px;
   list-style: none;
 
 }
 
-.navbar-desktop li a{
+.navbar-links-desktop li a{
   text-decoration: none;
   font-size: 1.2rem;
   color: white;
 }
-.navbar-desktop li i{
+.navbar-links-desktop li i{
   margin-right: 10px;
 }

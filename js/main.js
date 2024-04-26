@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbarLinks = document.getElementById('navbar-links');
 
   open.addEventListener('click', () => {
-      c
+    console.log('dentro de la function')
       open.style.display = 'none';
       close.style.display = 'block';
       navbarLinks.classList.add('show-nav');
