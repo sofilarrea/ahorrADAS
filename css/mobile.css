@@ -1,3 +1,10 @@
+.navbar h1{
+  font-size: 2rem;
+  margin: 0;
+
+}
+
+
 .navbar-section{
   background-color: #00D1B2;
   color: #fff;
@@ -9,7 +16,6 @@
 .navbar{
   display: flex;
   line-height: 1.125;
-
 }
 .nav-icon{
   margin-right: 25px;
@@ -28,8 +34,6 @@
   display: none; /* Inicialmente oculto */
   background-color: #fff;
   box-shadow: 0 8px 16px rgba(10,10,10,.1);
-
-
 }
 .navbar-links i{
   margin-right: 10px;
@@ -40,11 +44,14 @@
 .navbar-links a{
   color: #4a4a4a;
   text-decoration: none;
-
-
 }
 .navbar-links.show-nav {
   display: block;
+  padding: 15px;
+  font-size: 1.2rem;
+}
+.navbar-desktop{
+  display: none;
 }
 #close{
   display: none;
