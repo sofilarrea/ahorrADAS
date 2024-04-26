@@ -58,3 +58,9 @@
   display: none;
 }
 
+.nuevo-gasto{
+  background-color: red;
+}
+.nuevo-texto{
+  font-size: 1.5rem;
+}
