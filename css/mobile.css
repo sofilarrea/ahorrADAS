@@ -59,8 +59,13 @@
 }
 
 .nuevo-gasto{
-  background-color: red;
+  background-color: #EBFFFC;
+  color: #00947e;
+
 }
 .nuevo-texto{
   font-size: 1.5rem;
+}
+.boton-editar{
+  background-color: red;
 }
