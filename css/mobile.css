@@ -69,3 +69,7 @@
 .boton-editar{
   background-color: red;
 }
+.navbar-links.show-nav {
+  display: block;
+}
+

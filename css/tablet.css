@@ -1,0 +1,11 @@
+.link{
+  display: none;
+}
+.nav-icon{
+  display: none;
+}
+.navbar-links-desktop{
+  display: flex;
+  gap: 5px;
+
+}
