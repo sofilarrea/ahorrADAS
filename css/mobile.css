@@ -18,6 +18,9 @@
 .navbar-logo h1{
   font-size: 1.6rem;
 }
+.nav-icon-controles {
+  margin-right: 10px;
+}
 .navbar{
   display: flex;
   justify-content: space-between;
@@ -30,16 +33,17 @@
 .close{
   display: none;
 }
-#navbar:togle .navbar-links{
+#navbar:target .navbar-links{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  height: 80px;
   width: 100%;
-  position: fixed;
-  top: 0;
+  top: 50px;
   left: 0;
-  background-color: #a91fa0;
-  z-index: 1000;
+  background-color: #ffffff;
+  position: absolute;
+  box-shadow: 0 8px 16px rgba(10, 10, 10, .1);
+  color: #4a4a4a;
+  margin-top: 5px;
+  padding: 10px;
 }
