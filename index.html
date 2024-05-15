@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> AhorrADAs </title>
@@ -34,6 +34,7 @@
           <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
         </ul>
       </nav>
+
     </header>
     <section>
       <div class="bg-white rounded-lg w-11/12 md:w-1/2 lg:w-1/3 px-6 py-4 mt-20 ml-4 shadow-lg">
@@ -54,9 +55,70 @@
                 <h1>$0</h1>
             </div>
         </div>
-    </div>
-      </section>
+     </div>
+
+     <!-- card filtros -->
+     <div class="bg-white rounded-lg w-11/12 md:w-1/2 lg:w-1/4 px-6 py-4 mt-20 ml-4 shadow-lg">
+        <div class="ocultar-mostrar-filtros display flex justify-between" >
+          <h3 class="text-lg font-bold pt-6 pb-10 text-4xl">Filtros</h3>
+           <a href="#" id="ocultar-filtros" class="py-8">Ocultar filtros</a>
+        </div>
+   
+
+     <div class="">
+        <div class="">
+            <label for="" class="text-lg font-semibold py-10 px-0">Tipo</label>
+            <div>
+                <select name="" id="select-tipo" class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
+                  <option value="todos">Todos</option>
+                  <option value="gastos">Gastos</option>
+                  <option value="ganancia">Ganancia</option>
+                </select>
+            </div>
+        </div>
+     </div>
+
+     <div>
+        <label for="" class="text-lg font-semibold ">Categoría</label>
+        <div>
+            <div>
+                <select name="" id="select-categoria"class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
+
+                </select>
+            </div>
+        </div>
+     </div>
+
+     <div>
+        <label for="" class="text-lg font-semibold">Desde</label>
+        <div>
+            <div>
+                <input type="date" id="inputFecha" class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 " >
+            </div>
+        </div>
+     </div>
+
+     <div>
+        <label for=""class="text-lg font-semibold">Ordenar por</label>
+        <div>
+            <div>
+                <select name="" id=""class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
+                    <option value="Mas reciente">Más reciente</option>
+                    <option value="Menos reciente">Menos reciente</option>
+                    <option value="Mayor monto">Mayor monto</option>
+                    <option value="Menor monto">Menor monto</option>
+                    <option value="A/Z">A/Z</option>
+                    <option value="Z/A">Z/A</option>
+                </select>
+            </div>
+        </div>
+     </div>       
+    </div> 
+ </section>
 
        <script src="js/main.js"></script>
+
+      
+
 </body>
 </html>
