@@ -52,9 +52,7 @@
   left: 0;
   background-color: #f9fcfc;
   color: #4A4A4A;
-}
-#navbar:target .open{
-  display: none;
+  box-shadow: 0 8px 16px rgba(10,10,10,.1);
 
 }
 #navbar:target .close{
