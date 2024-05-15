@@ -1,0 +1,21 @@
+.navbar-links-desktop {
+  display: flex;
+  gap: 5px;
+  font-size: 1.2rem;
+}
+.nav-icon{
+  display: none;
+}
+
+
+#navbar:target .navbar-links-desktop {
+  display: block;
+}
+
+
+
+/* Reportes Page*/
+.navbar-section{
+  display: flex;
+  justify-content: flex-end;
+}
