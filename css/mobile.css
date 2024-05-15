@@ -5,11 +5,41 @@
   background-color: #00D1B2;
   color: #fff;
   padding: 10px;
+  height: 60px;
+}
+.navbar-logo{
+  display: flex;
+  align-items: center;
+}
+.navbar-logo i{
+  margin-right: 10px;
+  font-size: 1.6rem;
+}
+.navbar-logo h1{
+  font-size: 1.6rem;
+}
+.navbar{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 90px;
+  height: 50px;
 }
-.navbar-links-desktop-reportes{
+.navbar-links{
   display: none;
+}
+.close{
+  display: none;
+}
+#navbar:togle .navbar-links{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #a91fa0;
+  z-index: 1000;
 }
