@@ -1,3 +1,4 @@
+
 /* .navbar-section {
   background-color: #00D1B2;
   color: #fff;
@@ -29,7 +30,7 @@
 .nav-icon .open{
   display: block;
   padding: 4px;
-  font-size: 1.7rem;
+  font-size: 1.7rem; 
 }
 .nav-icon .close{
   display: none;
@@ -40,7 +41,6 @@
   display: none;
 }
 .close{  display: none;
-
 }
 #navbar:target .navbar-links {
   display: block;
@@ -53,6 +53,9 @@
   background-color: #f9fcfc;
   color: #4A4A4A;
 }
+.navbar-desktop{
+  display: none;
+
 #navbar:target .open{
   display: none;
 
@@ -62,11 +65,9 @@
 }
 
 
-
-
 .nuevo-texto{
   font-size: 1.5rem;
 }
 .boton-editar{
   background-color: red;
-}
+
