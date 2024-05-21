@@ -47,3 +47,35 @@
   margin-top: 5px;
   padding: 10px;
 }
+.boton{
+  background-color: #48C774;
+}
+.nuevo-gasto {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-top: 8px;
+  background-color: transparent;
+}
+
+.categorias {
+  display: inline-block;
+  background-color: rgba(34, 197, 94, 0.1);
+  padding: 0.2em 0.5em;
+  color: #00947e;
+  border-radius: 5px;
+}
+/* .categorias {
+  background-color: rgba(34, 197, 94, 0.1); /* Light green background */
+
+
+
+.boton-editar,
+.boton-eliminar {
+  cursor: pointer;
+  color: #3273dc; /* Blue for buttons */
+  background: none;
+  border: none;
+  font-size: 14px;
+  margin-left: 8px;
+}

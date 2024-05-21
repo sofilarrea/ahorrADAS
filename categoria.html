@@ -25,49 +25,43 @@
     </script>
 </head>
 <body>
-    <header class="navbar-section">
-        <div class="navbar">
+    <header class="navbar-section-reportes">
+      <nav id="navbar" class="navbar">
+        <div class="navbar-logo">
+          <a href="index.html" class="flex">
             <i class="fa-solid fa-wallet" style="color: #ffffff;"></i>
-           <a href=""></a> <h1>AhorrADAs</h1>
+            <h1>AhorrADAs</h1>
+          </a>
         </div>
-        <nav id="navbar">
-            <div class="nav-icon">
-                <a href="#" id="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
-                <a href="#" id="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
+            <div class="nav-icon-controles">
+                <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+                <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
             </div>
-            <!-- <ul class="navbar-links-desktop" id="navbar-links">
-              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="balance.html">Balance</a></li>
+            <ul class="navbar-links" id="navbar-links">
+              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
               <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
               <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
-          </ul> -->
+          </ul>
         </nav>
     </header>
     <div class="link" id="navbar-two">
-    <ul class="navbar-links" id="navbar-links">
-        <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="balance.html">Balance</a></li>
-        <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
-        <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
-    </ul>
     </div>
     <section>
-      <div class="w-1/2 mx-auto bg-white rounded-xl  shadow-lg mt-20 p-8 leading-9">
-        <div>
-          <h1 class="text-lg font-bold pt-6 pb-10 text-4xl">Categorias</h1>
-          <p><strong>Nombre</strong></p>
-
-        </div>
-        <div class="ml-auto flex">
-          <input type="text" id="text-input" placeholder="" class="border-solid border-2 rounded-l w-full max-w-full mr-4">
-          <button type="button" id="agregar" class="border-solid border-2 border-greenBtn rounded-r bg-greenBtn py-2 px-4 text-sm">Agregar</button>
-        </div>
-
-
-        <div id="lista-gastos" class="mt-4">
-          <!-- Se van a gregando los gastos -->
-        </div>
-
+      <div class="w-1/2 mx-auto bg-white rounded-xl shadow-lg mt-20 p-8 leading-9">
+          <div>
+              <h1 class="text-lg font-bold pt-6 pb-10 text-4xl">Categorias</h1>
+              <p><strong>Nombre</strong></p>
+          </div>
+          <div class="ml-auto flex">
+              <input type="text" id="categoria" placeholder="" class="border-solid border-2 rounded-l w-full max-w-full mr-4">
+              <button type="button" id="agregar" class="agregar boton border-solid border-2 border-greenBtn rounded-r bg-greenBtn py-2 px-4 text-sm">Agregar</button>
+            </div>
+            <div id="lista-gastos" class="mt-4">
+            <ul id="categoriasLista"></ul>
+              <!-- Se van a gregando los gastos -->
+          </div>
       </div>
-      </section>
+  </section>
 
        <script src="js/main.js"></script>
 </body>
