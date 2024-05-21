@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const agregarCategoria = document.getElementById("agregar");
-  const categorias = [];
+  let categorias = [];
 
   agregarCategoria.addEventListener("click", function() {
       let categoriaInput = document.getElementById("categoria");
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (nuevaCategoria.nombre) {
           categorias.push(nuevaCategoria);
           cargarCategoriaLista();
+          guardarCategoriasEnLocalStorage(categorias); // Guardar las categorías en el localStorage
           categoriaInput.value = "";
       }
   });
@@ -45,14 +46,29 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function eliminarCategoria(id) {
-    if (confirm("¿Estás seguro que deseas eliminar esta categoría?")) {
-        const index = categorias.findIndex(cat => cat.id === id);
-        if (index > -1) {
-            categorias.splice(index, 1);
-            cargarCategoriaLista();
-        }
-    }
-}
-  cargarCategoriaLista();
+      if (confirm("¿Estás seguro que deseas eliminar esta categoría?")) {
+          categorias = categorias.filter(cat => cat.id !== id); // Filtrar las categorías para eliminar la seleccionada
+          cargarCategoriaLista();
+          guardarCategoriasEnLocalStorage(categorias); // Actualizar el localStorage después de eliminar la categoría
+      }
+  }
+
+  // Función para guardar las categorías en el localStorage
+  function guardarCategoriasEnLocalStorage(categorias) {
+      localStorage.setItem('categorias', JSON.stringify(categorias));
+  }
+
+  // Función para cargar las categorías desde el localStorage al cargar la página
+  function cargarCategoriasDesdeLocalStorage() {
+      const categoriasGuardadas = JSON.parse(localStorage.getItem('categorias'));
+      if (categoriasGuardadas) {
+          categorias = categoriasGuardadas; // Cargar las categorías guardadas en la variable categorias
+          cargarCategoriaLista();
+      }
+  }
+
+  // Llamar a la función para cargar las categorías desde el localStorage al cargar la página
+  cargarCategoriasDesdeLocalStorage();
 });
+
 /* EDITAR GASTO */
