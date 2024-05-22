@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const agregarCategoria = document.getElementById("agregar");
   let categorias = [];
 
-  // Función para cargar las categorías desde el localStorage al cargar la página
+  // Función para cargar las categorias desde el localStrage al cargar la página
   function cargarCategoriasDesdeLocalStorage() {
       const categoriasGuardadas = JSON.parse(localStorage.getItem('categorias'));
       if (categoriasGuardadas && categoriasGuardadas.length > 0) {
-          categorias = categoriasGuardadas; // Cargar las categorías guardadas en la variable categorias
+          categorias = categoriasGuardadas;
       } else {
-          // Agregar categorías predeterminadas si no hay categorías guardadas
+
           categorias = [
               { id: 1, nombre: 'cinevbvb' },
               { id: 2, nombre: 'cinevbvbcvbcvb' },
@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
           ];
           guardarCategoriasEnLocalStorage(categorias);
       }
-      cargarCategoriaLista(); // Mostrar las categorías en la página
+      cargarCategoriaLista();
   }
 
-  // Función para cargar y mostrar las categorías en la lista
+  // Función para cargar y mostrar las categorías en la li
   function cargarCategoriaLista() {
       const categoriaLista = document.getElementById("categoriasLista");
-      categoriaLista.innerHTML = ""; // Limpiar la lista existente
+      categoriaLista.innerHTML = "";
       categorias.forEach(categoria => {
           let categoriaListItem = document.createElement("li");
           categoriaListItem.textContent = categoria.nombre;
@@ -58,24 +58,27 @@ document.addEventListener('DOMContentLoaded', function() {
       if (nuevaCategoria.nombre) {
           categorias.push(nuevaCategoria);
           cargarCategoriaLista();
-          guardarCategoriasEnLocalStorage(categorias); // Guardar las categorías en el localStorage
+          guardarCategoriasEnLocalStorage(categorias);
           categoriaInput.value = "";
       }
   });
 
   function eliminarCategoria(id) {
       if (confirm("¿Estás seguro que deseas eliminar esta categoría?")) {
-          categorias = categorias.filter(cat => cat.id !== id); // Filtrar las categorías para eliminar la seleccionada
+          categorias = categorias.filter(cat => cat.id !== id);
           cargarCategoriaLista();
-          guardarCategoriasEnLocalStorage(categorias); // Actualizar el localStorage después de eliminar la categoría
+          guardarCategoriasEnLocalStorage(categorias);
       }
   }
 
   function redirigirAEditar(id) {
-      const categoria = categorias.find(cat => cat.id === id);
-      localStorage.setItem('categoriaAEditar', JSON.stringify(categoria));
-      window.location.href = 'editar.html';
-  }
+    const categoria = categorias.find(cat => cat.id === id);
+    console.log("Categoria seleccionada para editar:", categoria);
+    localStorage.setItem('categoriaAEditar', JSON.stringify(categoria));
+    window.location.href = 'editar.html';
+}
+
+
 
   // Función para guardar las categorías en el localStorage
   function guardarCategoriasEnLocalStorage(categorias) {
@@ -88,3 +91,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* EDITAR GASTO */
+/* const editarCategoria = document.gentElementById("input-editar")
+document.addEventListener('DOMContentLoaded', function() {
+  const editarBoton = document.getElementById('editar');
+  const cancelarBoton = document.getElementById('cancelar');
+
+  editarBoton.addEventListener('click', function() {
+      console.log('Botón "Editar" clicado');
+
+
+  });
+
+  cancelarBoton.addEventListener('click', function() {
+      console.log('Botón "Cancelar" clicado');
+      // Agrega aquí la lógica para cancelar la edición
+  });
+
+  const agregarCategoria = document.getElementById("agregar");
+  let categorias = [];
+
+  // Resto del código para cargar categorías, eliminar, etc.
+});
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  const categoriaAEditar = JSON.parse(localStorage.getItem('categoriaAEditar'));
+  const inputEditar = document.getElementById('input-editar');
+
+  if (categoriaAEditar) {
+      inputEditar.value = categoriaAEditar.nombre;
+  } else {
+      console.error('No se encontró una categoría para editar');
+  }
+});
