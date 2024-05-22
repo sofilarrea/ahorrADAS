@@ -28,19 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
           categoriaListItem.textContent = categoria.nombre;
           categoriaListItem.classList.add('categorias');
 
-          // Crear botón Editar
           const botonEditar = document.createElement('button');
           botonEditar.textContent = 'Editar';
           botonEditar.classList.add('boton-editar');
           botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
 
-          // Crear botón Eliminar
           const botonEliminar = document.createElement('button');
           botonEliminar.textContent = 'Eliminar';
           botonEliminar.classList.add('boton-eliminar');
           botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
 
-          // Añadir los botones al elemento de la lista
           categoriaListItem.appendChild(botonEditar);
           categoriaListItem.appendChild(botonEliminar);
 
@@ -80,47 +77,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-  // Función para guardar las categorías en el localStorage
   function guardarCategoriasEnLocalStorage(categorias) {
       localStorage.setItem('categorias', JSON.stringify(categorias));
   }
 
-  // Llamar a la función para cargar las categorías desde el localStorage al cargar la página
   cargarCategoriasDesdeLocalStorage();
 });
 
 
-/* EDITAR GASTO */
-/* const editarCategoria = document.gentElementById("input-editar")
-document.addEventListener('DOMContentLoaded', function() {
-  const editarBoton = document.getElementById('editar');
-  const cancelarBoton = document.getElementById('cancelar');
-
-  editarBoton.addEventListener('click', function() {
-      console.log('Botón "Editar" clicado');
-
-
-  });
-
-  cancelarBoton.addEventListener('click', function() {
-      console.log('Botón "Cancelar" clicado');
-      // Agrega aquí la lógica para cancelar la edición
-  });
-
-  const agregarCategoria = document.getElementById("agregar");
-  let categorias = [];
-
-  // Resto del código para cargar categorías, eliminar, etc.
-});
- */
-
+/* EDITAR categoria */
 document.addEventListener('DOMContentLoaded', function() {
   const categoriaAEditar = JSON.parse(localStorage.getItem('categoriaAEditar'));
   const inputEditar = document.getElementById('input-editar');
+  const editarBoton = document.getElementById('editar');
+  const cancelarBoton = document.getElementById('cancelar');
 
   if (categoriaAEditar) {
       inputEditar.value = categoriaAEditar.nombre;
   } else {
       console.error('No se encontró una categoría para editar');
   }
+
+  editarBoton.addEventListener('click', function() {
+      const nuevoNombre = inputEditar.value.trim();
+      if (nuevoNombre) {
+          // Obtener categorías del almacenamiento local
+          let categorias = JSON.parse(localStorage.getItem('categorias'));
+          // Encontrar la categoría a editar
+          const index = categorias.findIndex(cat => cat.id === categoriaAEditar.id);
+          // Actualizar el nombre de la categoría
+          categorias[index].nombre = nuevoNombre;
+          // Guardar las categorías actualizadas en el almacenamiento local
+          localStorage.setItem('categorias', JSON.stringify(categorias));
+          // Redirigir a categoria.html
+          window.location.href = 'categoria.html';
+      } else {
+          alert('Por favor ingresa un nombre válido para la categoría.');
+      }
+  });
+
+  cancelarBoton.addEventListener('click', function() {
+      // Redirigir a categoria.html
+      window.location.href = 'categoria.html';
+  });
 });
