@@ -48,20 +48,21 @@
     </div>
     <section>
       <div class="w-1/2 mx-auto bg-white rounded-xl shadow-lg mt-20 p-8 leading-9">
-          <div>
-              <h1 class="text-lg font-bold pt-6 pb-10 text-4xl">Categorias</h1>
-              <p><strong>Nombre</strong></p>
+        <div>
+          <h1 class="text-lg font-bold pt-6 pb-10 text-4xl">Editar Categorías</h1>
+          <p><strong>Nombre</strong></p>
+        </div>
+        <div class="ml-auto flex flex-col">
+          <input type="text" id="categoria" placeholder="" class="border-solid border-2 rounded w-full max-w-full mb-4">
+          <div class="flex gap-4 justify-end">
+            <button type="button" id="agregar" class="agregar boton border-solid border-2 border-greenBtn rounded bg-greenBtn py-2 px-4 text-sm">Agregar</button>
+            <button type="button" id="cancelar" class="agregar boton border-solid border-2 rounded py-2 px-4 text-sm">Cancelar</button>
           </div>
-          <div class="ml-auto flex">
-              <input type="text" id="categoria" placeholder="" class="border-solid border-2 rounded-l w-full max-w-full mr-4">
-              <button type="button" id="agregar" class="agregar boton border-solid border-2 border-greenBtn rounded-r bg-greenBtn py-2 px-4 text-sm">Agregar</button>
-            </div>
-            <div id="lista-gastos" class="mt-4">
-            <ul id="categoriasLista" class="categoriasLista"></ul>
-              <!-- Se van a gregando los gastos -->
-          </div>
+        </div>
+        <!-- Se van agregando los gastos -->
       </div>
-  </section>
+    </section>
+
 
        <script src="js/main.js"></script>
 </body>
