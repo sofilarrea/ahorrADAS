@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const agregarCategoria = document.getElementById("agregar");
   let categorias = [];
 
-  // Función para cargar las categorias desde el localStrage al cargar la página
+  // de local a la página 
   function cargarCategoriasDesdeLocalStorage() {
       const categoriasGuardadas = JSON.parse(localStorage.getItem('categorias'));
       if (categoriasGuardadas && categoriasGuardadas.length > 0) {
@@ -101,15 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
   editarBoton.addEventListener('click', function() {
       const nuevoNombre = inputEditar.value.trim();
       if (nuevoNombre) {
-          // Obtener categorías del almacenamiento local
           let categorias = JSON.parse(localStorage.getItem('categorias'));
-          // Encontrar la categoría a editar
           const index = categorias.findIndex(cat => cat.id === categoriaAEditar.id);
-          // Actualizar el nombre de la categoría
           categorias[index].nombre = nuevoNombre;
-          // Guardar las categorías actualizadas en el almacenamiento local
           localStorage.setItem('categorias', JSON.stringify(categorias));
-          // Redirigir a categoria.html
           window.location.href = 'categoria.html';
       } else {
           alert('Por favor ingresa un nombre válido para la categoría.');
@@ -117,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   cancelarBoton.addEventListener('click', function() {
-      // Redirigir a categoria.html
+      // Redirigir
       window.location.href = 'categoria.html';
   });
 });

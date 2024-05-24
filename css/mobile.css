@@ -33,6 +33,9 @@
 .close{
   display: none;
 }
+.navbar-links li a:hover {
+  color: #00D1B2; /* Cambiar el color del texto en hover */
+}
 #navbar:target .navbar-links{
   display: flex;
   flex-direction: column;
