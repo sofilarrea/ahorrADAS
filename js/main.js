@@ -174,3 +174,13 @@ const filtrosTipos=document.getElementById("filtros-tipo")
       mostrarFiltros.addEventListener("click" , (e) =>{ 
         panelTipo.style.display= "block"; 
   })
+
+
+//   BOTON NUEVA OPERACION
+
+const botonNuevaOperacion=document.getElementById("btn-operacion")
+const divOperacion=document.getElementById("div-operacion")
+
+divOperacion.addEventListener("click", ()=>{
+    
+})
