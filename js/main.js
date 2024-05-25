@@ -121,3 +121,56 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = 'categoria.html';
   });
 });
+
+
+
+
+// FILTROS
+
+
+// ocultar panel de filtros
+
+const ocultarFiltros=document.getElementById ("ocultar-filtros")
+const mostrarFiltros=document.getElementById("mostrar-filtros")
+const panelFiltros=document.getElementById ("panel-filtros")
+const panelTipo=document.getElementById("panel-tipo")
+
+
+ ocultarFiltros.addEventListener("click" , () =>{
+
+    ocultarFiltros.classList.add("hidden")
+     panelFiltros.classList.add("hidden")
+     mostrarFiltros.classList.remove("hidden")
+   
+ })
+
+
+
+// selec filtros
+   
+    ocultarFiltros.addEventListener("click" , (e) =>{ 
+
+     panelTipo.style.display= "none";
+   })
+
+// para que aparezcan los filtros nuevamente
+
+   mostrarFiltros.addEventListener("click" , (e) =>{ 
+   
+   mostrarFiltros.classList.add("hidden")
+   panelFiltros.classList.remove("hidden")
+   ocultarFiltros.classList.remove("hidden")
+  
+  
+  
+ })
+
+const selectTipo=document.getElementById("select-tipo")
+const filtroCategoria=document.getElementById("filtro-categoria")
+const inputFecha=document.getElementById("inputFecha")
+const ordenFiltros=document.getElementById("orden-filtros")
+const filtrosTipos=document.getElementById("filtros-tipo")
+
+      mostrarFiltros.addEventListener("click" , (e) =>{ 
+        panelTipo.style.display= "block"; 
+  })

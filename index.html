@@ -38,22 +38,22 @@
         <section class="flex justify-center lg:flex flex-col hiiden absolute top-16 items-center " >
     <section class=" ">
     
-      <div class="bg-white justify-center  w-11/12 w-full md:w-2/3 lg:w-3/5 px-6 py-4 mt-20 ml-4 shadow-lg">
+      <div class="bg-white justify-center rounded-lg  w-11/12 w-full md:w-2/3 lg:w-3/5 px-6 py-4 mt-20 ml-4 shadow-lg">
         <div class="card-header">
-            <h3 class="text-lg font-bold pt-6 pb-10 text-4xl">Balance</h3>
+            <h3 class="text-lg font-bold pt-6 pb-10 text-2xl">Balance</h3>
         </div>
         <div class="card-body flex flex-col space-y-4">
             <div class="flex justify-between items-center pt-4 pb-4 text-2xl">
-                <h4>Ganancia</h4>
+                <h4 class="text-base ">Ganancia</h4>
                 <h1 class="text-green-500 font-bold">+ $0</h1>
             </div>
             <div class="flex justify-between items-center  pb-4 text-2xl">
-                <h4>Gastos</h4>
+                <h4 class="text-base ">Gastos</h4>
                 <h1 class="text-red-500 font-bold">- $0</h1>
             </div>
             <div class="flex justify-between items-center text-3xl">
-                <h4>Total</h4>
-                <h1>$0</h1>
+                <h4 class="text-base ">Total</h4>
+                <h1 >$0</h1>
             </div>
         </div>
      </div>
@@ -62,13 +62,14 @@
      <section class="">
      <div class="bg-white rounded-lg w-full w-11/12 md:w-2/3 lg:w-3/5 px-6 py-4 mt-20 ml-4 shadow-lg">
         <div class="ocultar-mostrar-filtros display flex justify-between" >
-          <h3 class="text-lg font-bold pt-6 pb-10 text-4xl">Filtros</h3>
-           <a href="#" id="ocultar-filtros" class="py-8">Ocultar filtros</a>
+          <h3 class="text-lg font-bold pt-6 pb-10 text-2xl">Filtros</h3>
+           <button id="ocultar-filtros"  class="py-8 text-xs cursor-pointer">Ocultar filtros</button>
+           <button id="mostrar-filtros"  class="hidden py-8 text-xs cursor-pointer">Mostras filtros</button>
         </div>
 
-
-     <div class="">
-        <div class="">
+    <div id="panel-tipo">
+     <div class="" id="panel-filtros">
+        <div class="" id="filtros-tipo">
             <label for="" class="text-lg font-semibold py-10 px-0">Tipo</label>
             <div>
                 <select name="" id="select-tipo" class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
@@ -81,18 +82,30 @@
      </div>
 
      <div>
+      
         <label for="" class="text-lg font-semibold ">Categoría</label>
         <div>
+            
             <div>
-                <select name="" id="select-categoria"class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
-
+                <select name="" id="select-categoria"class="block cursor-pointer w-full h-8.5 border-solid border-2 .3 outline-none rouned py-1 px-0 gap-5">
+                    <option value="comida">Comida</option>
+                    <option value="servicios">Servicios</option>
+                    <option value="salidas">Salidas</option>
+                    <option value="educacion">Educación</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="trabajo">Trabajo</option>
                 </select>
             </div>
         </div>
+        
      </div>
 
+   
+
      <div>
+       
         <label for="" class="text-lg font-semibold">Desde</label>
+      
         <div>
             <div>
                 <input type="date" id="inputFecha" class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 " >
@@ -104,7 +117,7 @@
         <label for=""class="text-lg font-semibold">Ordenar por</label>
         <div>
             <div>
-                <select name="" id=""class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
+                <select name="" id="orden-filtros"class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
                     <option value="Mas reciente">Más reciente</option>
                     <option value="Menos reciente">Menos reciente</option>
                     <option value="Mayor monto">Mayor monto</option>
@@ -113,9 +126,10 @@
                     <option value="Z/A">Z/A</option>
                 </select>
             </div>
+            
         </div>
      </div>
-
+    </div>
  </section>
 </section>
 
