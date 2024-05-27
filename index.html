@@ -12,8 +12,22 @@
 
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: ' #00D1B2',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+
+
+<body >
     <header class="navbar-section-reportes">
       <nav id="navbar" class="navbar">
         <div class="navbar-logo">
@@ -34,13 +48,14 @@
         </nav>
     </header>
 
-    <section class="  ">
-        <section class="  justify-center flex-col hiiden absolute top-16 items-center " >
-    <section class=" ">
-   
-      <div class="bg-white justify-center rounded-lg  w-11/12 w-full md:w-2/3 lg:w-3/5 px-6 py-4 mt-20 ml-4 shadow-lg">
+    <section class="flex lg:justify-center mt-5">
+        <section class="justify-center flex-col hiiden absolute top-16 items-center " >
+    <section class="lg:flex lg:justify-center ">
+      <section class=" lg:w-3/12">
+ 
+      <div class="bg-white rounded-lg  lg:w-full px-6 py-5 mt-20 ml-6 shadow-lg m-5 ">
         <div class="card-header">
-            <h3 class="text-lg font-bold pt-6 pb-10 text-2xl">Balance</h3>
+            <h3 class="text-lg font-bold pt-6 pb-10 text-2xl lg:text-xl">Balance</h3>
         </div>
         <div class="card-body flex flex-col space-y-4">
             <div class="flex justify-between items-center pt-4 pb-4 text-2xl">
@@ -59,19 +74,20 @@
      </div>
 
      <!-- card filtros -->
-     <section id="" class="">
-     <div class="bg-white rounded-lg w-full w-11/12 md:w-2/3 lg:w-3/5 px-6 py-4 mt-20 ml-4 shadow-lg">
+     <section id="" class=" ">
+    
+     <div class="bg-white rounded-lg   lg:w-full px-6  py-5 mt-10 ml-6 m-5 shadow-lg">
         <div class="ocultar-mostrar-filtros display flex justify-between" >
-          <h3 class="text-lg font-bold pt-6 pb-10 text-2xl">Filtros</h3>
-           <button id="ocultar-filtros"  class="py-8 text-xs cursor-pointer">Ocultar filtros</button>
-           <button id="mostrar-filtros"  class="hidden py-8 text-xs cursor-pointer">Mostras filtros</button>
+          <h3 class="text-lg font-bold pt-6 pb-10 text-2xl lg:text-xl">Filtros</h3>
+           <button id="ocultar-filtros"  class="py-8 text-md cursor-pointer text-blue-400">Ocultar filtros</button>
+           <button id="mostrar-filtros"  class="hidden py-8 text-md text-blue-400 cursor-pointer">Mostras filtros</button>
         </div>
 
-    <div id="panel-tipo">
-     <div class="" id="panel-filtros">
-        <div class="" id="filtros-tipo">
-            <label for="categorias" class="text-lg font-semibold py-10 px-0">Tipo</label>
-            <div>
+    <div id="panel-tipo" class="">
+     <div class="mb-2" id="panel-filtros">
+        <div class="mb-2" id="filtros-tipo">
+            <label for="categorias" class="text-lg font-semibold py-10 px-0 ">Tipo</label>
+            <div class="">
                 <select name="categorias" id="select-tipo" class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
                   <option value="todos">Todos</option>
                   <option value="gastos">Gastos</option>
@@ -81,7 +97,7 @@
         </div>
      </div>
 
-     <div>
+     <div class="mb-2">
       
         <label for="categorias" class="text-lg font-semibold ">Categoría</label>
         <div>
@@ -97,7 +113,7 @@
 
    
 
-     <div>
+     <div class="mb-2">
        
         <label for="categorias" class="text-lg font-semibold">Desde</label>
       
@@ -125,8 +141,11 @@
         </div>
      </div>
     </div>
+</div>
+</section>
+</section>
 
- </section>
+
 
 
 
@@ -134,24 +153,32 @@
 
 <!-- OPERACIONES -->
 
-       <section id="operaciones" class=" shadow-lg  bg-white rounded-lg px-6 py-4 mt-20 ml-4 ">
-        <div id="div-operacion" class="flex justify-between gap-x-2 ">
-            <h5 class="font-bold ">Operaciones</h5>
-            <button id="btn-operacion" class="bg-green-500 rounded text-xs p-1">+ Nueva Operación </button>
+       <section id="operaciones" class="  lg:px-6 mt-20 ml-6 rounded-md lg:w-3/5 " >
+        
+        <div id="div-operacion" class="flex lg:justify-between p-6 bg-white ">
+            <h5 class="font-bold lg:text-xl ">Operaciones</h5>
+            <button id="btn-operacion" class=" bg-green text-white rounded text-xs p-2 ">+ Nueva Operación </button>
         </div>
 
-        <div class="mt-4 pt-4 p-5 max-w-lg">
-            <figure class="">
-                <img src="./images/wallet.svg" alt="">
+        <div class=" rounded-lg shadow-lg py-5 bg-white  ">
+            <figure class="lg:flex justify-center mb-11 p-5">
+                <img src="./images/wallet.svg " class="lg:w-1/3 " alt="">
             </figure>
-              <h6 class="flex justify-center m-2 text-xs ">Sin Resultados</h6>
-               <p class="flex justify-center text-xs">Cambia los filtros o agrega operaciones</p>
+              <h6 class="flex justify-center m-2 text-xs lg:text-2xl font-light">Sin Resultados</h6>
+               <p class="flex justify-center text-xs m-5 mb-11">Cambia los filtros o agrega operaciones</p>
         </div>
-   
+    </div>
       </section>
-      </section>
-    </main>
-   
+    </section>
+
+    
+
+    
+
+    
+    
+
+
 
 
 
