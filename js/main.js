@@ -184,3 +184,48 @@ const divOperacion=document.getElementById("div-operacion")
 divOperacion.addEventListener("click", ()=>{
     
 })
+
+
+// CARGAR CATEGORIA
+
+const categoriaSelect =document.getElementById("select-categoria")
+ const operaciones =document.getElementById("operaciones")
+const SelectTipo = document.getElementById("select-tipo")
+ const inputFechaOP = document.getElementById("inputFecha")
+
+function cargarCategoria(categorias){
+    categorias.forEach((categoria) =>{
+        let nuevaCategoria = document.createElement("option")
+        nuevaCategoria.value = categoria;
+        nuevaCategoria.textContent = categoria
+        categoriaSelect.appendChild(nuevaCategoria)
+    })
+}
+
+function cargarStorage() {
+    const categorias = localStorage.getItem("categoria")
+    const operaciones = localStorage.getItem("operaciones")
+    if(!categorias) {
+        const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
+        localStorage.setItem("categoria", categoriasDefault)
+        cargarCategoria(categoriasDefault)
+    } else {
+        let nuevaCategoria = ""
+        let nuevasCategoriasArray = []
+        for (let i = 0; i < categorias.length; i++){
+            if (categorias[i] !== ",") {
+                nuevaCategoria += categorias[i]
+            } else {
+                nuevasCategoriasArray.push(nuevaCategoria)
+                nuevaCategoria = ""
+            }
+
+        }
+
+      cargarCategoria(nuevasCategoriasArray)
+
+
+    }
+}
+
+cargarStorage()
