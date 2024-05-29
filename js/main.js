@@ -186,12 +186,12 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 //   BOTON NUEVA OPERACION
 */
 // CARGAR CATEGORIA
-/*
+
 const categoriaSelect =document.getElementById("categoriaSelect")
 /* onst operaciones =document.getElementById("operaciones")
 const SelectTipo = document.getElementById("select-tipo")
 const inputFechaOP = document.getElementById("inputFecha") */
-/*
+
 function cargarCategoria(categorias){
   categorias.forEach((categoria) =>{
     let nuevaCategoria = document.createElement("option")
@@ -230,73 +230,17 @@ function cargarStorage() {
       cargarCategoria(nuevasCategoriasArray)
     }
 }
-cargarStorage()*/
+cargarStorage()
 
-/* ---------------------------------- */
-/*
-const descripcionNuevaOperacion = document.getElementById("nuevaOperacion-descripcion")
-const montoNuevaOperacion = document.getElementById("nuevaOperacion-monto")
-const tipoNuevaOperacion = document.getElementById("nuevaOperacion-tipo")
-const categoriaNuevaOperacion = document.getElementById("nuevaOperacion-categoria")
-const fechaNuevaOperacion = document.getElementById("nuevaOperacion-fecha")
-
-//localStorage.clear()
-
-function crearOperacion() {
-  console.log("HOLA HOLA HOLA DESDE NUEVA FUNCION ")
-
-    let nuevaOperacion = {
-        descripcion: descripcionNuevaOperacion.value,
-        monto: montoNuevaOperacion.value,
-        tipo: tipoNuevaOperacion.value,
-        categoria: categoriaNuevaOperacion.value,
-        fecha: fechaNuevaOperacion.value
-    }
-    const operaciones = localStorage.getItem("operaciones")
-    console.log(operaciones)
-    if (operaciones === null) {
-        console.log("Operaciones es null")
-        let nuevoArray = [{ nuevaOperacion }]
-        localStorage.setItem("operaciones", JSON.stringify(nuevoArray))
-    } else {
-        console.log("Operaciones no es null")
-        let parsedStorage = JSON.parse(localStorage.getItem("operaciones"))
-        parsedStorage.push(nuevaOperacion)
-        localStorage.setItem("operaciones", JSON.stringify(parsedStorage))
-    }
-    console.log("Operacion Creada")
-}
-
-const botonAgregarOperacion = document.getElementById("botonAgregarOperacion")
-
-botonAgregarOperacion.addEventListener("click", function (event) {
-    event.stopPropagation()
-    event.preventDefault()
-    event.stopImmediatePropagation()
-    crearOperacion()
-})
-
-const formMolesto = document.getElementById("formNuevaOperacion")
-
-formMolesto.addEventListener("submit", function (event) {
-    console.log(event)
-    event.preventDefault()
-    event.stopImmediatePropagation()
-    event.stopPropagation()
-})
-*/
-/*///////////////////////*/
 function agregarOperacion(event) {
   event.preventDefault();
   console.log("hello from the function agregarOperaciones")
-  // Obtener los valores del formulario
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
   const monto = document.getElementById('nuevaOperacion-monto').value;
   const tipo = document.getElementById('nuevaOperacion-tipo').value;
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // Crear un objeto para la operación
   const nuevaOperacion = {
       descripcion,
       monto,
@@ -305,38 +249,68 @@ function agregarOperacion(event) {
       fecha
   };
 
-  // Obtener operaciones existentes o inicializar un array vacío
   let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
-  // Agregar la nueva operación al array
   operaciones.push(nuevaOperacion);
 
-  // Guardar el array actualizado en localStorage
   localStorage.setItem('operaciones', JSON.stringify(operaciones));
 
-  // Redirigir a index.html
+  // Redirigir 
   window.location.href = 'index.html';
 }
-
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
   // Obtener las operaciones almacenadas en localStorage
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
   // Obtener el contenedor de operaciones en index.html
-  const operacionesContainer = document.getElementById('operaciones-container');
+  const operacionesList = document.getElementById('operaciones-list');
 
-  // Limpiar el contenedor
-  operacionesContainer.innerHTML = '';
+  // Función para crear los elementos de la lista a partir de las operaciones almacenadas
+  function crearElementosLista() {
+      // Limpio
+      operacionesList.innerHTML = '';
 
-  // Iterar sobre las operaciones y agregarlas al contenedor
-  operaciones.forEach(function(operacion) {
-      const operacionElement = document.createElement('div');
-      operacionElement.textContent = `${operacion.descripcion} - ${operacion.monto} - ${operacion.tipo} - ${operacion.categoria} - ${operacion.fecha}`;
-      operacionesContainer.appendChild(operacionElement);
-  });
+      operaciones.forEach(function(operacion) {
+          const li = document.createElement('li');
+          li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
+
+
+          const spanFecha = document.createElement('span');
+          const fechaParts = operacion.fecha.split('-');
+          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
+          spanFecha.textContent = fechaFormateada;
+
+          const spanDescripcion = document.createElement('span');
+          spanDescripcion.textContent = operacion.descripcion;
+
+          const spanCategoria = document.createElement('span');
+          spanCategoria.textContent = operacion.categoria;
+
+          const spanMonto = document.createElement('span');
+          spanMonto.textContent = operacion.monto;
+
+          // Botones
+          const divAcciones = document.createElement('div');
+          const btnEditar = document.createElement('button');
+          btnEditar.textContent = 'Editar';
+          btnEditar.classList.add('text-blue-500', 'hover:text-blue-700', 'mr-2');
+          const btnEliminar = document.createElement('button');
+          btnEliminar.textContent = 'Eliminar';
+          btnEliminar.classList.add('text-red-500', 'hover:text-red-700');
+
+          divAcciones.appendChild(btnEditar);
+          divAcciones.appendChild(btnEliminar);
+
+          li.appendChild(spanDescripcion);
+          li.appendChild(spanCategoria);
+          li.appendChild(spanFecha);
+          li.appendChild(spanMonto);
+          li.appendChild(divAcciones);
+
+          operacionesList.appendChild(li);
+      });
+  }
+
+  crearElementosLista();
 });
