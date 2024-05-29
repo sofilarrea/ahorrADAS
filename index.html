@@ -98,13 +98,14 @@
           <div class="lg:flex justify-between">
               <h2 class="text-2xl font-bold text-slate-700 mb-7">Operaciones</h2>
               <button id="btn-operacion" class="bg-green text-white rounded text-xs p-2" onclick="window.location.href='operaciones.html'">+ Nueva Operación</button>          </div>
-          <figure class="w-full mb-8 lg:flex justify-center">
+
+              <figure class="w-full mb-8 lg:flex justify-center">
               <img src="/images/wallet.svg" alt="Billetera" class="lg:max-w-md">
           </figure>
           <div class="flex flex-col items-center pb-20">
               <h2 class="text-2xl text-slate-700 mb-5">Sin resultados</h2>
-              <p class="text-base text-center text-slate-600">Cambia los filtros o agrega operaciones</p>
-          </div>
+              <p class="text-base text-center text-slate-600" id="operations-list">Cambia los filtros o agrega operaciones</p>
+              <div id="operaciones-container" class="text-base text-center text-slate-600"></div>
       </section>
       <!-- NUEVA OPERACION -->
       <section id="ventanaNuevaOperacion" class="flex flex-col bg-white shadow-lg rounded-md p-5 gap-6 w-10/12 lg:w-3/4 xl:w-6/12 lg:my-40 hidden">
@@ -193,7 +194,7 @@
           </form>
       </section>
   </main>
-       <script src="js/main.js"></script>
+       <script src="./js/main.js"></script>
 
 
 

@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /*Abrir formulario de operacion nueva*/
-document.addEventListener('DOMContentLoaded', function () {
+/* document.addEventListener('DOMContentLoaded', function () {
   const formContainer = document.getElementById('form-container');
   const form = document.getElementById('transaction-form');
 
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 300);
   });
 });
-
+ */
 
 
 /*
@@ -186,11 +186,12 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 //   BOTON NUEVA OPERACION
 */
 // CARGAR CATEGORIA
-
+/*
 const categoriaSelect =document.getElementById("categoriaSelect")
 /* onst operaciones =document.getElementById("operaciones")
 const SelectTipo = document.getElementById("select-tipo")
 const inputFechaOP = document.getElementById("inputFecha") */
+/*
 function cargarCategoria(categorias){
   categorias.forEach((categoria) =>{
     let nuevaCategoria = document.createElement("option")
@@ -202,7 +203,6 @@ function cargarCategoria(categorias){
 
   })
 }
-localStorage.setItem("operaciones", JSON.stringify({hola: "chau", milanesa: true}))
 
 function cargarStorage() {
     const categorias = localStorage.getItem("categoria")
@@ -230,9 +230,9 @@ function cargarStorage() {
       cargarCategoria(nuevasCategoriasArray)
     }
 }
-cargarStorage()
+cargarStorage()*/
 
-/* B A L A N C E */
+/* ---------------------------------- */
 /*
 const descripcionNuevaOperacion = document.getElementById("nuevaOperacion-descripcion")
 const montoNuevaOperacion = document.getElementById("nuevaOperacion-monto")
@@ -243,6 +243,7 @@ const fechaNuevaOperacion = document.getElementById("nuevaOperacion-fecha")
 //localStorage.clear()
 
 function crearOperacion() {
+  console.log("HOLA HOLA HOLA DESDE NUEVA FUNCION ")
 
     let nuevaOperacion = {
         descripcion: descripcionNuevaOperacion.value,
@@ -251,8 +252,6 @@ function crearOperacion() {
         categoria: categoriaNuevaOperacion.value,
         fecha: fechaNuevaOperacion.value
     }
-
-    console.log(nuevaOperacion)
     const operaciones = localStorage.getItem("operaciones")
     console.log(operaciones)
     if (operaciones === null) {
@@ -286,3 +285,58 @@ formMolesto.addEventListener("submit", function (event) {
     event.stopPropagation()
 })
 */
+/*///////////////////////*/
+function agregarOperacion(event) {
+  event.preventDefault();
+  console.log("hello from the function agregarOperaciones")
+  // Obtener los valores del formulario
+  const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
+  const monto = document.getElementById('nuevaOperacion-monto').value;
+  const tipo = document.getElementById('nuevaOperacion-tipo').value;
+  const categoria = document.getElementById('nuevaOperacion-categoria').value;
+  const fecha = document.getElementById('nuevaOperacion-fecha').value;
+
+  // Crear un objeto para la operación
+  const nuevaOperacion = {
+      descripcion,
+      monto,
+      tipo,
+      categoria,
+      fecha
+  };
+
+  // Obtener operaciones existentes o inicializar un array vacío
+  let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  // Agregar la nueva operación al array
+  operaciones.push(nuevaOperacion);
+
+  // Guardar el array actualizado en localStorage
+  localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+  // Redirigir a index.html
+  window.location.href = 'index.html';
+}
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Obtener las operaciones almacenadas en localStorage
+  const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  // Obtener el contenedor de operaciones en index.html
+  const operacionesContainer = document.getElementById('operaciones-container');
+
+  // Limpiar el contenedor
+  operacionesContainer.innerHTML = '';
+
+  // Iterar sobre las operaciones y agregarlas al contenedor
+  operaciones.forEach(function(operacion) {
+      const operacionElement = document.createElement('div');
+      operacionElement.textContent = `${operacion.descripcion} - ${operacion.monto} - ${operacion.tipo} - ${operacion.categoria} - ${operacion.fecha}`;
+      operacionesContainer.appendChild(operacionElement);
+  });
+});
