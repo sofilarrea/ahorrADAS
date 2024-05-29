@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
   const formContainer = document.getElementById('form-container');
   const form = document.getElementById('transaction-form');
-  
+
   form.addEventListener('submit', function (e) {
       e.preventDefault();
       formContainer.classList.add('scale-105');
@@ -158,28 +158,28 @@ const panelTipo=document.getElementById("panel-tipo")
     ocultarFiltros.classList.add("hidden")
      panelFiltros.classList.add("hidden")
      mostrarFiltros.classList.remove("hidden")
-   
+
  })
 
 
 
 // selec filtros
-   
-    ocultarFiltros.addEventListener("click" , (e) =>{ 
+
+    ocultarFiltros.addEventListener("click" , (e) =>{
 
      panelTipo.style.display= "none";
    })
 
 // para que aparezcan los filtros nuevamente
 
-   mostrarFiltros.addEventListener("click" , (e) =>{ 
-   
+   mostrarFiltros.addEventListener("click" , (e) =>{
+
    mostrarFiltros.classList.add("hidden")
    panelFiltros.classList.remove("hidden")
    ocultarFiltros.classList.remove("hidden")
-  
-  
-  
+
+
+
  })
 
 const selectTipo=document.getElementById("select-tipo")
@@ -188,9 +188,10 @@ const inputFecha=document.getElementById("inputFecha")
 const ordenFiltros=document.getElementById("orden-filtros")
 const filtrosTipos=document.getElementById("filtros-tipo")
 
-      mostrarFiltros.addEventListener("click" , (e) =>{ 
-        panelTipo.style.display= "block"; 
+      mostrarFiltros.addEventListener("click" , (e) =>{
+        panelTipo.style.display= "block";
   })
+
 
 
 //   BOTON NUEVA OPERACION
@@ -199,7 +200,7 @@ const botonNuevaOperacion=document.getElementById("btn-operacion")
 const divOperacion=document.getElementById("div-operacion")
 
 divOperacion.addEventListener("click", ()=>{
-    
+  
 })
 
 
@@ -246,4 +247,3 @@ function cargarStorage() {
 }
 
 cargarStorage()
-
