@@ -185,12 +185,9 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 
 //   BOTON NUEVA OPERACION
 */
-// CARGAR CATEGORIA
+// O P E R A C I O N E S
 
 const categoriaSelect =document.getElementById("categoriaSelect")
-/* onst operaciones =document.getElementById("operaciones")
-const SelectTipo = document.getElementById("select-tipo")
-const inputFechaOP = document.getElementById("inputFecha") */
 
 function cargarCategoria(categorias){
   categorias.forEach((categoria) =>{
@@ -255,7 +252,7 @@ function agregarOperacion(event) {
 
   localStorage.setItem('operaciones', JSON.stringify(operaciones));
 
-  // Redirigir 
+  // Redirigir
   window.location.href = 'index.html';
 }
 
@@ -314,3 +311,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
   crearElementosLista();
 });
+ /* -------------------------------------------------------------- */
+
+ document.addEventListener('DOMContentLoaded', function() {
+  // Obtener las operaciones almacenadas en localStorage
+  const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  // Obtener las secciones por su ID
+  const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
+  const seccionSinOperaciones = document.getElementById('operaciones-sin-operaciones');
+
+  // Si hay operaciones cargadas, mostrar la sección con operaciones y ocultar la sección sin operaciones
+  if (operaciones.length > 0) {
+      seccionOperaciones.style.display = 'block';
+      seccionSinOperaciones.style.display = 'none';
+  } else {
+      // Si no hay operaciones cargadas, mostrar la sección sin operaciones y ocultar la sección con operaciones
+      seccionOperaciones.style.display = 'none';
+      seccionSinOperaciones.style.display = 'block';
+  }
+});
+
