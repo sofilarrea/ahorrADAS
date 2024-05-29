@@ -141,12 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+/*
 // FILTROS
-
-
 // ocultar panel de filtros
-
 const ocultarFiltros=document.getElementById ("ocultar-filtros")
 const mostrarFiltros=document.getElementById("mostrar-filtros")
 const panelFiltros=document.getElementById ("panel-filtros")
@@ -160,11 +157,7 @@ const panelTipo=document.getElementById("panel-tipo")
      mostrarFiltros.classList.remove("hidden")
 
  })
-
-
-
 // selec filtros
-
     ocultarFiltros.addEventListener("click" , (e) =>{
 
      panelTipo.style.display= "none";
@@ -195,18 +188,10 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 
 
 //   BOTON NUEVA OPERACION
-
-const botonNuevaOperacion=document.getElementById("btn-operacion")
-const divOperacion=document.getElementById("div-operacion")
-
-divOperacion.addEventListener("click", ()=>{
-  
-})
-
-
+*/
 // CARGAR CATEGORIA
 
-const categoriaSelect =document.getElementById("select-categoria")
+const categoriaSelect =document.getElementById("categoriaSelect")
  const operaciones =document.getElementById("operaciones")
 const SelectTipo = document.getElementById("select-tipo")
  const inputFechaOP = document.getElementById("inputFecha")
@@ -216,13 +201,18 @@ function cargarCategoria(categorias){
         let nuevaCategoria = document.createElement("option")
         nuevaCategoria.value = categoria;
         nuevaCategoria.textContent = categoria
-        categoriaSelect.appendChild(nuevaCategoria)
+        console.log("hola desde funcion que no funciona")
+      categoriaSelect.appendChild(nuevaCategoria)
+      console.log(categoriaSelect)
+
     })
 }
 
 function cargarStorage() {
     const categorias = localStorage.getItem("categoria")
     const operaciones = localStorage.getItem("operaciones")
+    console.log(categorias)
+    console.log(operaciones)
     if(!categorias) {
         const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
         localStorage.setItem("categoria", categoriasDefault)
@@ -235,7 +225,7 @@ function cargarStorage() {
                 nuevaCategoria += categorias[i]
             } else {
                 nuevasCategoriasArray.push(nuevaCategoria)
-                nuevaCategoria = ""
+                nuevaCategoria = " "
             }
 
         }
@@ -245,5 +235,59 @@ function cargarStorage() {
 
     }
 }
-
 cargarStorage()
+
+/* B A L A N C E */
+/*
+const descripcionNuevaOperacion = document.getElementById("nuevaOperacion-descripcion")
+const montoNuevaOperacion = document.getElementById("nuevaOperacion-monto")
+const tipoNuevaOperacion = document.getElementById("nuevaOperacion-tipo")
+const categoriaNuevaOperacion = document.getElementById("nuevaOperacion-categoria")
+const fechaNuevaOperacion = document.getElementById("nuevaOperacion-fecha")
+
+//localStorage.clear()
+
+function crearOperacion() {
+
+    let nuevaOperacion = {
+        descripcion: descripcionNuevaOperacion.value,
+        monto: montoNuevaOperacion.value,
+        tipo: tipoNuevaOperacion.value,
+        categoria: categoriaNuevaOperacion.value,
+        fecha: fechaNuevaOperacion.value
+    }
+
+    console.log(nuevaOperacion)
+    const operaciones = localStorage.getItem("operaciones")
+    console.log(operaciones)
+    if (operaciones === null) {
+        console.log("Operaciones es null")
+        let nuevoArray = [{ nuevaOperacion }]
+        localStorage.setItem("operaciones", JSON.stringify(nuevoArray))
+    } else {
+        console.log("Operaciones no es null")
+        let parsedStorage = JSON.parse(localStorage.getItem("operaciones"))
+        parsedStorage.push(nuevaOperacion)
+        localStorage.setItem("operaciones", JSON.stringify(parsedStorage))
+    }
+    console.log("Operacion Creada")
+}
+
+const botonAgregarOperacion = document.getElementById("botonAgregarOperacion")
+
+botonAgregarOperacion.addEventListener("click", function (event) {
+    event.stopPropagation()
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    crearOperacion()
+})
+
+const formMolesto = document.getElementById("formNuevaOperacion")
+
+formMolesto.addEventListener("submit", function (event) {
+    console.log(event)
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    event.stopPropagation()
+})
+*/
