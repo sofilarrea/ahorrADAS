@@ -3,31 +3,27 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> AhorrADAs </title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
-    />
+    <title>AhorrADAs</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: ' #00D1B2',
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              green: '#00D1B2',
+            }
           }
         }
       }
-    }
-  </script>
-</head>
+    </script>
+  </head>
 
-
-<body >
+  <body>
+    <!-- Header and Navigation -->
     <header class="navbar-section-reportes">
       <nav id="navbar" class="navbar">
         <div class="navbar-logo">
@@ -36,208 +32,106 @@
             <h1>AhorrADAs</h1>
           </a>
         </div>
-            <div class="nav-icon-controles">
-                <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
-                <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
-            </div>
-            <ul class="navbar-links" id="navbar-links">
-              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
-              <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
-              <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
-          </ul>
-        </nav>
+        <div class="nav-icon-controles">
+          <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+          <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
+        </div>
+        <ul class="navbar-links" id="navbar-links">
+          <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
+          <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
+          <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
+        </ul>
+      </nav>
     </header>
 
+    <!-- Balance Section -->
     <section class="flex lg:justify-center mt-5">
-        <section class="justify-center flex-col hiiden absolute top-16 items-center " >
-    <section class="lg:flex lg:justify-center ">
-      <section class=" lg:w-3/12">
- 
-      <div class="bg-white rounded-lg  lg:w-full px-6 py-5 mt-20 ml-6 shadow-lg m-5 ">
-        <div class="card-header">
-            <h3 class="text-lg font-bold pt-6 pb-10 text-2xl lg:text-xl">Balance</h3>
-        </div>
-        <div class="card-body flex flex-col space-y-4">
-            <div class="flex justify-between items-center pt-4 pb-4 text-2xl">
-                <h4 class="text-base ">Ganancia</h4>
+      <section class="lg:flex lg:justify-center">
+        <section class="lg:w-3/12">
+          <div class="bg-white rounded-lg lg:w-full px-6 py-5 mt-20 ml-6 shadow-lg m-5">
+            <div class="card-header">
+              <h3 class="text-lg font-bold pt-6 pb-10 text-2xl lg:text-xl">Balance</h3>
+            </div>
+            <div class="card-body flex flex-col space-y-4">
+              <div class="flex justify-between items-center pt-4 pb-4 text-2xl">
+                <h4 class="text-base">Ganancia</h4>
                 <h1 class="text-green-500 font-light text-base">+ $0</h1>
-            </div>
-            <div class="flex justify-between items-center  pb-4 text-2xl">
-                <h4 class="text-base ">Gastos</h4>
+              </div>
+              <div class="flex justify-between items-center pb-4 text-2xl">
+                <h4 class="text-base">Gastos</h4>
                 <h1 class="text-red-500 font-light text-base">- $0</h1>
-            </div>
-            <hr>
-            <div class="flex justify-between items-center text-3xl">
-        
-                <h4 class="text-base ">Total</h4>
-               
+              </div>
+              <hr>
+              <div class="flex justify-between items-center text-3xl">
+                <h4 class="text-base">Total</h4>
                 <h1 class="font-light text-base">$0</h1>
+              </div>
             </div>
-        </div>
-     </div>
+          </div>
 
-     <!-- card filtros -->
-     <section id="" class="">
-    
-     <div class="bg-white rounded-lg   lg:w-full px-6  py-5 mt-10 ml-6 m-5 shadow-lg">
-        <div class="ocultar-mostrar-filtros display flex justify-between" >
-          <h3 class="text-lg font-bold pt-6 pb-10 text-2xl lg:text-xl">Filtros</h3>
-           <button id="ocultar-filtros"  class="py-8 text-md cursor-pointer text-blue-400">Ocultar filtros</button>
-           <button id="mostrar-filtros"  class="hidden py-8 text-md text-blue-400 cursor-pointer">Mostras filtros</button>
-        </div>
-
-    <div id="panel-tipo" class="">
-     <div class="mb-2" id="panel-filtros">
-        <div class="mb-2" id="filtros-tipo">
-            <label for="categorias" class="text-lg font-semibold py-10 px-0 ">Tipo</label>
-            <div class="">
-                <select name="categorias" id="select-tipo" class=" gap-5 block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
-                  <option value="todos">Todos</option>
-                  <option value="gastos">Gastos</option>
-                  <option value="ganancia">Ganancia</option>
-                </select>
+          <!-- Filter Section -->
+          <div class="bg-white rounded-lg lg:w-full px-6 py-5 mt-10 ml-6 m-5 shadow-lg">
+            <div class="ocultar-mostrar-filtros display flex justify-between">
+              <h3 class="text-lg font-bold pt-6 pb-10 text-2xl lg:text-xl">Filtros</h3>
+              <button id="ocultar-filtros" class="py-8 text-md cursor-pointer text-blue-400">Ocultar filtros</button>
+              <button id="mostrar-filtros" class="hidden py-8 text-md text-blue-400 cursor-pointer">Mostrar filtros</button>
             </div>
-        </div>
-     </div>
-
-     <div class="mb-2">
-      
-        <label for="categorias" class="text-lg font-semibold ">Categoría</label>
-        <div>
-            
-            <div>
-                <select name="categorias" id="select-categoria"class="block cursor-pointer w-full h-8.5 border-solid border-2 .3 outline-none rouned py-1 px-0 gap-5">
-        
-                </select>
-            </div>
-        </div>
-        
-     </div>
-
-   
-
-     <div class="mb-2">
-       
-        <label for="categorias" class="text-lg font-semibold">Desde</label>
-      
-        <div>
-            <div>
-                <input type="date" id="inputFecha" class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 " >
-            </div>
-        </div>
-     </div>
-
-     <div>
-        <label for="categoria"class="text-lg font-semibold">Ordenar por</label>
-        <div>
-            <div>
-                <select name="categoria" id="orden-filtros"class="block cursor-pointer w-full h-8.5 border-solid border-2  .3 outline-none rouned py-1 px-0">
+            <div id="panel-filtros">
+              <div class="mb-2" id="filtros-tipo">
+                <label for="categorias" class="text-lg font-semibold py-10 px-0">Tipo</label>
+                <div>
+                  <select name="categorias" id="select-tipo" class="block cursor-pointer w-full h-8.5 border-solid border-2 rounded py-1 px-0">
+                    <option value="todos">Todos</option>
+                    <option value="gastos">Gastos</option>
+                    <option value="ganancia">Ganancia</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-2">
+                <label for="categorias" class="text-lg font-semibold">Categoría</label>
+                <div>
+                  <select name="categorias" id="select-categoria" class="block cursor-pointer w-full h-8.5 border-solid border-2 rounded py-1 px-0">
+                    <!-- Populate dynamically -->
+                  </select>
+                </div>
+              </div>
+              <div class="mb-2">
+                <label for="inputFecha" class="text-lg font-semibold">Desde</label>
+                <div>
+                  <input type="date" id="inputFecha" class="block cursor-pointer w-full h-8.5 border-solid border-2 rounded py-1">
+                </div>
+              </div>
+              <div>
+                <label for="orden-filtros" class="text-lg font-semibold">Ordenar por</label>
+                <div>
+                  <select name="categoria" id="orden-filtros" class="block cursor-pointer w-full h-8.5 border-solid border-2 rounded py-1 px-0">
                     <option value="Mas reciente">Más reciente</option>
                     <option value="Menos reciente">Menos reciente</option>
                     <option value="Mayor monto">Mayor monto</option>
                     <option value="Menor monto">Menor monto</option>
                     <option value="A/Z">A/Z</option>
                     <option value="Z/A">Z/A</option>
-                </select>
+                  </select>
+                </div>
+              </div>
             </div>
-            
+          </div>
+
+      <!-- Operations Section -->
+      <section id="operaciones" class="lg:px-6 mt-20 ml-6 rounded-md lg:w-3/5">
+        <div id="div-operacion" class="flex lg:justify-between p-6 bg-white">
+          <h5 class="font-bold lg:text-xl">Operaciones</h5>
+          <button id="btn-operacion" class="bg-green text-white rounded text-xs p-2">+ Nueva Operación</button>
         </div>
-
-     </div>       
-    </div> 
-    <!-- card formulario de nueva operacion  -->
-    <div class="bg-gray-100 flex items-center justify-center min-h-screen">
-      <div id="form-container" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md transition-transform transform scale-100">
-          <h3 class="text-2xl font-bold mb-4">Nueva operación</h3>
-          <form id="transaction-form" action="#" method="post">
-              <div class="mb-4">
-                  <label for="descripcion" class="block text-gray-700 font-bold mb-2">Descripción:</label>
-                  <input type="text" id="descripcion" name="descripcion" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-              </div>
-              <div class="mb-4">
-                  <label for="monto" class="block text-gray-700 font-bold mb-2">Monto:</label>
-                  <input type="number" id="monto" name="monto" step="0.01" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-              </div>
-              <div class="mb-4">
-                  <label for="tipo" class="block text-gray-700 font-bold mb-2">Tipo:</label>
-                  <select id="tipo" name="tipo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                      <option value="ingreso">Gasto</option>
-                      <option value="egreso">Ganancia</option>
-                  </select>
-              </div>
-              <div class="mb-4">
-                  <label for="categoria" class="block text-gray-700 font-bold mb-2">Categoría:</label>
-                  <select id="categoria" name="categoria" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                      <option value="alimentos">Comida</option>
-                      <option value="transporte">Servicios</option>
-                      <option value="salud">Salidas</option>
-                      <option value="educacion">Educación</option>
-                      <option value="otros">Transporte</option>
-                      <option value="otros">Trabajo</option>
-                  </select>
-              </div>
-              <div class="mb-4">
-                  <label for="fecha" class="block text-gray-700 font-bold mb-2">Fecha:</label>
-                  <input type="date" id="fecha" name="fecha" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-              </div>
-              <div class="flex justify-end">
-                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Agregar</button>
-              </div>
-          </form>
-      </div>
-  
-  </div>
- </section>
-
-     </div>
-    </div>
-</div>
-</section>
-</section>
-
-
-
-
-
-
-
-<!-- OPERACIONES -->
-
-       <section id="operaciones" class="  lg:px-6 mt-20 ml-6 rounded-md lg:w-3/5 " >
-
-        <div id="div-operacion" class="flex lg:justify-between p-6 bg-white ">
-            <h5 class="font-bold lg:text-xl  ">Operaciones</h5>
-            <button id="btn-operacion" class=" bg-green text-white rounded text-xs p-2 ">+ Nueva Operación </button>
+        <div class="rounded-lg shadow-lg py-5 bg-white">
+          <figure class="lg:flex justify-center mb-11 p-5">
+            <img src="./images/wallet.svg" class="lg:w-1/3" alt="">
+          </figure>
+          <h6 class="flex justify-center m-2 text-xs lg:text-2xl font-light">Sin Resultados</h6>
+          <p class="flex justify-center text-xs m-5 mb-11">Cambia los filtros o agrega operaciones</p>
         </div>
-
-        <div class=" rounded-lg shadow-lg py-5 bg-white  ">
-            <figure class="lg:flex justify-center mb-11 p-5">
-                <img src="./images/wallet.svg " class="lg:w-1/3 " alt="">
-            </figure>
-              <h6 class="flex justify-center m-2 text-xs lg:text-2xl font-light">Sin Resultados</h6>
-               <p class="flex justify-center text-xs m-5 mb-11">Cambia los filtros o agrega operaciones</p>
-        </div>
-    </div>
-
-
       </section>
     </section>
-
-    
-
-    
-    
-
-
-
-
-
-
-
-
-       <script src="js/main.js"></script>
-
-
-
-</body>
+    <script src="js/main.js"></script>
+  </body>
 </html>
