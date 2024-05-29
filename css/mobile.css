@@ -1,57 +1,90 @@
-.navbar-section{
+
+
+/* Balance Page */
+.navbar-section-reportes{
   background-color: #00D1B2;
   color: #fff;
   padding: 10px;
+  height: 60px;
+}
+.navbar-logo{
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 90px;
+}
+.navbar-logo i{
+  margin-right: 10px;
+  font-size: 1.6rem;
+}
+.navbar-logo h1{
+  font-size: 1.6rem;
+}
+.nav-icon-controles {
+  margin-right: 10px;
 }
 .navbar{
   display: flex;
-  line-height: 1.125;
-}
-.navbar h1{
-  font-size: 2.3rem;
-
-
-}
-.nav-icon{
-  margin-right: 25px;
-}
-.navbar i {
-  font-weight: 600;
-  font-size: 2.2rem;
-  margin-right: 15px;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
 }
 .navbar-links{
-  color: #4a4a4a;
-  display: block;
-  line-height: 1.5;
-  padding: .5rem .75rem;
-  position: relative;
-  display: none; /* Inicialmente oculto */
-  background-color: #fff;
-  box-shadow: 0 8px 16px rgba(10,10,10,.1);
-}
-.navbar-links i{
-  margin-right: 10px;
-}
-.navbar-links li{
-  list-style: none;
-}
-.navbar-links a{
-  color: #4a4a4a;
-  text-decoration: none;
-}
-.navbar-links.show-nav {
-  display: block;
-  padding: 15px;
-  font-size: 1.2rem;
-}
-.navbar-desktop{
   display: none;
 }
-#close{
+.close{
   display: none;
+}
+#navbar:target .navbar-links{
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  width: 100%;
+  top: 50px;
+  left: 0;
+  background-color: #ffffff;
+  position: absolute;
+  box-shadow: 0 8px 16px rgba(10, 10, 10, .1);
+  color: #4a4a4a;
+  margin-top: 5px;
+  padding: 10px;
+}
+.boton{
+  background-color: #48C774;
+}
+.nuevo-gasto {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-top: 8px;
+  background-color: transparent;
+}
+
+.categorias {
+  display: inline-block;
+  background-color: rgba(34, 197, 94, 0.1);
+  padding: 0.2em 0.5em;
+  color: #00947e;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+/* .categorias {
+  background-color: rgba(34, 197, 94, 0.1); /* Light green background */
+.categoriasLista{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.boton-editar,
+.boton-eliminar {
+  cursor: pointer;
+  color: #3273dc; /* Blue for buttons */
+  background: none;
+  border: none;
+  font-size: 14px;
+  margin-left: 48px;
+}
+#cancelar{
+  background-color: #EEEEEE;
 }

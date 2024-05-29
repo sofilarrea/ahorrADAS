@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> AhorrADAs </title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="http://cdn.tailwind.css.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend:{
+            colors:{
+              greenBtn: '#48C774',
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body>
+    <header class="navbar-section-reportes">
+      <nav id="navbar" class="navbar">
+        <div class="navbar-logo">
+          <a href="index.html" class="flex">
+            <i class="fa-solid fa-wallet" style="color: #ffffff;"></i>
+            <h1>AhorrADAs</h1>
+          </a>
+        </div>
+            <div class="nav-icon-controles">
+                <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+                <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
+            </div>
+            <ul class="navbar-links" id="navbar-links">
+              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
+              <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
+              <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
+          </ul>
+        </nav>
+    </header>
+    <section class="bg-slate-200 flex justify-center items-center min-h-screen">
+      <div class="bg-contain bg-white rounded-lg mt-12 ml-1 p-2 md:p-6 w-full md:w-9/12 lg:w-8/12 xl:w-7/12 flex flex-col">
+          <h1 class="text-4xl font-bold text-center md:text-left">Reportes</h1>
+          <div class="flex flex-col items-center md:items-start">
+              <figure class="flex justify-center md:justify-start mt-10">
+                  <img src="/images/chart.svg" alt="imagen de señor mirando una graficos" class="w-full md:w-4/5">
+              </figure>
+              <h4 class="text-xl font-semibold mt-6 text-center md:text-left">Operaciones insuficientes</h4>
+              <p class="mt-4 text-center md:text-left">Prueba agregando más operaciones</p>
+          </div>
+      </div>
+  </section>
+
+
+       <script src="js/main.js"></script>
+</body>
+</html>
