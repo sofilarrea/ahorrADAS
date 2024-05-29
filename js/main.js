@@ -123,6 +123,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+/*Abrir formulario de operacion nueva*/
+document.addEventListener('DOMContentLoaded', function () {
+  const formContainer = document.getElementById('form-container');
+  const form = document.getElementById('transaction-form');
+  
+  form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      formContainer.classList.add('scale-105');
+      setTimeout(() => {
+          formContainer.classList.remove('scale-105');
+          alert('Formulario enviado con éxito');
+          form.reset();
+      }, 300);
+  });
+});
+
+
 
 
 // FILTROS
@@ -229,3 +246,4 @@ function cargarStorage() {
 }
 
 cargarStorage()
+
