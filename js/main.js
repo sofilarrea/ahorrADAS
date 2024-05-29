@@ -101,13 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
   editarBoton.addEventListener('click', function() {
       const nuevoNombre = inputEditar.value.trim();
       if (nuevoNombre) {
-          // Obtener categorías del almacenamiento local
           let categorias = JSON.parse(localStorage.getItem('categorias'));
-          // Encontrar la categoría a editar
           const index = categorias.findIndex(cat => cat.id === categoriaAEditar.id);
-          // Actualizar el nombre de la categoría
           categorias[index].nombre = nuevoNombre;
-          // Guardar las categorías actualizadas en el almacenamiento local
           localStorage.setItem('categorias', JSON.stringify(categorias));
           // Redirigir a categoria.html
           window.location.href = 'categoria.html';
@@ -192,21 +188,21 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 // CARGAR CATEGORIA
 
 const categoriaSelect =document.getElementById("categoriaSelect")
-const operaciones =document.getElementById("operaciones")
+/* onst operaciones =document.getElementById("operaciones")
 const SelectTipo = document.getElementById("select-tipo")
-const inputFechaOP = document.getElementById("inputFecha")
-
+const inputFechaOP = document.getElementById("inputFecha") */
 function cargarCategoria(categorias){
-    categorias.forEach((categoria) =>{
-        let nuevaCategoria = document.createElement("option")
-        nuevaCategoria.value = categoria;
-        nuevaCategoria.textContent = categoria
-        console.log("hola desde funcion que no funciona")
-      categoriaSelect.appendChild(nuevaCategoria)
-      console.log(categoriaSelect)
+  categorias.forEach((categoria) =>{
+    let nuevaCategoria = document.createElement("option")
+    nuevaCategoria.value = categoria;
+    nuevaCategoria.textContent = categoria
+    console.log("hola desde funcion que no funciona")
+    categoriaSelect.appendChild(nuevaCategoria)
+    console.log(categoriaSelect)
 
-    })
+  })
 }
+localStorage.setItem("operaciones", JSON.stringify({hola: "chau", milanesa: true}))
 
 function cargarStorage() {
     const categorias = localStorage.getItem("categoria")
@@ -230,12 +226,8 @@ function cargarStorage() {
                 nuevasCategoriasArray.push(nuevaCategoria)
                 nuevaCategoria = " "
             }
-
         }
-
       cargarCategoria(nuevasCategoriasArray)
-
-
     }
 }
 cargarStorage()
