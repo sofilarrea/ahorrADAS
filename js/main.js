@@ -192,9 +192,9 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 // CARGAR CATEGORIA
 
 const categoriaSelect =document.getElementById("categoriaSelect")
- const operaciones =document.getElementById("operaciones")
+const operaciones =document.getElementById("operaciones")
 const SelectTipo = document.getElementById("select-tipo")
- const inputFechaOP = document.getElementById("inputFecha")
+const inputFechaOP = document.getElementById("inputFecha")
 
 function cargarCategoria(categorias){
     categorias.forEach((categoria) =>{
@@ -223,6 +223,9 @@ function cargarStorage() {
         for (let i = 0; i < categorias.length; i++){
             if (categorias[i] !== ",") {
                 nuevaCategoria += categorias[i]
+                if(i === categorias.length - 1){
+                  nuevasCategoriasArray.push(nuevaCategoria)
+                }
             } else {
                 nuevasCategoriasArray.push(nuevaCategoria)
                 nuevaCategoria = " "
