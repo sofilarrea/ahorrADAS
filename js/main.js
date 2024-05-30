@@ -387,6 +387,13 @@ document.addEventListener('DOMContentLoaded', function() {
       seccionSinOperaciones.style.display = 'block';
   }
 });
+const buttonCancelar = document.getElementById("cancelButton");
+buttonCancelar.addEventListener("click", function() {
+  console.log("porque no me carga!!")
+    window.location.href = "index.html";
+});
+
+
 /* -------------------------------------------- */
 /* E D I T A R  O P E R A C I O N E S */
 
@@ -412,11 +419,9 @@ document.addEventListener('DOMContentLoaded', function() {
               }
           });
 
-          // Convertir los totales a números y redondearlos a dos decimales
           totalGanancias = totalGanancias.toFixed(2);
           totalGastos = totalGastos.toFixed(2);
 
-          // Mostrar los totales en la tarjeta de balance
           gananciasElements.forEach(function(element) {
               element.textContent = `+$ ${totalGanancias}`;
           });
@@ -425,7 +430,6 @@ document.addEventListener('DOMContentLoaded', function() {
               element.textContent = `-$ ${totalGastos}`;
           });
 
-          // Calcular el total final y mostrarlo
           const totalFinal = (parseFloat(totalGanancias) - parseFloat(totalGastos)).toFixed(2);
           totalElement.textContent = `$${totalFinal}`;
       } catch (error) {
@@ -435,3 +439,45 @@ document.addEventListener('DOMContentLoaded', function() {
       console.warn('No hay operaciones en localStorage.');
   }
 });
+/* ----------------------------------------------------------- */
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const operacionAEditar = JSON.parse(localStorage.getItem('operacionAEditar'));
+
+  if (operacionAEditar) {
+    document.getElementById('nuevaOperacion-descripcion').value = operacionAEditar.descripcion;
+    document.getElementById('nuevaOperacion-monto').value = operacionAEditar.monto;
+    document.getElementById('nuevaOperacion-tipo').value = operacionAEditar.tipo;
+    document.getElementById('nuevaOperacion-categoria').value = operacionAEditar.categoria;
+    document.getElementById('nuevaOperacion-fecha').value = operacionAEditar.fecha;
+  } else {
+    console.error('No se encontró una operación para editar');
+  }
+
+  document.getElementById('cancelar').addEventListener('click', function() {
+    window.location.href = 'categoria.html';
+  });
+
+  document.getElementById('transaction-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    guardarOperacionEditada();
+  });
+});
+
+function guardarOperacionEditada() {
+  const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
+  const monto = document.getElementById('nuevaOperacion-monto').value;
+  const tipo = document.getElementById('nuevaOperacion-tipo').value;
+  const categoria = document.getElementById('nuevaOperacion-categoria').value;
+  const fecha = document.getElementById('nuevaOperacion-fecha').value;
+
+  const operacionAEditar = JSON.parse(localStorage.getItem('operacionAEditar'));
+  const operaciones = JSON.parse(localStorage.getItem('operaciones'));
+
+  const index = operaciones.findIndex(op => op.id === operacionAEditar.id);
+  operaciones[index] = { id: operacionAEditar.id, descripcion, monto, tipo, categoria, fecha };
+
+  localStorage.setItem('operaciones', JSON.stringify(operaciones));
+  window.location.href = 'categoria.html';
+}
