@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /*Abrir formulario de operacion nueva*/
-/* document.addEventListener('DOMContentLoaded', function () {
+ document.addEventListener('DOMContentLoaded', function () {
   const formContainer = document.getElementById('form-container');
   const form = document.getElementById('transaction-form');
 
@@ -134,10 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 300);
   });
 });
- */
+ 
 
 
-/*
+
 // FILTROS
 // ocultar panel de filtros
 const ocultarFiltros=document.getElementById ("ocultar-filtros")
@@ -184,7 +184,7 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 
 
 //   BOTON NUEVA OPERACION
-*/
+
 // O P E R A C I O N E S
 
 const categoriaSelect =document.getElementById("categoriaSelect")
@@ -228,6 +228,9 @@ function cargarStorage() {
     }
 }
 cargarStorage()
+
+
+
 function convertirFormatoMonto(input) {
   // Eliminar cualquier carácter que no sea dígito, coma o punto
   const cleaned = input.replace(/[^\d.,]/g, '');
