@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const index = categorias.findIndex(cat => cat.id === categoriaAEditar.id);
           categorias[index].nombre = nuevoNombre;
           localStorage.setItem('categorias', JSON.stringify(categorias));
-          // Redirigir a categoria.html
+
           window.location.href = 'categoria.html';
       } else {
           alert('Por favor ingresa un nombre válido para la categoría.');
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   cancelarBoton.addEventListener('click', function() {
-      // Redirigir a categoria.html
+
       window.location.href = 'categoria.html';
   });
 });
@@ -281,10 +281,10 @@ document.addEventListener('DOMContentLoaded', function() {
           spanFecha.textContent = fechaFormateada;
 
           const spanMonto = document.createElement('span');
-          if (operacion.tipo.trim().toLowerCase() === 'ganancia') {
+          if (operacion.tipo.trim() === 'egreso') {
               spanMonto.textContent = `+${operacion.monto}`;
               spanMonto.style.color = 'green';
-          } else if (operacion.tipo.trim().toLowerCase() === 'perdida' || operacion.tipo.trim().toLowerCase() === 'pérdida') {
+          } else if (operacion.tipo.trim() === 'ingreso') {
               spanMonto.textContent = `-${operacion.monto}`;
               spanMonto.style.color = 'red';
           } else {
@@ -292,7 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
               spanMonto.textContent = `${operacion.monto}`;
               spanMonto.style.color = 'black';
           }
-
           // Botones
           const divAcciones = document.createElement('div');
           const btnEditar = document.createElement('button');
@@ -347,6 +346,13 @@ document.addEventListener('DOMContentLoaded', function() {
   crearElementosLista();
 });
 
+function eliminarOperacion(id) {
+  if (confirm("¿Estás seguro que deseas eliminar esta operación?")) {
+      operaciones = operaciones.filter(op => op.id !== id);
+      actualizarInterfaz(); // Función para actualizar la interfaz después de la eliminación
+      guardarOperacionesEnLocalStorage(operaciones);
+  }
+}
 
 
  /* -------------------------------------------------------------- */
@@ -369,3 +375,5 @@ document.addEventListener('DOMContentLoaded', function() {
       seccionSinOperaciones.style.display = 'block';
   }
 });
+/* -------------------------------------------- */
+/* E D I T A R  O P E R A C I O N E S */
