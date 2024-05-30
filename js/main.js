@@ -257,26 +257,17 @@ function agregarOperacion(event) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Obtener las operaciones almacenadas en localStorage
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-
-  // Obtener el contenedor de operaciones en index.html
   const operacionesList = document.getElementById('operaciones-list');
 
-  // Función para crear los elementos de la lista a partir de las operaciones almacenadas
   function crearElementosLista() {
-      // Limpio
+      // Limpiar la lista
       operacionesList.innerHTML = '';
 
-      operaciones.forEach(function(operacion) {
+      operaciones.forEach(function(operacion, index) {
           const li = document.createElement('li');
           li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
-
-
-          const spanFecha = document.createElement('span');
-          const fechaParts = operacion.fecha.split('-');
-          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
-          spanFecha.textContent = fechaFormateada;
+          li.dataset.id = index; // Asignar un identificador único
 
           const spanDescripcion = document.createElement('span');
           spanDescripcion.textContent = operacion.descripcion;
@@ -284,17 +275,50 @@ document.addEventListener('DOMContentLoaded', function() {
           const spanCategoria = document.createElement('span');
           spanCategoria.textContent = operacion.categoria;
 
+          const spanFecha = document.createElement('span');
+          const fechaParts = operacion.fecha.split('-');
+          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
+          spanFecha.textContent = fechaFormateada;
+
           const spanMonto = document.createElement('span');
-          spanMonto.textContent = operacion.monto;
+          if (operacion.tipo.trim().toLowerCase() === 'ganancia') {
+              spanMonto.textContent = `+${operacion.monto}`;
+              spanMonto.style.color = 'green';
+          } else if (operacion.tipo.trim().toLowerCase() === 'perdida' || operacion.tipo.trim().toLowerCase() === 'pérdida') {
+              spanMonto.textContent = `-${operacion.monto}`;
+              spanMonto.style.color = 'red';
+          } else {
+              console.error(`Tipo de operación desconocido: ${operacion.tipo}`);
+              spanMonto.textContent = `${operacion.monto}`;
+              spanMonto.style.color = 'black';
+          }
 
           // Botones
           const divAcciones = document.createElement('div');
           const btnEditar = document.createElement('button');
           btnEditar.textContent = 'Editar';
           btnEditar.classList.add('text-blue-500', 'hover:text-blue-700', 'mr-2');
+          btnEditar.addEventListener('click', () => {
+              // Redireccionar a la página de edición
+              window.location.href = 'operacioneseditar.html';
+          });
+
           const btnEliminar = document.createElement('button');
           btnEliminar.textContent = 'Eliminar';
           btnEliminar.classList.add('text-red-500', 'hover:text-red-700');
+          btnEliminar.addEventListener('click', (event) => {
+              const confirmacion = confirm('¿Estás seguro de que deseas eliminar?');
+              if (confirmacion) {
+                  const li = event.target.closest('li');
+                  if (li) {
+                      const elementoId = li.dataset.id;
+                      eliminarOperacion(elementoId);
+                      li.remove();
+                  } else {
+                      console.error('No se pudo encontrar el elemento a eliminar');
+                  }
+              }
+          });
 
           divAcciones.appendChild(btnEditar);
           divAcciones.appendChild(btnEliminar);
@@ -309,8 +333,22 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
+  function eliminarOperacion(id) {
+      // Eliminar la operación de la lista de operaciones
+      operaciones.splice(id, 1);
+
+      // Actualizar el almacenamiento local
+      localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+      // Volver a crear los elementos de la lista
+      crearElementosLista();
+  }
+
   crearElementosLista();
 });
+
+
+
  /* -------------------------------------------------------------- */
 
  document.addEventListener('DOMContentLoaded', function() {
@@ -319,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Obtener las secciones por su ID
   const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
-  const seccionSinOperaciones = document.getElementById('operaciones-sin-operaciones');
+  const seccionSinOperaciones = document.getElementById('operaciones');
 
   // Si hay operaciones cargadas, mostrar la sección con operaciones y ocultar la sección sin operaciones
   if (operaciones.length > 0) {
@@ -331,4 +369,3 @@ document.addEventListener('DOMContentLoaded', function() {
       seccionSinOperaciones.style.display = 'block';
   }
 });
-
