@@ -228,15 +228,35 @@ function cargarStorage() {
     }
 }
 cargarStorage()
+function convertirFormatoMonto(input) {
+  // Eliminar cualquier carácter que no sea dígito, coma o punto
+  const cleaned = input.replace(/[^\d.,]/g, '');
+
+  // Reemplazar comas por puntos
+  const withDot = cleaned.replace(',', '.');
+
+  // Convertir a un número de punto flotante
+  return parseFloat(withDot);
+}
 
 function agregarOperacion(event) {
   event.preventDefault();
-  console.log("hello from the function agregarOperaciones")
+  console.log("hello from the function agregarOperaciones");
+
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
-  const monto = document.getElementById('nuevaOperacion-monto').value;
+  let monto = document.getElementById('nuevaOperacion-monto').value;
   const tipo = document.getElementById('nuevaOperacion-tipo').value;
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
+
+  // Validar que el monto contenga un punto decimal
+  if (!monto.includes('.')) {
+    alert('Por favor, introduce el monto con un punto decimal.');
+    return; // Detener la ejecución de la función
+  }
+
+  // Convertir el monto a un número
+  monto = parseFloat(monto);
 
   const nuevaOperacion = {
       descripcion,
@@ -393,8 +413,8 @@ document.addEventListener('DOMContentLoaded', function() {
           });
 
           // Convertir los totales a números y redondearlos a dos decimales
-          totalGanancias = totalGanancias.toFixed(3);
-          totalGastos = totalGastos.toFixed(3);
+          totalGanancias = totalGanancias.toFixed(2);
+          totalGastos = totalGastos.toFixed(2);
 
           // Mostrar los totales en la tarjeta de balance
           gananciasElements.forEach(function(element) {
@@ -406,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
 
           // Calcular el total final y mostrarlo
-          const totalFinal = (parseFloat(totalGanancias) - parseFloat(totalGastos)).toFixed(3);
+          const totalFinal = (parseFloat(totalGanancias) - parseFloat(totalGastos)).toFixed(2);
           totalElement.textContent = `$${totalFinal}`;
       } catch (error) {
           console.error('Error al parsear las operaciones desde localStorage:', error);
