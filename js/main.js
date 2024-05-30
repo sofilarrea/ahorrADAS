@@ -228,15 +228,35 @@ function cargarStorage() {
     }
 }
 cargarStorage()
+function convertirFormatoMonto(input) {
+  // Eliminar cualquier carácter que no sea dígito, coma o punto
+  const cleaned = input.replace(/[^\d.,]/g, '');
+
+  // Reemplazar comas por puntos
+  const withDot = cleaned.replace(',', '.');
+
+  // Convertir a un número de punto flotante
+  return parseFloat(withDot);
+}
 
 function agregarOperacion(event) {
   event.preventDefault();
-  console.log("hello from the function agregarOperaciones")
+  console.log("hello from the function agregarOperaciones");
+
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
-  const monto = document.getElementById('nuevaOperacion-monto').value;
+  let monto = document.getElementById('nuevaOperacion-monto').value;
   const tipo = document.getElementById('nuevaOperacion-tipo').value;
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
+
+  // Validar que el monto contenga un punto decimal
+  if (!monto.includes('.')) {
+    alert('Por favor, introduce el monto con un punto decimal.');
+    return; // Detener la ejecución de la función
+  }
+
+  // Convertir el monto a un número
+  monto = parseFloat(monto);
 
   const nuevaOperacion = {
       descripcion,
@@ -267,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
       operaciones.forEach(function(operacion, index) {
           const li = document.createElement('li');
           li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
-          li.dataset.id = index; // Asignar un identificador único
+          li.dataset.id = index;
 
           const spanDescripcion = document.createElement('span');
           spanDescripcion.textContent = operacion.descripcion;
@@ -298,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
           btnEditar.textContent = 'Editar';
           btnEditar.classList.add('text-blue-500', 'hover:text-blue-700', 'mr-2');
           btnEditar.addEventListener('click', () => {
-              // Redireccionar a la página de edición
+              // Redireccionar
               window.location.href = 'operacioneseditar.html';
           });
 
@@ -346,14 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
   crearElementosLista();
 });
 
-function eliminarOperacion(id) {
-  if (confirm("¿Estás seguro que deseas eliminar esta operación?")) {
-      operaciones = operaciones.filter(op => op.id !== id);
-      actualizarInterfaz(); // Función para actualizar la interfaz después de la eliminación
-      guardarOperacionesEnLocalStorage(operaciones);
-  }
-}
-
 
  /* -------------------------------------------------------------- */
 
@@ -377,3 +389,49 @@ function eliminarOperacion(id) {
 });
 /* -------------------------------------------- */
 /* E D I T A R  O P E R A C I O N E S */
+
+document.addEventListener('DOMContentLoaded', function() {
+  const gananciasElements = document.querySelectorAll('.ganancias');
+  const gastosElements = document.querySelectorAll('.gastos');
+  const totalElement = document.querySelector('.total');
+
+  let totalGanancias = 0;
+  let totalGastos = 0;
+
+  // Verificar si hay operaciones en localStorage y si está en el formato esperado
+  const operacionesString = localStorage.getItem('operaciones');
+  if (operacionesString) {
+      try {
+          const operaciones = JSON.parse(operacionesString);
+          // Calcular el total de ganancias y gastos
+          operaciones.forEach(function(operacion) {
+              if (operacion.tipo === 'egreso') {
+                  totalGanancias += parseFloat(operacion.monto);
+              } else if (operacion.tipo === 'ingreso') {
+                  totalGastos += parseFloat(operacion.monto);
+              }
+          });
+
+          // Convertir los totales a números y redondearlos a dos decimales
+          totalGanancias = totalGanancias.toFixed(2);
+          totalGastos = totalGastos.toFixed(2);
+
+          // Mostrar los totales en la tarjeta de balance
+          gananciasElements.forEach(function(element) {
+              element.textContent = `+$ ${totalGanancias}`;
+          });
+
+          gastosElements.forEach(function(element) {
+              element.textContent = `-$ ${totalGastos}`;
+          });
+
+          // Calcular el total final y mostrarlo
+          const totalFinal = (parseFloat(totalGanancias) - parseFloat(totalGastos)).toFixed(2);
+          totalElement.textContent = `$${totalFinal}`;
+      } catch (error) {
+          console.error('Error al parsear las operaciones desde localStorage:', error);
+      }
+  } else {
+      console.warn('No hay operaciones en localStorage.');
+  }
+});
