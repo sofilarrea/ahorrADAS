@@ -101,15 +101,11 @@ document.addEventListener('DOMContentLoaded', function() {
   editarBoton.addEventListener('click', function() {
       const nuevoNombre = inputEditar.value.trim();
       if (nuevoNombre) {
-          // Obtener categorías del almacenamiento local
           let categorias = JSON.parse(localStorage.getItem('categorias'));
-          // Encontrar la categoría a editar
           const index = categorias.findIndex(cat => cat.id === categoriaAEditar.id);
-          // Actualizar el nombre de la categoría
           categorias[index].nombre = nuevoNombre;
-          // Guardar las categorías actualizadas en el almacenamiento local
           localStorage.setItem('categorias', JSON.stringify(categorias));
-          // Redirigir a categoria.html
+
           window.location.href = 'categoria.html';
       } else {
           alert('Por favor ingresa un nombre válido para la categoría.');
@@ -117,17 +113,17 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   cancelarBoton.addEventListener('click', function() {
-      // Redirigir a categoria.html
+
       window.location.href = 'categoria.html';
   });
 });
 
 
 /*Abrir formulario de operacion nueva*/
-document.addEventListener('DOMContentLoaded', function () {
+/* document.addEventListener('DOMContentLoaded', function () {
   const formContainer = document.getElementById('form-container');
   const form = document.getElementById('transaction-form');
-  
+
   form.addEventListener('submit', function (e) {
       e.preventDefault();
       formContainer.classList.add('scale-105');
@@ -138,15 +134,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 300);
   });
 });
+ */
 
 
-
-
+/*
 // FILTROS
-
-
 // ocultar panel de filtros
-
 const ocultarFiltros=document.getElementById ("ocultar-filtros")
 const mostrarFiltros=document.getElementById("mostrar-filtros")
 const panelFiltros=document.getElementById ("panel-filtros")
@@ -158,28 +151,24 @@ const panelTipo=document.getElementById("panel-tipo")
     ocultarFiltros.classList.add("hidden")
      panelFiltros.classList.add("hidden")
      mostrarFiltros.classList.remove("hidden")
-   
+
  })
-
-
-
 // selec filtros
-   
-    ocultarFiltros.addEventListener("click" , (e) =>{ 
+    ocultarFiltros.addEventListener("click" , (e) =>{
 
      panelTipo.style.display= "none";
    })
 
 // para que aparezcan los filtros nuevamente
 
-   mostrarFiltros.addEventListener("click" , (e) =>{ 
-   
+   mostrarFiltros.addEventListener("click" , (e) =>{
+
    mostrarFiltros.classList.add("hidden")
    panelFiltros.classList.remove("hidden")
    ocultarFiltros.classList.remove("hidden")
-  
-  
-  
+
+
+
  })
 
 const selectTipo=document.getElementById("select-tipo")
@@ -188,40 +177,35 @@ const inputFecha=document.getElementById("inputFecha")
 const ordenFiltros=document.getElementById("orden-filtros")
 const filtrosTipos=document.getElementById("filtros-tipo")
 
-      mostrarFiltros.addEventListener("click" , (e) =>{ 
-        panelTipo.style.display= "block"; 
+      mostrarFiltros.addEventListener("click" , (e) =>{
+        panelTipo.style.display= "block";
   })
 
 
+
 //   BOTON NUEVA OPERACION
+*/
+// O P E R A C I O N E S
 
-const botonNuevaOperacion=document.getElementById("btn-operacion")
-const divOperacion=document.getElementById("div-operacion")
-
-divOperacion.addEventListener("click", ()=>{
-    
-})
-
-
-// CARGAR CATEGORIA
-
-const categoriaSelect =document.getElementById("select-categoria")
- const operaciones =document.getElementById("operaciones")
-const SelectTipo = document.getElementById("select-tipo")
- const inputFechaOP = document.getElementById("inputFecha")
+const categoriaSelect =document.getElementById("categoriaSelect")
 
 function cargarCategoria(categorias){
-    categorias.forEach((categoria) =>{
-        let nuevaCategoria = document.createElement("option")
-        nuevaCategoria.value = categoria;
-        nuevaCategoria.textContent = categoria
-        categoriaSelect.appendChild(nuevaCategoria)
-    })
+  categorias.forEach((categoria) =>{
+    let nuevaCategoria = document.createElement("option")
+    nuevaCategoria.value = categoria;
+    nuevaCategoria.textContent = categoria
+    console.log("hola desde funcion que no funciona")
+    categoriaSelect.appendChild(nuevaCategoria)
+    console.log(categoriaSelect)
+
+  })
 }
 
 function cargarStorage() {
     const categorias = localStorage.getItem("categoria")
     const operaciones = localStorage.getItem("operaciones")
+    console.log(categorias)
+    console.log(operaciones)
     if(!categorias) {
         const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
         localStorage.setItem("categoria", categoriasDefault)
@@ -232,18 +216,164 @@ function cargarStorage() {
         for (let i = 0; i < categorias.length; i++){
             if (categorias[i] !== ",") {
                 nuevaCategoria += categorias[i]
+                if(i === categorias.length - 1){
+                  nuevasCategoriasArray.push(nuevaCategoria)
+                }
             } else {
                 nuevasCategoriasArray.push(nuevaCategoria)
-                nuevaCategoria = ""
+                nuevaCategoria = " "
             }
-
         }
-
       cargarCategoria(nuevasCategoriasArray)
-
-
     }
 }
-
 cargarStorage()
 
+function agregarOperacion(event) {
+  event.preventDefault();
+  console.log("hello from the function agregarOperaciones")
+  const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
+  const monto = document.getElementById('nuevaOperacion-monto').value;
+  const tipo = document.getElementById('nuevaOperacion-tipo').value;
+  const categoria = document.getElementById('nuevaOperacion-categoria').value;
+  const fecha = document.getElementById('nuevaOperacion-fecha').value;
+
+  const nuevaOperacion = {
+      descripcion,
+      monto,
+      tipo,
+      categoria,
+      fecha
+  };
+
+  let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  operaciones.push(nuevaOperacion);
+
+  localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+  // Redirigir
+  window.location.href = 'index.html';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+  const operacionesList = document.getElementById('operaciones-list');
+
+  function crearElementosLista() {
+      // Limpiar la lista
+      operacionesList.innerHTML = '';
+
+      operaciones.forEach(function(operacion, index) {
+          const li = document.createElement('li');
+          li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
+          li.dataset.id = index; // Asignar un identificador único
+
+          const spanDescripcion = document.createElement('span');
+          spanDescripcion.textContent = operacion.descripcion;
+
+          const spanCategoria = document.createElement('span');
+          spanCategoria.textContent = operacion.categoria;
+
+          const spanFecha = document.createElement('span');
+          const fechaParts = operacion.fecha.split('-');
+          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
+          spanFecha.textContent = fechaFormateada;
+
+          const spanMonto = document.createElement('span');
+          if (operacion.tipo.trim() === 'egreso') {
+              spanMonto.textContent = `+${operacion.monto}`;
+              spanMonto.style.color = 'green';
+          } else if (operacion.tipo.trim() === 'ingreso') {
+              spanMonto.textContent = `-${operacion.monto}`;
+              spanMonto.style.color = 'red';
+          } else {
+              console.error(`Tipo de operación desconocido: ${operacion.tipo}`);
+              spanMonto.textContent = `${operacion.monto}`;
+              spanMonto.style.color = 'black';
+          }
+          // Botones
+          const divAcciones = document.createElement('div');
+          const btnEditar = document.createElement('button');
+          btnEditar.textContent = 'Editar';
+          btnEditar.classList.add('text-blue-500', 'hover:text-blue-700', 'mr-2');
+          btnEditar.addEventListener('click', () => {
+              // Redireccionar a la página de edición
+              window.location.href = 'operacioneseditar.html';
+          });
+
+          const btnEliminar = document.createElement('button');
+          btnEliminar.textContent = 'Eliminar';
+          btnEliminar.classList.add('text-red-500', 'hover:text-red-700');
+          btnEliminar.addEventListener('click', (event) => {
+              const confirmacion = confirm('¿Estás seguro de que deseas eliminar?');
+              if (confirmacion) {
+                  const li = event.target.closest('li');
+                  if (li) {
+                      const elementoId = li.dataset.id;
+                      eliminarOperacion(elementoId);
+                      li.remove();
+                  } else {
+                      console.error('No se pudo encontrar el elemento a eliminar');
+                  }
+              }
+          });
+
+          divAcciones.appendChild(btnEditar);
+          divAcciones.appendChild(btnEliminar);
+
+          li.appendChild(spanDescripcion);
+          li.appendChild(spanCategoria);
+          li.appendChild(spanFecha);
+          li.appendChild(spanMonto);
+          li.appendChild(divAcciones);
+
+          operacionesList.appendChild(li);
+      });
+  }
+
+  function eliminarOperacion(id) {
+      // Eliminar la operación de la lista de operaciones
+      operaciones.splice(id, 1);
+
+      // Actualizar el almacenamiento local
+      localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+      // Volver a crear los elementos de la lista
+      crearElementosLista();
+  }
+
+  crearElementosLista();
+});
+
+function eliminarOperacion(id) {
+  if (confirm("¿Estás seguro que deseas eliminar esta operación?")) {
+      operaciones = operaciones.filter(op => op.id !== id);
+      actualizarInterfaz(); // Función para actualizar la interfaz después de la eliminación
+      guardarOperacionesEnLocalStorage(operaciones);
+  }
+}
+
+
+ /* -------------------------------------------------------------- */
+
+ document.addEventListener('DOMContentLoaded', function() {
+  // Obtener las operaciones almacenadas en localStorage
+  const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  // Obtener las secciones por su ID
+  const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
+  const seccionSinOperaciones = document.getElementById('operaciones');
+
+  // Si hay operaciones cargadas, mostrar la sección con operaciones y ocultar la sección sin operaciones
+  if (operaciones.length > 0) {
+      seccionOperaciones.style.display = 'block';
+      seccionSinOperaciones.style.display = 'none';
+  } else {
+      // Si no hay operaciones cargadas, mostrar la sección sin operaciones y ocultar la sección con operaciones
+      seccionOperaciones.style.display = 'none';
+      seccionSinOperaciones.style.display = 'block';
+  }
+});
+/* -------------------------------------------- */
+/* E D I T A R  O P E R A C I O N E S */
