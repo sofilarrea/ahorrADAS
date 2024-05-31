@@ -311,6 +311,14 @@ document.addEventListener('DOMContentLoaded', function() {
               // Redireccionar
               window.location.href = 'operacioneseditar.html';
           });
+          // Dentro de la función crearElementosLista()
+btnEditar.addEventListener('click', () => {
+  // Obtener el índice de la operación
+  const indiceOperacion = li.dataset.id;
+  // Redireccionar a la página de edición con el índice como parámetro en la URL
+  window.location.href = `operacioneseditar.html?index=${indiceOperacion}`;
+});
+
 
           const btnEliminar = document.createElement('button');
           btnEliminar.textContent = 'Eliminar';
@@ -343,13 +351,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function eliminarOperacion(id) {
-      // Eliminar la operación de la lista de operaciones
       operaciones.splice(id, 1);
 
-      // Actualizar el almacenamiento local
       localStorage.setItem('operaciones', JSON.stringify(operaciones));
 
-      // Volver a crear los elementos de la lista
       crearElementosLista();
   }
 
@@ -360,19 +365,15 @@ document.addEventListener('DOMContentLoaded', function() {
  /* -------------------------------------------------------------- */
 
  document.addEventListener('DOMContentLoaded', function() {
-  // Obtener las operaciones almacenadas en localStorage
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
-  // Obtener las secciones por su ID
   const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
   const seccionSinOperaciones = document.getElementById('operaciones');
 
-  // Si hay operaciones cargadas, mostrar la sección con operaciones y ocultar la sección sin operaciones
   if (operaciones.length > 0) {
       seccionOperaciones.style.display = 'block';
       seccionSinOperaciones.style.display = 'none';
   } else {
-      // Si no hay operaciones cargadas, mostrar la sección sin operaciones y ocultar la sección con operaciones
       seccionOperaciones.style.display = 'none';
       seccionSinOperaciones.style.display = 'block';
   }
@@ -425,3 +426,4 @@ document.addEventListener('DOMContentLoaded', function() {
       console.warn('No hay operaciones en localStorage.');
   }
 });
+/* --------------------------------------------------------------- */

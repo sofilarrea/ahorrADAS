@@ -10,6 +10,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const indiceOperacion = params.get('index');
+
+        const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+        const operacion = operaciones[indiceOperacion];
+
+        // Ahora puedes cargar los datos de la operación en los campos del formulario
+        document.getElementById('nuevaOperacion-descripcion').value = operacion.descripcion;
+        document.getElementById('nuevaOperacion-monto').value = operacion.monto;
+        document.getElementById('nuevaOperacion-tipo').value = operacion.tipo;
+        document.getElementById('nuevaOperacion-categoria').value = operacion.categoria;
+        document.getElementById('nuevaOperacion-fecha').value = operacion.fecha;
+
+        // Agrega el evento de envío del formulario para editar la operación
+        document.getElementById('transaction-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Llama a una función para guardar la operación editada
+            guardarOperacionEditada(indiceOperacion);
+        });
+    });
+
 
 
     </script>
