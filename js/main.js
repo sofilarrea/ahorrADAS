@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const cancelarBoton = document.getElementById('cancelar');
 
   if (categoriaAEditar) {
-      inputEditar.value = categoriaAEditar.nombre;
+      inputEditar.value= categoriaAEditar.nombre;
   } else {
       console.error('No se encontró una categoría para editar');
   }
@@ -138,58 +138,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// FILTROS
-// ocultar panel de filtros
-const ocultarFiltros=document.getElementById ("ocultar-filtros")
-const mostrarFiltros=document.getElementById("mostrar-filtros")
-const panelFiltros=document.getElementById ("panel-filtros")
-const panelTipo=document.getElementById("panel-tipo")
 
 
- ocultarFiltros.addEventListener("click" , () =>{
-
-    ocultarFiltros.classList.add("hidden")
-     panelFiltros.classList.add("hidden")
-     mostrarFiltros.classList.remove("hidden")
-
- })
-// selec filtros
-    ocultarFiltros.addEventListener("click" , (e) =>{
-
-     panelTipo.style.display= "none";
-   })
-
-// para que aparezcan los filtros nuevamente
-
-   mostrarFiltros.addEventListener("click" , (e) =>{
-
-   mostrarFiltros.classList.add("hidden")
-   panelFiltros.classList.remove("hidden")
-   ocultarFiltros.classList.remove("hidden")
-
-
-
- })
-
-const selectTipo=document.getElementById("select-tipo")
-const filtroCategoria=document.getElementById("filtro-categoria")
-const inputFecha=document.getElementById("inputFecha")
-const ordenFiltros=document.getElementById("orden-filtros")
-const filtrosTipos=document.getElementById("filtros-tipo")
-
-      mostrarFiltros.addEventListener("click" , (e) =>{
-        panelTipo.style.display= "block";
-  })
-
-
-
+  
 //   BOTON NUEVA OPERACION
 
 // O P E R A C I O N E S
 
+
+
+
 const categoriaSelect =document.getElementById("categoriaSelect")
 
-function cargarCategoria(categorias){
+function cargarCategorias(categorias){
   categorias.forEach((categoria) =>{
     let nuevaCategoria = document.createElement("option")
     nuevaCategoria.value = categoria;
@@ -203,13 +164,12 @@ function cargarCategoria(categorias){
 
 function cargarStorage() {
     const categorias = localStorage.getItem("categoria")
-    const operaciones = localStorage.getItem("operaciones")
-    console.log(categorias)
-    console.log(operaciones)
+    const operacion = localStorage.getItem("operaciones")
+  
     if(!categorias) {
         const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
         localStorage.setItem("categoria", categoriasDefault)
-        cargarCategoria(categoriasDefault)
+        cargarCategorias(categoriasDefault)
     } else {
         let nuevaCategoria = ""
         let nuevasCategoriasArray = []
@@ -224,10 +184,15 @@ function cargarStorage() {
                 nuevaCategoria = " "
             }
         }
-      cargarCategoria(nuevasCategoriasArray)
+      cargarCategorias(nuevasCategoriasArray)
     }
 }
-cargarStorage()
+cargarStorage ()
+
+
+
+
+
 
 
 
@@ -241,6 +206,8 @@ function convertirFormatoMonto(input) {
   // Convertir a un número de punto flotante
   return parseFloat(withDot);
 }
+
+
 
 function agregarOperacion(event) {
   event.preventDefault();
@@ -438,3 +405,140 @@ document.addEventListener('DOMContentLoaded', function() {
       console.warn('No hay operaciones en localStorage.');
   }
 });
+
+
+
+
+
+
+// FILTROS
+// ocultar panel de filtros
+const ocultarFiltros=document.getElementById ("ocultar-filtros")
+const mostrarFiltros=document.getElementById("mostrar-filtros")
+const panelFiltros=document.getElementById ("panel-filtros")
+const panelTipo=document.getElementById("panel-tipo")
+
+
+ ocultarFiltros.addEventListener("click" , () =>{
+
+    ocultarFiltros.classList.add("hidden")
+     panelFiltros.classList.add("hidden")
+     mostrarFiltros.classList.remove("hidden")
+
+ })
+// selec filtros
+    ocultarFiltros.addEventListener("click" , (e) =>{
+
+     panelTipo.style.display= "none";
+   })
+
+// para que aparezcan los filtros nuevamente
+
+   mostrarFiltros.addEventListener("click" , (e) =>{
+
+   mostrarFiltros.classList.add("hidden")
+   panelFiltros.classList.remove("hidden")
+   ocultarFiltros.classList.remove("hidden")
+
+
+
+ })
+
+const selectTipo=document.getElementById("select-tipo")
+const filtroCategoria=document.getElementById("filtro-categoria")
+const inputFecha=document.getElementById("input-fecha")
+const ordenFiltros=document.getElementById("orden-filtros")
+const filtrosTipos=document.getElementById("filtros-tipo")
+const ordenarPor=document.getElementById("ordenarPor")
+
+      mostrarFiltros.addEventListener("click" , (e) =>{
+        panelTipo.style.display= "block";
+  })
+
+
+
+
+
+
+
+
+
+
+// // filtrado por tipo
+
+// selectTipo.onchange =() =>{
+//     const arrayFiltroTipo = aplicarFiltros();
+//     mostrarOperacionesEnHTML(arrayFiltroTipo);
+// }
+
+
+// // por categoria
+
+//      filtroCategoria.onchange =() =>{
+//     const arrayFiltradoFinal = aplicarFiltros();
+//     mostrarOperacionesEnHTML(arrayFiltradoFinal);
+// }
+
+// // porfecha
+
+
+//     inputFecha.onchange = () => {
+//     const FiltradoFecha = nuevasFechas(aplicarFiltros());
+//     mostrarOperacionesEnHTML(ordenarFechas(FiltradoFecha));
+//   };
+  
+//     ordenarPor.onchange =() => {
+//     const arrayOrdenadoFinal = filtroPor();
+//     mostrarOperacionesEnHTML(arrayOrdenadoFinal)
+//   }
+
+
+
+//   const filtroPor =() =>{
+//     const orden = ordenarPor.value;
+//     let operaciones = aplicarFiltros();
+//     if (orden === "aZ"){
+//         operaciones = operaciones.sort ((a, b)=>{
+//             return a.Descripcion.localeCompare(b.Descripcion);
+
+//         })
+
+
+//     }else if (orden === "zA") {
+//         operaciones = operaciones.sort ((a, b)=>{
+//             return b.Descripcion.localeCompare(a.Descripcion);
+    
+//         });
+
+// } else if (orden === "mayorMonto"){
+//     operaciones = operaciones.sort((a, b)=>{
+//         return b.monto - a.monto;
+
+//     });
+// }else if (orden === "menorMonto"){
+//     operaciones = operaciones.sort((a, b)=>{
+//         return b.monto - a.monto;
+
+//     });
+// } else if  (orden === "masReciente") {
+//     operaciones = operaciones.sort((a, b) => {
+//       return new Date(b.fecha) - new Date(a.fecha);
+//     });
+//   } else if (orden === "menosReciente") {
+//     operaciones = operaciones.sort((a, b) => {
+//       return new Date(a.fecha) - new Date(b.fecha);
+//     });
+//   }
+//   return operaciones;
+// };
+
+
+
+
+
+
+
+
+
+
+
