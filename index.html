@@ -65,19 +65,24 @@
 
           </div>
           <div class="flex flex-col bg-white shadow-lg rounded-md w-10/12 lg:w-80">
-              <div class="flex justify-between items-center p-5 text-blue-500">
+              <div  class="flex justify-between items-center p-5 text-blue-500">
                   <h2 class="text-2xl font-bold text-slate-700">Filtros</h2>
-                  <label>Ocultar filtros</label>
+                  <label id="ocultar-filtros" class="cursor-pointer">Ocultar filtros</label>
+                  <label id="mostrar-filtros" class=" hidden cursor-pointer">Mostrar filtros</label>
               </div>
-              <form class="p-5 gap-6 w-full">
-                  <label for="tipo" class="font-bold">Tipo</label>
-                  <select name="tipo" id="tipo" class="w-full my-3 p-2 border-2 border-solid border-grey-500 rounded-md">
+
+              
+              <form id="panel-tipo" class="p-5 gap-6 w-full ">
+                <div id="panel-filtros">
+                <div id="filtros-tipo">
+                  <label for="categorias" class="font-bold">Tipo</label>
+                  <select name="categorias" id="select-tipo" class="w-full my-3 p-2 border-2 border-solid border-grey-500 rounded-md">
                       <option value="todos">Todos</option>
                       <option value="gasto">Gasto</option>
                       <option value="ganancia">Ganancia</option>
                   </select>
-                  <label for="categoria" class="font-bold">Categoria</label>
-                  <select name="categoria" id="categoriaSelect" class="w-full my-3 p-2 border-2 border-solid border-grey-500 rounded-md">
+                  <label for="categorias" class="font-bold">Categoria</label>
+                  <select name="categorias" id="categoriaSelect" class="w-full my-3 p-2 border-2 border-solid border-grey-500 rounded-md">
                       <option value="todas">Todas</option>
                   </select>
                   <label for="desde" class="font-bold">Desde</label>
@@ -91,15 +96,17 @@
                       <option value="aZ">A/Z</option>
                       <option value="zA">Z/A</option>
                   </select>
+                </div>
+              </div>
               </form>
           </div>
       </section>
-      <section id="operaciones" class="flex flex-col bg-white shadow-lg rounded-md w-10/12 p-5 mb-5 lg:w-2/4">
+      <section id="operaciones" class="flex flex-col bg-white shadow-lg rounded-md w-10/12 p-5  mb-5 lg:w-2/4">
           <div class="lg:flex justify-between">
               <h2 class="text-2xl font-bold text-slate-700 mb-7">Operaciones</h2>
               <button id="btn-operacion" class="bg-green text-white rounded text-xs p-2" onclick="window.location.href='operaciones.html'">+ Nueva Operación</button>          </div>
 
-              <figure class="w-full mb-8 lg:flex justify-center">
+              <figure class="w-full mb-6 lg:flex justify-center mt-20">
               <img src="/images/wallet.svg" alt="Billetera" class="lg:max-w-md">
           </figure>
           <div class="flex flex-col items-center pb-20">
