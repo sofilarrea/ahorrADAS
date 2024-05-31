@@ -184,7 +184,6 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 
 
 //   BOTON NUEVA OPERACION
-
 // O P E R A C I O N E S
 
 const categoriaSelect =document.getElementById("categoriaSelect")
@@ -227,21 +226,8 @@ function cargarStorage() {
       cargarCategoria(nuevasCategoriasArray)
     }
 }
-cargarStorage()
 
-
-
-function convertirFormatoMonto(input) {
-  // Eliminar cualquier carácter que no sea dígito, coma o punto
-  const cleaned = input.replace(/[^\d.,]/g, '');
-
-  // Reemplazar comas por puntos
-  const withDot = cleaned.replace(',', '.');
-
-  // Convertir a un número de punto flotante
-  return parseFloat(withDot);
-}
-
+/* A G R E G A R  O P E R A C I O N E S */
 function agregarOperacion(event) {
   event.preventDefault();
   console.log("hello from the function agregarOperaciones");
@@ -252,10 +238,10 @@ function agregarOperacion(event) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // Validar que el monto contenga un punto decimal
+  // PUNTOS DECIMALES
   if (!monto.includes('.')) {
     alert('Por favor, introduce el monto con un punto decimal.');
-    return; // Detener la ejecución de la función
+    return;
   }
 
   // Convertir el monto a un número
@@ -321,9 +307,14 @@ document.addEventListener('DOMContentLoaded', function() {
           btnEditar.textContent = 'Editar';
           btnEditar.classList.add('text-blue-500', 'hover:text-blue-700', 'mr-2');
           btnEditar.addEventListener('click', () => {
-              // Redireccionar
+
               window.location.href = 'operacioneseditar.html';
           });
+btnEditar.addEventListener('click', () => {
+  const indiceOperacion = li.dataset.id;
+  window.location.href = `operacioneseditar.html?index=${indiceOperacion}`;
+});
+
 
           const btnEliminar = document.createElement('button');
           btnEliminar.textContent = 'Eliminar';
@@ -356,13 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function eliminarOperacion(id) {
-      // Eliminar la operación de la lista de operaciones
       operaciones.splice(id, 1);
 
-      // Actualizar el almacenamiento local
       localStorage.setItem('operaciones', JSON.stringify(operaciones));
 
-      // Volver a crear los elementos de la lista
       crearElementosLista();
   }
 
@@ -373,19 +361,15 @@ document.addEventListener('DOMContentLoaded', function() {
  /* -------------------------------------------------------------- */
 
  document.addEventListener('DOMContentLoaded', function() {
-  // Obtener las operaciones almacenadas en localStorage
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
-  // Obtener las secciones por su ID
   const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
   const seccionSinOperaciones = document.getElementById('operaciones');
 
-  // Si hay operaciones cargadas, mostrar la sección con operaciones y ocultar la sección sin operaciones
   if (operaciones.length > 0) {
       seccionOperaciones.style.display = 'block';
       seccionSinOperaciones.style.display = 'none';
   } else {
-      // Si no hay operaciones cargadas, mostrar la sección sin operaciones y ocultar la sección con operaciones
       seccionOperaciones.style.display = 'none';
       seccionSinOperaciones.style.display = 'block';
   }
@@ -401,12 +385,10 @@ document.addEventListener('DOMContentLoaded', function() {
   let totalGanancias = 0;
   let totalGastos = 0;
 
-  // Verificar si hay operaciones en localStorage y si está en el formato esperado
   const operacionesString = localStorage.getItem('operaciones');
   if (operacionesString) {
       try {
           const operaciones = JSON.parse(operacionesString);
-          // Calcular el total de ganancias y gastos
           operaciones.forEach(function(operacion) {
               if (operacion.tipo === 'egreso') {
                   totalGanancias += parseFloat(operacion.monto);
@@ -415,11 +397,9 @@ document.addEventListener('DOMContentLoaded', function() {
               }
           });
 
-          // Convertir los totales a números y redondearlos a dos decimales
           totalGanancias = totalGanancias.toFixed(2);
           totalGastos = totalGastos.toFixed(2);
 
-          // Mostrar los totales en la tarjeta de balance
           gananciasElements.forEach(function(element) {
               element.textContent = `+$ ${totalGanancias}`;
           });
@@ -428,7 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
               element.textContent = `-$ ${totalGastos}`;
           });
 
-          // Calcular el total final y mostrarlo
           const totalFinal = (parseFloat(totalGanancias) - parseFloat(totalGastos)).toFixed(2);
           totalElement.textContent = `$${totalFinal}`;
       } catch (error) {
@@ -438,3 +417,35 @@ document.addEventListener('DOMContentLoaded', function() {
       console.warn('No hay operaciones en localStorage.');
   }
 });
+/* --------------------------------------------------------------- */
+function guardarOperacionEditada(indiceOperacion) {
+  const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
+  let monto = document.getElementById('nuevaOperacion-monto').value;
+  const tipo = document.getElementById('nuevaOperacion-tipo').value;
+  const categoria = document.getElementById('nuevaOperacion-categoria').value;
+  const fecha = document.getElementById('nuevaOperacion-fecha').value;
+
+  if (!monto.includes('.')) {
+      alert('Por favor, introduce el monto con un punto decimal.');
+      return;
+  }
+
+  monto = parseFloat(monto);
+
+  const operacionEditada = {
+      descripcion,
+      monto,
+      tipo,
+      categoria,
+      fecha
+  };
+
+  let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  operaciones[indiceOperacion] = operacionEditada;
+
+  localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+  // Redirig
+  window.location.href = 'index.html';
+}
