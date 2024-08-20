@@ -188,41 +188,37 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 const categoriaSelect = document.getElementById("categoriaSelect");
 
 function cargarCategoria(categorias) {
+    categoriaSelect.innerHTML = ""; // Limpiar el contenido del select antes de agregar nuevas opciones
+
     categorias.forEach((categoria) => {
         let nuevaCategoria = document.createElement("option");
-        nuevaCategoria.value = categoria;
-        nuevaCategoria.textContent = categoria;
+        nuevaCategoria.value = categoria.id; // Usar el ID como valor
+        nuevaCategoria.textContent = categoria.nombre; // Mostrar el nombre de la categoría
         categoriaSelect.appendChild(nuevaCategoria);
     });
 }
 
-function cargarCategoriaLista(categorias) {
-  const categoriaLista = document.getElementById("categoriasLista");
-  categoriaLista.innerHTML = "";
-  categorias.forEach(categoria => {
-      let categoriaListItem = document.createElement("li");
-      categoriaListItem.textContent = categoria.nombre;
-      categoriaListItem.classList.add('categorias');
+function cargarStorage() {
+    let categorias = localStorage.getItem("categorias");
 
-      const botonEditar = document.createElement('button');
-      botonEditar.textContent = 'Editar';
-      botonEditar.classList.add('boton-editar');
-      botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
-
-      const botonEliminar = document.createElement('button');
-      botonEliminar.textContent = 'Eliminar';
-      botonEliminar.classList.add('boton-eliminar');
-      botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
-
-      categoriaListItem.appendChild(botonEditar);
-      categoriaListItem.appendChild(botonEliminar);
-
-      categoriaLista.appendChild(categoriaListItem);
-  });
+    if (!categorias) {
+        // Categorías por defecto con id y nombre
+        const categoriasDefault = [
+            { id: 1, nombre: 'cinevbvb' },
+            { id: 2, nombre: 'cinevbvbcvbcvb' },
+            { id: 3, nombre: 'cinevbvbcvbcvb' }
+        ];
+        localStorage.setItem("categorias", JSON.stringify(categoriasDefault)); // Guardar como JSON string
+        cargarCategoria(categoriasDefault);
+    } else {
+        // Parsear las categorías a un array
+        categorias = JSON.parse(categorias);
+        cargarCategoria(categorias);
+    }
 }
 
-// Llamada a la función para cargar las categorías al cargar la página
-cargarStorage();
+// Llamar a cargarStorage al cargar la página
+document.addEventListener("DOMContentLoaded", cargarStorage);
 
 
 /* A G R E G A R  O P E R A C I O N E S */
