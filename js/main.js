@@ -449,48 +449,39 @@ function guardarOperacionEditada(indiceOperacion) {
 // //-------------------------------------------------------------------//
 // Reportes
 
+//
 document.addEventListener("DOMContentLoaded", function() {
-    const categoriasData = [
-        { nombre: "Comida", ganancias: 1000, gastos: 500 },
-        { nombre: "Servicios", ganancias: 2000, gastos: 1000 },
-        { nombre: "Salidas", ganancias: 1500, gastos: 1200 },
-        { nombre: "Educación", ganancias: 3000, gastos: 2000 },
-        { nombre: "Transporte", ganancias: 500, gastos: 300 },
-        { nombre: "Trabajo", ganancias: 4000, gastos: 1500 }
-    ];
+  const categoriasData = [
+      { nombre: "Comida", ganancias: 1000, gastos: 500 },
+      { nombre: "Servicios", ganancias: 2000, gastos: 1000 },
+      { nombre: "Salidas", ganancias: 1500, gastos: 1200 },
+      { nombre: "Educación", ganancias: 3000, gastos: 2000 },
+      { nombre: "Transporte", ganancias: 500, gastos: 300 },
+      { nombre: "Trabajo", ganancias: 4000, gastos: 1500 }
+  ];
 
-    const mesesData = [
-        { nombre: "Enero", ganancias: 5000, gastos: 3000 },
-        { nombre: "Febrero", ganancias: 6000, gastos: 2000 },
-        { nombre: "Marzo", ganancias: 4000, gastos: 3500 },
-        { nombre: "Abril", ganancias: 7000, gastos: 5000 },
-        { nombre: "Mayo", ganancias: 3000, gastos: 1000 },
-        { nombre: "Junio", ganancias: 8000, gastos: 4000 },
-        { nombre: "Julio", ganancias: 5500, gastos: 2500 },
-        { nombre: "Agosto", ganancias: 6500, gastos: 3000 },
-        { nombre: "Septiembre", ganancias: 7500, gastos: 4500 },
-        { nombre: "Octubre", ganancias: 9000, gastos: 6000 },
-        { nombre: "Noviembre", ganancias: 10000, gastos: 7000 },
-        { nombre: "Diciembre", ganancias: 11000, gastos: 8000 }
-    ];
+  const mesesData = [
+      { nombre: "Enero", ganancias: 5000, gastos: 3000 },
+      { nombre: "Febrero", ganancias: 6000, gastos: 2000 },
+      { nombre: "Marzo", ganancias: 4000, gastos: 3500 },
+      { nombre: "Abril", ganancias: 7000, gastos: 5000 },
+      { nombre: "Mayo", ganancias: 3000, gastos: 1000 },
+      { nombre: "Junio", ganancias: 8000, gastos: 4000 },
+      { nombre: "Julio", ganancias: 5500, gastos: 2500 },
+      { nombre: "Agosto", ganancias: 6500, gastos: 3000 },
+      { nombre: "Septiembre", ganancias: 7500, gastos: 4500 },
+      { nombre: "Octubre", ganancias: 9000, gastos: 6000 },
+      { nombre: "Noviembre", ganancias: 10000, gastos: 7000 },
+      { nombre: "Diciembre", ganancias: 11000, gastos: 8000 }
+  ];
 
-    const categoriasList = document.getElementById("categorias-list");
-    categoriasData.forEach(categoria => {
-        const balance = categoria.ganancias - categoria.gastos;
-        const li = document.createElement("li");
-        li.innerHTML = `${categoria.nombre}: Ganancias: ${categoria.ganancias}, Gastos: ${categoria.gastos}, Balance: ${balance}`;
-        categoriasList.appendChild(li);
-    });
+  const categoriasList = document.getElementById("categorias-list");
+  const mesesList = document.getElementById("meses-list");
 
-    const mesesList = document.getElementById("meses-list");
-    mesesData.forEach(mes => {
-        const balance = mes.ganancias - mes.gastos;
-        const li = document.createElement("li");
-        li.innerHTML = `${mes.nombre}: Ganancias: ${mes.ganancias}, Gastos: ${mes.gastos}, Balance: ${balance}`;
-        mesesList.appendChild(li);
-    });
+  const operacionesCargadas = categoriasData.length > 0 && mesesData.length > 0;
 
-    const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
+
+   /*  const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
     const maxCategoriaGasto = categoriasData.reduce((max, cat) => cat.gastos > max.gastos ? cat : max);
     const maxCategoriaBalance = categoriasData.reduce((max, cat) => (cat.ganancias - cat.gastos) > (max.ganancias - max.gastos) ? cat : max);
 
@@ -502,4 +493,41 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("cat-mayor-balance").textContent = maxCategoriaBalance.nombre;
     document.getElementById("mes-mayor-ganancia").textContent = maxMesGanancia.nombre;
     document.getElementById("mes-mayor-gasto").textContent = maxMesGasto.nombre;
+}); */
+
+  if (operacionesCargadas) {
+      document.getElementById("operations-card").classList.remove("hidden");
+      document.getElementById("no-operations-card").classList.add("hidden");
+
+      categoriasData.forEach(categoria => {
+          const balance = categoria.ganancias - categoria.gastos;
+          const li = document.createElement("li");
+          li.innerHTML = `${categoria.nombre}: Ganancias: ${categoria.ganancias}, Gastos: ${categoria.gastos}, Balance: ${balance}`;
+          categoriasList.appendChild(li);
+      });
+
+      mesesData.forEach(mes => {
+          const balance = mes.ganancias - mes.gastos;
+          const li = document.createElement("li");
+          li.innerHTML = `${mes.nombre}: Ganancias: ${mes.ganancias}, Gastos: ${mes.gastos}, Balance: ${balance}`;
+          mesesList.appendChild(li);
+      });
+
+      const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
+      const maxCategoriaGasto = categoriasData.reduce((max, cat) => cat.gastos > max.gastos ? cat : max);
+      const maxCategoriaBalance = categoriasData.reduce((max, cat) => (cat.ganancias - cat.gastos) > (max.ganancias - max.gastos) ? cat : max);
+
+      const maxMesGanancia = mesesData.reduce((max, mes) => mes.ganancias > max.ganancias ? mes : max);
+      const maxMesGasto = mesesData.reduce((max, mes) => mes.gastos > max.gastos ? mes : max);
+
+      document.getElementById("cat-mayor-ganancia").textContent = maxCategoriaGanancia.nombre;
+      document.getElementById("cat-mayor-gasto").textContent = maxCategoriaGasto.nombre;
+      document.getElementById("cat-mayor-balance").textContent = maxCategoriaBalance.nombre;
+      document.getElementById("mes-mayor-ganancia").textContent = maxMesGanancia.nombre;
+      document.getElementById("mes-mayor-gasto").textContent = maxMesGasto.nombre;
+  } else {
+      document.getElementById("operations-card").classList.add("hidden");
+      document.getElementById("no-operations-card").classList.remove("hidden");
+  }
 });
+
