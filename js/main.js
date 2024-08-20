@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 300);
   });
 });
- 
+
 
 
 
@@ -185,47 +185,45 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 
 //   BOTON NUEVA OPERACION
 // O P E R A C I O N E S
+const categoriaSelect = document.getElementById("categoriaSelect");
 
-const categoriaSelect =document.getElementById("categoriaSelect")
-
-function cargarCategoria(categorias){
-  categorias.forEach((categoria) =>{
-    let nuevaCategoria = document.createElement("option")
-    nuevaCategoria.value = categoria;
-    nuevaCategoria.textContent = categoria
-    console.log("hola desde funcion que no funciona")
-    categoriaSelect.appendChild(nuevaCategoria)
-    console.log(categoriaSelect)
-
-  })
+function cargarCategoria(categorias) {
+    categorias.forEach((categoria) => {
+        let nuevaCategoria = document.createElement("option");
+        nuevaCategoria.value = categoria;
+        nuevaCategoria.textContent = categoria;
+        categoriaSelect.appendChild(nuevaCategoria);
+    });
 }
 
-function cargarStorage() {
-    const categorias = localStorage.getItem("categoria")
-    const operaciones = localStorage.getItem("operaciones")
-    console.log(categorias)
-    console.log(operaciones)
-    if(!categorias) {
-        const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
-        localStorage.setItem("categoria", categoriasDefault)
-        cargarCategoria(categoriasDefault)
-    } else {
-        let nuevaCategoria = ""
-        let nuevasCategoriasArray = []
-        for (let i = 0; i < categorias.length; i++){
-            if (categorias[i] !== ",") {
-                nuevaCategoria += categorias[i]
-                if(i === categorias.length - 1){
-                  nuevasCategoriasArray.push(nuevaCategoria)
-                }
-            } else {
-                nuevasCategoriasArray.push(nuevaCategoria)
-                nuevaCategoria = " "
-            }
-        }
-      cargarCategoria(nuevasCategoriasArray)
-    }
+function cargarCategoriaLista(categorias) {
+  const categoriaLista = document.getElementById("categoriasLista");
+  categoriaLista.innerHTML = "";
+  categorias.forEach(categoria => {
+      let categoriaListItem = document.createElement("li");
+      categoriaListItem.textContent = categoria.nombre;
+      categoriaListItem.classList.add('categorias');
+
+      const botonEditar = document.createElement('button');
+      botonEditar.textContent = 'Editar';
+      botonEditar.classList.add('boton-editar');
+      botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
+
+      const botonEliminar = document.createElement('button');
+      botonEliminar.textContent = 'Eliminar';
+      botonEliminar.classList.add('boton-eliminar');
+      botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
+
+      categoriaListItem.appendChild(botonEditar);
+      categoriaListItem.appendChild(botonEliminar);
+
+      categoriaLista.appendChild(categoriaListItem);
+  });
 }
+
+// Llamada a la función para cargar las categorías al cargar la página
+cargarStorage();
+
 
 /* A G R E G A R  O P E R A C I O N E S */
 function agregarOperacion(event) {
@@ -497,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
     const maxCategoriaGasto = categoriasData.reduce((max, cat) => cat.gastos > max.gastos ? cat : max);
     const maxCategoriaBalance = categoriasData.reduce((max, cat) => (cat.ganancias - cat.gastos) > (max.ganancias - max.gastos) ? cat : max);
-    
+
     const maxMesGanancia = mesesData.reduce((max, mes) => mes.ganancias > max.ganancias ? mes : max);
     const maxMesGasto = mesesData.reduce((max, mes) => mes.gastos > max.gastos ? mes : max);
 
