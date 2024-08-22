@@ -21,30 +21,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Función para cargar y mostrar las categorías en la li
   function cargarCategoriaLista() {
-      const categoriaLista = document.getElementById("categoriasLista");
-      categoriaLista.innerHTML = "";
-      categorias.forEach(categoria => {
-          let categoriaListItem = document.createElement("li");
-          categoriaListItem.textContent = categoria.nombre;
-          categoriaListItem.classList.add('categorias');
+    const categoriaLista = document.getElementById("categoriasLista");
+    categoriaLista.innerHTML = "";
 
-          const botonEditar = document.createElement('button');
-          botonEditar.textContent = 'Editar';
-          botonEditar.classList.add('boton-editar');
-          botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
+    for (let i = 0; i < categorias.length; i++) {
+        const categoria = categorias[i];
 
-          const botonEliminar = document.createElement('button');
-          botonEliminar.textContent = 'Eliminar';
-          botonEliminar.classList.add('boton-eliminar');
-          botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
+        let categoriaListItem = document.createElement("li");
+        categoriaListItem.textContent = categoria.nombre;
+        categoriaListItem.classList.add('categorias');
 
-          categoriaListItem.appendChild(botonEditar);
-          categoriaListItem.appendChild(botonEliminar);
+        const botonEditar = document.createElement('button');
+        botonEditar.textContent = 'Editar';
+        botonEditar.classList.add('boton-editar');
+        botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
 
-          categoriaLista.appendChild(categoriaListItem);
-      });
+        const botonEliminar = document.createElement('button');
+        botonEliminar.textContent = 'Eliminar';
+        botonEliminar.classList.add('boton-eliminar');
+        botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
+
+        categoriaListItem.appendChild(botonEditar);
+        categoriaListItem.appendChild(botonEliminar);
+
+        categoriaLista.appendChild(categoriaListItem);
+    }
   }
-
   agregarCategoria.addEventListener("click", function() {
       let categoriaInput = document.getElementById("categoria");
       let nuevaCategoria = {
@@ -188,12 +190,12 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 const categoriaSelect = document.getElementById("categoriaSelect");
 
 function cargarCategoria(categorias) {
-    categoriaSelect.innerHTML = "";
+    categoriaSelect.innerHTML = ""; // Limpiar el contenido del select antes de agregar nuevas opciones
 
     categorias.forEach((categoria) => {
         let nuevaCategoria = document.createElement("option");
-        nuevaCategoria.value = categoria.id;
-        nuevaCategoria.textContent = categoria.nombre;
+        nuevaCategoria.value = categoria.id; // Usar el ID como valor
+        nuevaCategoria.textContent = categoria.nombre; // Mostrar el nombre de la categoría
         categoriaSelect.appendChild(nuevaCategoria);
     });
 }
@@ -208,15 +210,16 @@ function cargarStorage() {
             { id: 2, nombre: 'cinevbvbcvbcvb' },
             { id: 3, nombre: 'cinevbvbcvbcvb' }
         ];
-        localStorage.setItem("categorias", JSON.stringify(categoriasDefault));
+        localStorage.setItem("categorias", JSON.stringify(categoriasDefault)); // Guardar como JSON string
         cargarCategoria(categoriasDefault);
     } else {
+        // Parsear las categorías a un array
         categorias = JSON.parse(categorias);
         cargarCategoria(categorias);
     }
 }
 
-
+// Llamar a cargarStorage al cargar la página
 document.addEventListener("DOMContentLoaded", cargarStorage);
 
 
@@ -231,12 +234,13 @@ function agregarOperacion(event) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // PUNTOS DECIMALES si o si
+  // PUNTOS DECIMALES
   if (!monto.includes('.')) {
     alert('Por favor, introduce el monto con un punto decimal.');
     return;
   }
 
+  // Convertir el monto a un número
   monto = parseFloat(monto);
 
   const nuevaOperacion = {
@@ -262,6 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const operacionesList = document.getElementById('operaciones-list');
 
   function crearElementosLista() {
+      // Limpiar la lista
       operacionesList.innerHTML = '';
 
       operaciones.forEach(function(operacion, index) {
@@ -277,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           const spanFecha = document.createElement('span');
           const fechaParts = operacion.fecha.split('-');
-          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año no funciona con fechac de hoy
+          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
           spanFecha.textContent = fechaFormateada;
 
           const spanMonto = document.createElement('span');
@@ -444,48 +449,39 @@ function guardarOperacionEditada(indiceOperacion) {
 // //-------------------------------------------------------------------//
 // Reportes
 
+//
 document.addEventListener("DOMContentLoaded", function() {
-    const categoriasData = [
-        { nombre: "Comida", ganancias: 1000, gastos: 500 },
-        { nombre: "Servicios", ganancias: 2000, gastos: 1000 },
-        { nombre: "Salidas", ganancias: 1500, gastos: 1200 },
-        { nombre: "Educación", ganancias: 3000, gastos: 2000 },
-        { nombre: "Transporte", ganancias: 500, gastos: 300 },
-        { nombre: "Trabajo", ganancias: 4000, gastos: 1500 }
-    ];
+  const categoriasData = [
+      { nombre: "Comida", ganancias: 1000, gastos: 500 },
+      { nombre: "Servicios", ganancias: 2000, gastos: 1000 },
+      { nombre: "Salidas", ganancias: 1500, gastos: 1200 },
+      { nombre: "Educación", ganancias: 3000, gastos: 2000 },
+      { nombre: "Transporte", ganancias: 500, gastos: 300 },
+      { nombre: "Trabajo", ganancias: 4000, gastos: 1500 }
+  ];
 
-    const mesesData = [
-        { nombre: "Enero", ganancias: 5000, gastos: 3000 },
-        { nombre: "Febrero", ganancias: 6000, gastos: 2000 },
-        { nombre: "Marzo", ganancias: 4000, gastos: 3500 },
-        { nombre: "Abril", ganancias: 7000, gastos: 5000 },
-        { nombre: "Mayo", ganancias: 3000, gastos: 1000 },
-        { nombre: "Junio", ganancias: 8000, gastos: 4000 },
-        { nombre: "Julio", ganancias: 5500, gastos: 2500 },
-        { nombre: "Agosto", ganancias: 6500, gastos: 3000 },
-        { nombre: "Septiembre", ganancias: 7500, gastos: 4500 },
-        { nombre: "Octubre", ganancias: 9000, gastos: 6000 },
-        { nombre: "Noviembre", ganancias: 10000, gastos: 7000 },
-        { nombre: "Diciembre", ganancias: 11000, gastos: 8000 }
-    ];
+  const mesesData = [
+      { nombre: "Enero", ganancias: 5000, gastos: 3000 },
+      { nombre: "Febrero", ganancias: 6000, gastos: 2000 },
+      { nombre: "Marzo", ganancias: 4000, gastos: 3500 },
+      { nombre: "Abril", ganancias: 7000, gastos: 5000 },
+      { nombre: "Mayo", ganancias: 3000, gastos: 1000 },
+      { nombre: "Junio", ganancias: 8000, gastos: 4000 },
+      { nombre: "Julio", ganancias: 5500, gastos: 2500 },
+      { nombre: "Agosto", ganancias: 6500, gastos: 3000 },
+      { nombre: "Septiembre", ganancias: 7500, gastos: 4500 },
+      { nombre: "Octubre", ganancias: 9000, gastos: 6000 },
+      { nombre: "Noviembre", ganancias: 10000, gastos: 7000 },
+      { nombre: "Diciembre", ganancias: 11000, gastos: 8000 }
+  ];
 
-    const categoriasList = document.getElementById("categorias-list");
-    categoriasData.forEach(categoria => {
-        const balance = categoria.ganancias - categoria.gastos;
-        const li = document.createElement("li");
-        li.innerHTML = `${categoria.nombre}: Ganancias: ${categoria.ganancias}, Gastos: ${categoria.gastos}, Balance: ${balance}`;
-        categoriasList.appendChild(li);
-    });
+  const categoriasList = document.getElementById("categorias-list");
+  const mesesList = document.getElementById("meses-list");
 
-    const mesesList = document.getElementById("meses-list");
-    mesesData.forEach(mes => {
-        const balance = mes.ganancias - mes.gastos;
-        const li = document.createElement("li");
-        li.innerHTML = `${mes.nombre}: Ganancias: ${mes.ganancias}, Gastos: ${mes.gastos}, Balance: ${balance}`;
-        mesesList.appendChild(li);
-    });
+  const operacionesCargadas = categoriasData.length > 0 && mesesData.length > 0;
 
-    const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
+
+   /*  const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
     const maxCategoriaGasto = categoriasData.reduce((max, cat) => cat.gastos > max.gastos ? cat : max);
     const maxCategoriaBalance = categoriasData.reduce((max, cat) => (cat.ganancias - cat.gastos) > (max.ganancias - max.gastos) ? cat : max);
 
@@ -497,21 +493,91 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("cat-mayor-balance").textContent = maxCategoriaBalance.nombre;
     document.getElementById("mes-mayor-ganancia").textContent = maxMesGanancia.nombre;
     document.getElementById("mes-mayor-gasto").textContent = maxMesGasto.nombre;
+}); */
+
+  if (operacionesCargadas) {
+      document.getElementById("operations-card").classList.remove("hidden");
+      document.getElementById("no-operations-card").classList.add("hidden");
+
+      categoriasData.forEach(categoria => {
+          const balance = categoria.ganancias - categoria.gastos;
+          const li = document.createElement("li");
+          li.innerHTML = `${categoria.nombre}: Ganancias: ${categoria.ganancias}, Gastos: ${categoria.gastos}, Balance: ${balance}`;
+          categoriasList.appendChild(li);
+      });
+
+      mesesData.forEach(mes => {
+          const balance = mes.ganancias - mes.gastos;
+          const li = document.createElement("li");
+          li.innerHTML = `${mes.nombre}: Ganancias: ${mes.ganancias}, Gastos: ${mes.gastos}, Balance: ${balance}`;
+          mesesList.appendChild(li);
+      });
+
+      const maxCategoriaGanancia = categoriasData.reduce((max, cat) => cat.ganancias > max.ganancias ? cat : max);
+      const maxCategoriaGasto = categoriasData.reduce((max, cat) => cat.gastos > max.gastos ? cat : max);
+      const maxCategoriaBalance = categoriasData.reduce((max, cat) => (cat.ganancias - cat.gastos) > (max.ganancias - max.gastos) ? cat : max);
+
+      const maxMesGanancia = mesesData.reduce((max, mes) => mes.ganancias > max.ganancias ? mes : max);
+      const maxMesGasto = mesesData.reduce((max, mes) => mes.gastos > max.gastos ? mes : max);
+
+      document.getElementById("cat-mayor-ganancia").textContent = maxCategoriaGanancia.nombre;
+      document.getElementById("cat-mayor-gasto").textContent = maxCategoriaGasto.nombre;
+      document.getElementById("cat-mayor-balance").textContent = maxCategoriaBalance.nombre;
+      document.getElementById("mes-mayor-ganancia").textContent = maxMesGanancia.nombre;
+      document.getElementById("mes-mayor-gasto").textContent = maxMesGasto.nombre;
+  } else {
+      document.getElementById("operations-card").classList.add("hidden");
+      document.getElementById("no-operations-card").classList.remove("hidden");
+  }
 });
-/* Filtros*/
 
-// Filtros del formulario
-const filtroTipo = document.getElementById('select-tipo');
-const filtroFecha = document.getElementById('desde');
-const filtroOrdenarPor = document.getElementById('ordenarPor');
+/* Filtro */
+document.addEventListener('DOMContentLoaded', function() {
+  const filtroTipo = document.getElementById('filtro-tipo');
+  const lista = document.getElementById('operaciones-list');
 
-// Otros elementos
+  function mostrarOperacionesFiltradas(operacionesFiltradas) {
+      lista.innerHTML = ''; // Limpia la lista antes de agregar nuevos elementos
 
-const formularioSeccionBalance = document.getElementById('balanceFiltros'); // Asegúrate de que el ID coincida
+      operacionesFiltradas.forEach(operacion => {
+          const li = document.createElement('li');
+          li.className = 'py-2 border-b'; // Clase opcional para estilo
 
-const totalGananciasBoxBalance = document.getElementById('totalGananciasBoxBalance');
-const totalGastosBoxBalance = document.getElementById('totalGastosBoxBalance');
-const totalGastosGanancias = document.getElementById('totalGastosGanancias');
+          li.innerHTML = `
+              <div class="flex justify-between items-center">
+                  <span class="font-medium">${operacion.descripcion}</span>
+                  <span class="text-gray-600">${operacion.categoria}</span>
+                  <span class="text-gray-600">${operacion.fecha}</span>
+                  <span class="font-bold ${operacion.tipo === 'ingreso' ? 'text-green-500' : 'text-red-500'}">${operacion.monto}</span>
+                  <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs">Editar</button>
+                  <button class="bg-red-500 text-white rounded px-2 py-1 text-xs">Eliminar</button>
+              </div>
+          `;
 
-const operacionesList = document.getElementById('operaciones-list');
-const operacionesContainer = document.getElementById('operaciones-container');
+          lista.appendChild(li);
+      });
+  }
+
+  function filtrarOperaciones() {
+      const tipoSeleccionado = filtroTipo.value;
+      const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+      let operacionesFiltradas = [];
+
+      if (tipoSeleccionado === 'todos') {
+          operacionesFiltradas = operaciones;
+      } else if (tipoSeleccionado === 'gasto') {
+          operacionesFiltradas = operaciones.filter(operacion => operacion.tipo === 'egreso');
+      } else if (tipoSeleccionado === 'ganancia') {
+          operacionesFiltradas = operaciones.filter(operacion => operacion.tipo === 'ingreso');
+      }
+
+      mostrarOperacionesFiltradas(operacionesFiltradas);
+  }
+
+  // Inicializar
+  filtrarOperaciones(); // Mostrar operaciones por defecto (todos)
+
+  // Agregar evento de cambio al filtro
+  filtroTipo.addEventListener('change', filtrarOperaciones);
+});

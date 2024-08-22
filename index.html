@@ -3,19 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AhorrADAs</title>
+    <title> AhorrADAs </title>
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-      .bg-custom-green {
-          background-color: #00D1B2 !important;
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body >
     <header class="navbar-section-reportes">
@@ -68,7 +65,7 @@
                 <div id="panel-filtros">
                 <div id="filtros-tipo">
                   <label for="categorias" class="font-bold">Tipo</label>
-                  <select name="categorias"  id="select-tipo" class="w-full my-3 p-2 border-2 border-solid border-grey-500 rounded-md">
+                  <select name="categorias" id="filtro-tipo" class="w-full my-3 p-2 border-2 border-solid border-grey-500 rounded-md">
                       <option value="todos">Todos</option>
                       <option value="gasto">Gasto</option>
                       <option value="ganancia">Ganancia</option>
@@ -104,7 +101,6 @@
               <h2 class="text-2xl text-slate-700 mb-5">Sin resultados</h2>
               <p class="text-base text-center text-slate-600" id="operations-list">Cambia los filtros o agrega operaciones</p>
               <div id="operaciones-container" class="text-base text-center text-slate-600"></div>
-              <div id="operaciones-container" class="text-base text-center text-slate-600"></div>
       </section>
 
 
@@ -113,8 +109,8 @@
         <section id="operaciones" class="w-full">
         <div class="lg:flex justify-between">
             <h2 class="text-2xl font-bold text-slate-700 mb-7">Operaciones</h2>
-            <button id="btn-operacion" class="button bg-custom-green text-white rounded text-xs p-2" onclick="window.location.href='operaciones.html'">+ Nueva Operación</button>
-          </div>
+            <button id="btn-operacion" class="bg-green text-white rounded text-xs p-2" onclick="window.location.href='operaciones.html'">+ Nueva Operación</button>
+        </div>
         <table class="w-full mt-5">
             <thead>
                 <tr>
@@ -126,8 +122,12 @@
                 </tr>
             </thead>
             </table>
+            <ul class="mt-5" id="operaciones-list"></ul>
+            <ul id="operaciones-listt"></ul>
 
-        </div>      </section>
+        </div>
+
+            </section>
   </main>
         <script src="./js/main.js"></script>
 </body>
