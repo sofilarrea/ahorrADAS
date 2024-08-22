@@ -544,13 +544,22 @@ document.addEventListener('DOMContentLoaded', function() {
           li.className = 'py-2 border-b'; // Clase opcional para estilo
 
           li.innerHTML = `
-              <div class="flex justify-between items-center">
+              <div class="flex justify-evenly  ">
                   <span class="font-medium">${operacion.descripcion}</span>
                   <span class="text-gray-600">${operacion.categoria}</span>
                   <span class="text-gray-600">${operacion.fecha}</span>
-                  <span class="font-bold ${operacion.tipo === 'ingreso' ? 'text-green-500' : 'text-red-500'}">${operacion.monto}</span>
-                  <button class="bg-blue-500 text-white rounded px-2 py-1 text-xs">Editar</button>
-                  <button class="bg-red-500 text-white rounded px-2 py-1 text-xs">Eliminar</button>
+                  <span class="font-light ${operacion.tipo === 'ingreso' ? 'text-green-400' : 'text-red-500'}">${operacion.monto}</span>
+           <div class="flex justify-end space-x-2">
+  <button class="text-green-500 hover:text-green-700 rounded px-2 py-1 text-xs">
+    Editar
+  </button>
+  <button class="text-red-500 hover:text-red-700 rounded px-2 py-1 text-xs">
+    Eliminar
+  </button>
+</div>
+
+
+
               </div>
           `;
 
