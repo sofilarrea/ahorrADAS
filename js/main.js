@@ -190,12 +190,12 @@ const filtrosTipos=document.getElementById("filtros-tipo")
 const categoriaSelect = document.getElementById("categoriaSelect");
 
 function cargarCategoria(categorias) {
-    categoriaSelect.innerHTML = ""; // Limpiar el contenido del select antes de agregar nuevas opciones
+    categoriaSelect.innerHTML = "";
 
     categorias.forEach((categoria) => {
         let nuevaCategoria = document.createElement("option");
-        nuevaCategoria.value = categoria.id; // Usar el ID como valor
-        nuevaCategoria.textContent = categoria.nombre; // Mostrar el nombre de la categoría
+        nuevaCategoria.value = categoria.id;
+        nuevaCategoria.textContent = categoria.nombre;
         categoriaSelect.appendChild(nuevaCategoria);
     });
 }
@@ -210,16 +210,15 @@ function cargarStorage() {
             { id: 2, nombre: 'cinevbvbcvbcvb' },
             { id: 3, nombre: 'cinevbvbcvbcvb' }
         ];
-        localStorage.setItem("categorias", JSON.stringify(categoriasDefault)); // Guardar como JSON string
+        localStorage.setItem("categorias", JSON.stringify(categoriasDefault));
         cargarCategoria(categoriasDefault);
     } else {
-        // Parsear las categorías a un array
         categorias = JSON.parse(categorias);
         cargarCategoria(categorias);
     }
 }
 
-// Llamar a cargarStorage al cargar la página
+
 document.addEventListener("DOMContentLoaded", cargarStorage);
 
 
@@ -234,13 +233,12 @@ function agregarOperacion(event) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // PUNTOS DECIMALES
+  // PUNTOS DECIMALES si o si
   if (!monto.includes('.')) {
     alert('Por favor, introduce el monto con un punto decimal.');
     return;
   }
 
-  // Convertir el monto a un número
   monto = parseFloat(monto);
 
   const nuevaOperacion = {
@@ -266,7 +264,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const operacionesList = document.getElementById('operaciones-list');
 
   function crearElementosLista() {
-      // Limpiar la lista
       operacionesList.innerHTML = '';
 
       operaciones.forEach(function(operacion, index) {
@@ -282,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           const spanFecha = document.createElement('span');
           const fechaParts = operacion.fecha.split('-');
-          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
+          const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año no funciona con fechac de hoy
           spanFecha.textContent = fechaFormateada;
 
           const spanMonto = document.createElement('span');
@@ -503,3 +500,20 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("mes-mayor-ganancia").textContent = maxMesGanancia.nombre;
     document.getElementById("mes-mayor-gasto").textContent = maxMesGasto.nombre;
 });
+/* Filtros*/
+
+// Filtros del formulario
+const filtroTipo = document.getElementById('select-tipo');
+const filtroFecha = document.getElementById('desde');
+const filtroOrdenarPor = document.getElementById('ordenarPor');
+
+// Otros elementos
+
+const formularioSeccionBalance = document.getElementById('balanceFiltros'); // Asegúrate de que el ID coincida
+
+const totalGananciasBoxBalance = document.getElementById('totalGananciasBoxBalance');
+const totalGastosBoxBalance = document.getElementById('totalGastosBoxBalance');
+const totalGastosGanancias = document.getElementById('totalGastosGanancias');
+
+const operacionesList = document.getElementById('operaciones-list');
+const operacionesContainer = document.getElementById('operaciones-container');
