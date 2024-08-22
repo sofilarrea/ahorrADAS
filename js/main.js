@@ -21,32 +21,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Función para cargar y mostrar las categorías en la li
   function cargarCategoriaLista() {
-    const categoriaLista = document.getElementById("categoriasLista");
-    categoriaLista.innerHTML = "";
+      const categoriaLista = document.getElementById("categoriasLista");
+      categoriaLista.innerHTML = "";
+      categorias.forEach(categoria => {
+          let categoriaListItem = document.createElement("li");
+          categoriaListItem.textContent = categoria.nombre;
+          categoriaListItem.classList.add('categorias');
 
-    for (let i = 0; i < categorias.length; i++) {
-        const categoria = categorias[i];
+          const botonEditar = document.createElement('button');
+          botonEditar.textContent = 'Editar';
+          botonEditar.classList.add('boton-editar');
+          botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
 
-        let categoriaListItem = document.createElement("li");
-        categoriaListItem.textContent = categoria.nombre;
-        categoriaListItem.classList.add('categorias');
+          const botonEliminar = document.createElement('button');
+          botonEliminar.textContent = 'Eliminar';
+          botonEliminar.classList.add('boton-eliminar');
+          botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
 
-        const botonEditar = document.createElement('button');
-        botonEditar.textContent = 'Editar';
-        botonEditar.classList.add('boton-editar');
-        botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
+          categoriaListItem.appendChild(botonEditar);
+          categoriaListItem.appendChild(botonEliminar);
 
-        const botonEliminar = document.createElement('button');
-        botonEliminar.textContent = 'Eliminar';
-        botonEliminar.classList.add('boton-eliminar');
-        botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
-
-        categoriaListItem.appendChild(botonEditar);
-        categoriaListItem.appendChild(botonEliminar);
-
-        categoriaLista.appendChild(categoriaListItem);
-    }
+          categoriaLista.appendChild(categoriaListItem);
+      });
   }
+
   agregarCategoria.addEventListener("click", function() {
       let categoriaInput = document.getElementById("categoria");
       let nuevaCategoria = {
