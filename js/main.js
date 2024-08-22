@@ -529,6 +529,7 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("operations-card").classList.add("hidden");
       document.getElementById("no-operations-card").classList.remove("hidden");
   }
+
 });
 
 /* Filtro */
@@ -589,4 +590,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Agregar evento de cambio al filtro
   filtroTipo.addEventListener('change', filtrarOperaciones);
+
 });
