@@ -529,5 +529,66 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("operations-card").classList.add("hidden");
       document.getElementById("no-operations-card").classList.remove("hidden");
   }
+
 });
 
+/* Filtro */
+document.addEventListener('DOMContentLoaded', function() {
+  const filtroTipo = document.getElementById('filtro-tipo');
+  const lista = document.getElementById('operaciones-list');
+
+  function mostrarOperacionesFiltradas(operacionesFiltradas) {
+      lista.innerHTML = ''; // Limpia la lista antes de agregar nuevos elementos
+
+      operacionesFiltradas.forEach(operacion => {
+          const li = document.createElement('li');
+          li.className = 'py-2 border-b'; // Clase opcional para estilo
+
+          li.innerHTML = `
+              <div class="flex justify-evenly  ">
+                  <span class="font-medium">${operacion.descripcion}</span>
+                  <span class="text-gray-600">${operacion.categoria}</span>
+                  <span class="text-gray-600">${operacion.fecha}</span>
+                  <span class="font-light ${operacion.tipo === 'ingreso' ? 'text-green-400' : 'text-red-500'}">${operacion.monto}</span>
+           <div class="flex justify-end space-x-2">
+  <button class="text-green-500 hover:text-green-700 rounded px-2 py-1 text-xs">
+    Editar
+  </button>
+  <button class="text-red-500 hover:text-red-700 rounded px-2 py-1 text-xs">
+    Eliminar
+  </button>
+</div>
+
+
+
+              </div>
+          `;
+
+          lista.appendChild(li);
+      });
+  }
+
+  function filtrarOperaciones() {
+      const tipoSeleccionado = filtroTipo.value;
+      const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+      let operacionesFiltradas = [];
+
+      if (tipoSeleccionado === 'todos') {
+          operacionesFiltradas = operaciones;
+      } else if (tipoSeleccionado === 'gasto') {
+          operacionesFiltradas = operaciones.filter(operacion => operacion.tipo === 'egreso');
+      } else if (tipoSeleccionado === 'ganancia') {
+          operacionesFiltradas = operaciones.filter(operacion => operacion.tipo === 'ingreso');
+      }
+
+      mostrarOperacionesFiltradas(operacionesFiltradas);
+  }
+
+  // Inicializar
+  filtrarOperaciones(); // Mostrar operaciones por defecto (todos)
+
+  // Agregar evento de cambio al filtro
+  filtroTipo.addEventListener('change', filtrarOperaciones);
+
+});

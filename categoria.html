@@ -12,6 +12,17 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="http://cdn.tailwind.css.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend:{
+            colors:{
+              greenBtn: '#48C774',
+            }
+          }
+        }
+      }
+    </script>
 </head>
 <body>
     <header class="navbar-section-reportes">
@@ -47,6 +58,7 @@
             </div>
             <div id="lista-gastos" class="mt-4">
             <ul id="categoriasLista" class="categoriasLista"></ul>
+              <!-- Se van a gregando los gastos -->
           </div>
       </div>
   </section>
@@ -54,3 +66,4 @@
        <script src="js/main.js"></script>
 </body>
 </html>
+ 
