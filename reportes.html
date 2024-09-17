@@ -26,25 +26,25 @@
     </script>
 </head>
 <body>
-    <header class="navbar-section-reportes">
-      <nav id="navbar" class="navbar">
-        <div class="navbar-logo">
-          <a href="index.html" class="flex">
-            <i class="fa-solid fa-wallet" style="color: #ffffff;"></i>
-            <h1>AhorrADAs</h1>
-          </a>
-        </div>
-            <div class="nav-icon-controles">
-                <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
-                <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
-            </div>
-            <ul class="navbar-links" id="navbar-links">
-              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
-              <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
-              <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
-          </ul>
-        </nav>
-    </header>
+  <header class="navbar-section-reportes">
+    <nav id="navbar" class="navbar">
+      <div class="navbar-logo">
+        <a href="index.html" class="flex">
+          <i class="fa-solid fa-wallet" style="color: #ffffff;"></i>
+          <h1>AhorrADAs</h1>
+        </a>
+      </div>
+          <div class="nav-icon-controles">
+              <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+              <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
+          </div>
+          <ul class="navbar-links" id="navbar-links">
+            <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
+            <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
+            <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
+        </ul>
+      </nav>
+  </header>
     <section id="" class="bg-slate-200 flex justify-center items-center min-h-screen ">
       <div class="bg-contain bg-white rounded-lg mt-12 ml-1 p-2 md:p-6 w-full md:w-9/12 lg:w-8/12 xl:w-7/12 xl:mx-auto flex flex-col">
           <h1 class="text-4xl font-bold text-center md:text-left">Reportes</h1>
@@ -54,11 +54,210 @@
                       <img src="/images/chart.svg" alt="imagen de señor mirando una graficos" class="w-full md:w-2/4 ">
                   </figure>
               </div>
-              <h4 class="text-xl font-semibold mt-6 text-center md:text-left">Operaciones insuficientes</h4>
-              <p class="mt-4 text-center md:text-left">Prueba agregando más operaciones</p>
+            </div>
+              <div class="text flex justify-center bg-black mt-5">
+                 <h4 class="text-xl font-semibold ">Operaciones insuficientes</h4>
+                 <p class="mt-5 text-center md:text-center ">Prueba agregando más operaciones</p>
+              </div>
+            
           </div>
-      </div>
+        
+     
   </section>
+
+  <main class="mx-auto my-12">
+    <section class="mx-auto max-w-6xl rounded-lg p-8 lg:p-12 xl:p-16 " id="reportes-section">
+    <section class="">
+      <h2 class="text-3xl text-neutral-600 font-semibold">Reportes</h2>
+      <div class="">
+        <h4 class="flex items-center p-1">Resumen</h4>
+      </div>
+      <!-- GANANCIA -->
+      <div class="flex items-center p-1">
+        <div>
+          Categoria con mayor Ganancia
+        </div>
+        <div>
+
+        </div>
+      </div>
+
+     <!-- GASTOS -->
+      <div class="flex items-center p-1">
+        <div>
+          Categoria con mayor Gasto
+        </div>
+        <div>
+
+        </div>
+      </div>
+  
+   
+      <!-- BALANCE -->
+       <section>
+         <div class="flex items-center p-1">
+           <div> Categoria con mayor Balance
+          </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+<!-- MES GANANCIA -->
+      <div class="flex items-center p-1">
+        <div>
+          Mes con mayor Ganancia
+        </div>
+        <div>
+
+        </div>
+      </div>
+  <!-- MES GASTOS -->
+      <div class="flex items-center p-1">
+        <div>
+          Mes con mayor Gasto
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </section>
+
+      <!-- TOTALES POR CATEGORIA -->
+      <section class="space-y-4 sm:gap-x-8">
+        <h4 class="text-lg font-semibold mt-12 pb-12">Totales Por Categoría</h4>
+        <div class="flex">
+          <div class="w-1/4 ">
+            <h4 class=" pb3 ">Categoria</h4>
+          <div class="flex flex-col items-start pt-2">
+                  <span class="hidden text-xs">Transporte</span>
+                  <span class="hidden text-xs" >Educación</span>
+                  <span  class="hidden text-xs">Trabajo</span>
+                  <span  class="hidden text-xs">Transporte</span>
+                  <span class="hidden text-xs" >Educación</span>
+                  <span class="hidden text-xs" >Trabajo</span>
+        </div>
+      </div>
+  
+
+            <div class="w-3/4 flex space-x-4">
+              <div class="flex-1">
+                <h4 class="text-right pb3">Ganancias</h4>
+                <div class="flex flex-col items-end justify-end p-3 text-green">
+                  <span>$0</span>
+                  <span>$0</span>
+                  <span>$100</span>
+                  <span>$0</span>
+                  <span>$0</span>
+                  <span>$100</span>
+
+                </div>
+              </div>
+           
+            
+            <div class="flex-1">
+            
+                <h4 class="text-right pb3">Gastos</h4>
+                <div class="flex flex-col items-end justify-end p-3 text-green">
+                  <span>$20</span>
+                  <span>$80</span>
+                  <span>$0</span>
+                  <span>$20</span>
+                  <span>$80</span>
+                  <span>$0</span>
+              </div>
+            </div>
+
+
+          
+
+              <div class="flex-1">
+              
+                  <h4 class="text-right pb3">Balance</h4>
+                  <div class="flex flex-col items-end justify-end p-3 text-green" >
+                   <span>$20</span>
+                   <span>$-80</span>
+                   <span>$100</span>
+                   <span>$-20</span>
+                   <span>$-80</span>
+                   <span>$100</span>
+                </div>
+   
+              </div>
+            </div>
+          </div>
+        </div>
+            
+        </section>
+
+              <!-- TOTALES POR MES -->
+       <section class="space-y-4 ">
+        <h4 class="text-lg mt-12 pb-12 font-semibold">Totales por Mes</h4>
+                <div class="flex">
+                  <div class="w-1/4">
+                    <h4 class="pb3">Mes</h4>
+                    <div class="flex flex-col pt-2 items-start font-semibold">
+                      <div class="w-1/4">
+                        <h4>09/2024</h4>
+                      </div>
+                      <div class="w-1/4">
+                        <h4>08/2024</h4>
+                      </div>
+                      <div class="w-1/4">
+                        <h4>09/2024</h4>
+                      </div>
+                      <div class="w-1/4">
+                        <h4>08/2024</h4>
+                      </div>
+                     
+                    </div>
+                  </div>
+
+                  <div class="w-3/4 flex space-x-4">
+                    <div class="flex-1">
+                      <h4 class="text-right pb3"> Ganancias</h4>
+                      <div class="flex flex-col items-end justify-end p-3 font-semibold ">
+                        <span class="">$0</span>
+                        <span>$100</span>
+                        <span>$0</span>
+                        <span>$100</span>
+
+                      </div>
+                    </div>
+
+                    <div class="flex-1 ">
+                    
+                        <h4 class="pb3 text-right">Gastos</h4>
+                        <div class="flex flex-col justify-end p-3 items-end font-semibold">
+                          <span>$20</span>
+                          <span>$80</span>
+                          <span>$20</span>
+                          <span>$80</span>
+
+                        </div>
+                      </div>
+
+                      <div class="flex-1 ">
+                      
+                          <h4 class="pb3 text-right">Balance</h4>
+                          <div class="flex flex-col justify-end items-end p-3 font-semibold">
+                            <span>$-20</span>
+                            <span>$-20</span>
+                            <span>$-20</span>
+                            <span>$-20</span>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    
+                    </section>
+                  </div>
+             </section>
+            </div>
+      
+  </main>
 
        <script src="js/main.js"></script>
 </body>

@@ -39,9 +39,9 @@
                 <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
             </div>
             <ul class="navbar-links" id="navbar-links">
-              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
+              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html" id="balance-Nav">Balance</a></li>
               <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
-              <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
+              <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html" id="reportes-nav">Reportes</a></li>
           </ul>
         </nav>
     </header>
@@ -49,15 +49,15 @@
       <section id="balanceFiltros" class="flex flex-col items-center lg:w-4/12">
         <div class="flex flex-col bg-white shadow-lg rounded-md w-10/12 mt-20 mb-5 p-5 lg:w-80" id="balanceFiltros">
           <h2 class="pt-3 pb-14 text-3xl font-bold text-slate-700">Balance</h2>
-          <div class="flex justify-between pb-6 text-slate-700">
+          <div class="flex justify-between pb-6 text-slate-700" id="td">
               <h4 class="text-xl">Ganancias</h4>
               <p class="ganancias text-green-500">+$0</p>
           </div>
-          <div class="flex justify-between pb-6 text-slate-700">
+          <div class="flex justify-between pb-6 text-slate-700" id="td">
               <h4 class="text-xl">Gastos</h4>
               <p class="gastos text-red-500">-$0</p>
           </div>
-          <div class="flex justify-between text-slate-700">
+          <div class="flex justify-between text-slate-700" id="td">
               <h3 class="text-2xl">Total</h3>
               <p class="total font-semibold">$0</p>
           </div>
@@ -123,7 +123,7 @@
             <h2 class="text-2xl font-bold text-slate-700 mb-7">Operaciones</h2>
             <button id="btn-operacion" class="bg-green text-white rounded text-xs p-2" onclick="window.location.href='operaciones.html'">+ Nueva Operación</button>
         </div>
-        <table class="w-full mt-5">
+        <table class="w-full mt-5 " id="op">
             <thead>
                 <tr>
                     <th class="px-4 py-2">Descripción</th>

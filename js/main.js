@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const agregarCategoria = document.getElementById("agregar");
+ 
   let categorias = [];
 
   // Función para cargar las categorias desde el localStrage al cargar la página
@@ -117,6 +118,12 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = 'categoria.html';
   });
 });
+
+
+ 
+
+
+
 
 
 /*Abrir formulario de operacion nueva*/
@@ -293,21 +300,21 @@ document.addEventListener('DOMContentLoaded', function() {
           });
 
           const btnEliminar = document.createElement('button');
-          btnEliminar.textContent = 'Eliminar';
+         btnEliminar.textContent = 'Eliminar';
           btnEliminar.classList.add('text-red-500', 'hover:text-red-700');
-          btnEliminar.addEventListener('click', (event) => {
+       btnEliminar.addEventListener('click', (event) => {
               const confirmacion = confirm('¿Estás seguro de que deseas eliminar?');
               if (confirmacion) {
-                  const li = event.target.closest('li');
-                  if (li) {
-                      const elementoId = li.dataset.id;
-                      eliminarOperacion(elementoId);
-                      li.remove();
-                  } else {
-                      console.error('No se pudo encontrar el elemento a eliminar');
-                  }
-              }
-          });
+              const li = event.target.closest('li');
+               if (li) {
+                    const elementoId = li.dataset.id;
+                     eliminarOperacion(elementoId);
+                    li.remove();
+                } else {
+                     console.error('No se pudo encontrar el elemento a eliminar');
+                 }
+            }
+        })
 
           divAcciones.appendChild(btnEditar);
           divAcciones.appendChild(btnEliminar);
@@ -464,79 +471,70 @@ const ordenarPor=document.getElementById("ordenarPor")
 
 
 
-// // filtrado por tipo
+// filtrado por tipo
 
-// selectTipo.onchange =() =>{
-//     const arrayFiltroTipo = aplicarFiltros();
-//     mostrarOperacionesEnHTML(arrayFiltroTipo);
-// }
+selectTipo.onchange =() =>{
+   const arrayFiltroTipo = aplicarFiltros();
+   mostrarOperacionesEnHTML(arrayFiltroTipo);
+ }
 
 
 // // por categoria
 
-//      filtroCategoria.onchange =() =>{
-//     const arrayFiltradoFinal = aplicarFiltros();
-//     mostrarOperacionesEnHTML(arrayFiltradoFinal);
-// }
+   filtroCategoria.onchange =() =>{
+    const arrayFiltradoFinal = aplicarFiltros();
+    mostrarOperacionesEnHTML(arrayFiltradoFinal);
+ }
 
 // // porfecha
 
-
-//     inputFecha.onchange = () => {
-//     const FiltradoFecha = nuevasFechas(aplicarFiltros());
-//     mostrarOperacionesEnHTML(ordenarFechas(FiltradoFecha));
-//   };
+  inputFecha.onchange = () => {
+    const FiltradoFecha = nuevasFechas(aplicarFiltros());
+    mostrarOperacionesEnHTML(ordenarFechas(FiltradoFecha));
+  };
   
-//     ordenarPor.onchange =() => {
-//     const arrayOrdenadoFinal = filtroPor();
-//     mostrarOperacionesEnHTML(arrayOrdenadoFinal)
-//   }
+     ordenarPor.onchange =() => {
+    const arrayOrdenadoFinal = filtroPor();
+     mostrarOperacionesEnHTML(arrayOrdenadoFinal)
+   
+   }
 
 
 
 //   const filtroPor =() =>{
-//     const orden = ordenarPor.value;
-//     let operaciones = aplicarFiltros();
-//     if (orden === "aZ"){
-//         operaciones = operaciones.sort ((a, b)=>{
-//             return a.Descripcion.localeCompare(b.Descripcion);
+     const orden = ordenarPor.value;
+    let operaciones = aplicarFiltros();
+    if (orden === "aZ"){
+        operaciones = operaciones.sort ((a, b)=>{
+           return a.Descripcion.localeCompare(b.Descripcion);
+cargarStorage()
+      })
 
-//         })
 
-
-//     }else if (orden === "zA") {
-//         operaciones = operaciones.sort ((a, b)=>{
-//             return b.Descripcion.localeCompare(a.Descripcion);
+    }else if (orden === "zA") {
+         operaciones = operaciones.sort ((a, b)=>{
+             return b.Descripcion.localeCompare(a.Descripcion);
     
-//         });
+       });
 
-// } else if (orden === "mayorMonto"){
-//     operaciones = operaciones.sort((a, b)=>{
-//         return b.monto - a.monto;
+} else if (orden === "mayorMonto"){
+   operaciones = operaciones.sort((a, b)=>{
+        return b.monto - a.monto;
 
-//     });
-// }else if (orden === "menorMonto"){
-//     operaciones = operaciones.sort((a, b)=>{
-//         return b.monto - a.monto;
+    });
+}else if (orden === "menorMonto"){
+    operaciones = operaciones.sort((a, b)=>{
+        return b.monto - a.monto;
 
-//     });
-// } else if  (orden === "masReciente") {
-//     operaciones = operaciones.sort((a, b) => {
-//       return new Date(b.fecha) - new Date(a.fecha);
-//     });
-//   } else if (orden === "menosReciente") {
-//     operaciones = operaciones.sort((a, b) => {
-//       return new Date(a.fecha) - new Date(b.fecha);
-//     });
-//   }
-//   return operaciones;
-// };
+    });
+
+
+} 
 
 
 
 
-
-
+// REPORTES
 
 
 
