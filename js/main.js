@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
   const agregarCategoria = document.getElementById("agregar");
   let categorias = [];
 
@@ -84,11 +83,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   cargarCategoriasDesdeLocalStorage();
-});
 
 
 /* EDITAR categoria */
-document.addEventListener('DOMContentLoaded', function() {
   const categoriaAEditar = JSON.parse(localStorage.getItem('categoriaAEditar'));
   const inputEditar = document.getElementById('input-editar');
   const editarBoton = document.getElementById('editar');
@@ -118,11 +115,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       window.location.href = 'categoria.html';
   });
-});
+
 
 
 /*Abrir formulario de operacion nueva*/
- document.addEventListener('DOMContentLoaded', function () {
   const formContainer = document.getElementById('form-container');
   const form = document.getElementById('transaction-form');
 
@@ -135,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
           form.reset();
       }, 300);
   });
-});
+
 
 
 
@@ -261,7 +257,6 @@ function agregarOperacion(event) {
   window.location.href = 'index.html';
 }
 
-document.addEventListener('DOMContentLoaded', function() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
   const operacionesList = document.getElementById('operaciones-list');
 
@@ -351,12 +346,11 @@ btnEditar.addEventListener('click', () => {
   }
 
   crearElementosLista();
-});
+
 
 
  /* -------------------------------------------------------------- */
 
- document.addEventListener('DOMContentLoaded', function() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
   const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
@@ -369,11 +363,10 @@ btnEditar.addEventListener('click', () => {
       seccionOperaciones.style.display = 'none';
       seccionSinOperaciones.style.display = 'block';
   }
-});
+
 /* -------------------------------------------- */
 /* E D I T A R  O P E R A C I O N E S */
 
-document.addEventListener('DOMContentLoaded', function() {
   const gananciasElements = document.querySelectorAll('.ganancias');
   const gastosElements = document.querySelectorAll('.gastos');
   const totalElement = document.querySelector('.total');
@@ -412,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
       console.warn('No hay operaciones en localStorage.');
   }
-});
+
 /* --------------------------------------------------------------- */
 function guardarOperacionEditada(indiceOperacion) {
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
