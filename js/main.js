@@ -1,13 +1,20 @@
+
+  /* CATEGORÍAS */
   const agregarCategoria = document.getElementById("agregar");
+  const categoriaInput = document.getElementById("categoria");
+  const categoriaLista = document.getElementById("categoriasLista");
+  const inputEditar = document.getElementById('input-editar');
+  const editarBoton = document.getElementById('editar');
+  const cancelarBoton = document.getElementById('cancelar');
+
   let categorias = [];
 
-  // Función para cargar las categorias desde el localStrage al cargar la página
+  // Función para cargar las categorías desde el localStorage al cargar la página
   function cargarCategoriasDesdeLocalStorage() {
       const categoriasGuardadas = JSON.parse(localStorage.getItem('categorias'));
       if (categoriasGuardadas && categoriasGuardadas.length > 0) {
           categorias = categoriasGuardadas;
       } else {
-
           categorias = [
               { id: 1, nombre: 'cinevbvb' },
               { id: 2, nombre: 'cinevbvbcvbcvb' },
@@ -18,49 +25,53 @@
       cargarCategoriaLista();
   }
 
-  // Función para cargar y mostrar las categorías en la li
+  // Función para cargar y mostrar las categorías en la lista
   function cargarCategoriaLista() {
-    const categoriaLista = document.getElementById("categoriasLista");
-    categoriaLista.innerHTML = "";
+    if (categoriaLista) {
+      categoriaLista.innerHTML = "";
+      for (let i = 0; i < categorias.length; i++) {
+          const categoria = categorias[i];
 
-    for (let i = 0; i < categorias.length; i++) {
-        const categoria = categorias[i];
+          let categoriaListItem = document.createElement("li");
+          categoriaListItem.textContent = categoria.nombre;
+          categoriaListItem.classList.add('categorias');
 
-        let categoriaListItem = document.createElement("li");
-        categoriaListItem.textContent = categoria.nombre;
-        categoriaListItem.classList.add('categorias');
+          const botonEditar = document.createElement('button');
+          botonEditar.textContent = 'Editar';
+          botonEditar.classList.add('boton-editar');
+          botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
 
-        const botonEditar = document.createElement('button');
-        botonEditar.textContent = 'Editar';
-        botonEditar.classList.add('boton-editar');
-        botonEditar.addEventListener('click', () => redirigirAEditar(categoria.id));
+          const botonEliminar = document.createElement('button');
+          botonEliminar.textContent = 'Eliminar';
+          botonEliminar.classList.add('boton-eliminar');
+          botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
 
-        const botonEliminar = document.createElement('button');
-        botonEliminar.textContent = 'Eliminar';
-        botonEliminar.classList.add('boton-eliminar');
-        botonEliminar.addEventListener('click', () => eliminarCategoria(categoria.id));
+          categoriaListItem.appendChild(botonEditar);
+          categoriaListItem.appendChild(botonEliminar);
 
-        categoriaListItem.appendChild(botonEditar);
-        categoriaListItem.appendChild(botonEliminar);
-
-        categoriaLista.appendChild(categoriaListItem);
+          categoriaLista.appendChild(categoriaListItem);
+      }
     }
   }
-  agregarCategoria.addEventListener("click", function() {
-      let categoriaInput = document.getElementById("categoria");
-      let nuevaCategoria = {
-          id: categorias.length + 1,
-          nombre: categoriaInput.value.trim()
-      };
 
-      if (nuevaCategoria.nombre) {
-          categorias.push(nuevaCategoria);
-          cargarCategoriaLista();
-          guardarCategoriasEnLocalStorage(categorias);
-          categoriaInput.value = "";
-      }
-  });
+  /* Agregar categorías desde el input */
+  if (agregarCategoria && categoriaInput) {
+    agregarCategoria.addEventListener("click", function() {
+        let nuevaCategoria = {
+            id: categorias.length + 1,
+            nombre: categoriaInput.value.trim()
+        };
 
+        if (nuevaCategoria.nombre) {
+            categorias.push(nuevaCategoria);
+            cargarCategoriaLista();
+            guardarCategoriasEnLocalStorage(categorias);
+            categoriaInput.value = "";
+        }
+    });
+  }
+
+  /* Eliminar categoría */
   function eliminarCategoria(id) {
       if (confirm("¿Estás seguro que deseas eliminar esta categoría?")) {
           categorias = categorias.filter(cat => cat.id !== id);
@@ -69,35 +80,25 @@
       }
   }
 
+  /* Redirigir a la página de edición */
   function redirigirAEditar(id) {
     const categoria = categorias.find(cat => cat.id === id);
-    console.log("Categoria seleccionada para editar:", categoria);
     localStorage.setItem('categoriaAEditar', JSON.stringify(categoria));
     window.location.href = 'editar.html';
-}
+  }
 
-
-
+  /* Función para guardar las categorías en localStorage */
   function guardarCategoriasEnLocalStorage(categorias) {
       localStorage.setItem('categorias', JSON.stringify(categorias));
   }
 
-  cargarCategoriasDesdeLocalStorage();
+  // Editar categoría
+  if (inputEditar && editarBoton && cancelarBoton) {
+    const categoriaAEditar = JSON.parse(localStorage.getItem('categoriaAEditar'));
 
+    categoriaAEditar && (inputEditar.value = categoriaAEditar.nombre);
 
-/* EDITAR categoria */
-  const categoriaAEditar = JSON.parse(localStorage.getItem('categoriaAEditar'));
-  const inputEditar = document.getElementById('input-editar');
-  const editarBoton = document.getElementById('editar');
-  const cancelarBoton = document.getElementById('cancelar');
-
-  if (categoriaAEditar) {
-      inputEditar.value = categoriaAEditar.nombre;
-  } else {
-      console.error('No se encontró una categoría para editar');
-  }
-
-  editarBoton.addEventListener('click', function() {
+    editarBoton.addEventListener('click', function() {
       const nuevoNombre = inputEditar.value.trim();
       if (nuevoNombre) {
           let categorias = JSON.parse(localStorage.getItem('categorias'));
@@ -106,19 +107,17 @@
           localStorage.setItem('categorias', JSON.stringify(categorias));
 
           window.location.href = 'categoria.html';
-      } else {
-          alert('Por favor ingresa un nombre válido para la categoría.');
       }
   });
 
-  cancelarBoton.addEventListener('click', function() {
 
       window.location.href = 'categoria.html';
   });
-
+});
 
 
 /*Abrir formulario de operacion nueva*/
+ document.addEventListener('DOMContentLoaded', function () {
   const formContainer = document.getElementById('form-container');
   const form = document.getElementById('transaction-form');
 
@@ -131,7 +130,7 @@
           form.reset();
       }, 300);
   });
-
+});
 
 
 
@@ -194,11 +193,18 @@ function cargarCategoria(categorias) {
         nuevaCategoria.textContent = categoria.nombre; // Mostrar el nombre de la categoría
         categoriaSelect.appendChild(nuevaCategoria);
     });
-}
+  }
 
-function cargarStorage() {
-    let categorias = localStorage.getItem("categorias");
+  cargarCategoriasDesdeLocalStorage();
 
+<<<<<<< HEAD
+/* Codigo para mostrar la tarjeta operaciones si hay operaciones..sin o mostrar otra*/
+
+  const operacionesParse = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
+  const seccionSinOperaciones = document.getElementById('operaciones');
+=======
     if (!categorias) {
         // Categorías por defecto con id y nombre
         const categoriasDefault = [
@@ -217,26 +223,40 @@ function cargarStorage() {
 
 // Llamar a cargarStorage al cargar la página
 document.addEventListener("DOMContentLoaded", cargarStorage);
+>>>>>>> dee3da6ad0a0f0456e57078130cbe378d586e7f1
 
+  if (operacionesParse.length > 0) {
+      seccionOperaciones.style.display = 'block';
+      seccionSinOperaciones.style.display = 'none';
+  } else {
+      seccionOperaciones.style.display = 'none';
+      seccionSinOperaciones.style.display = 'block';
+  }
+
+/* OPERACIONES */
 
 /* A G R E G A R  O P E R A C I O N E S */
 function agregarOperacion(event) {
   event.preventDefault();
-  console.log("hello from the function agregarOperaciones");
-
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
   let monto = document.getElementById('nuevaOperacion-monto').value;
   const tipo = document.getElementById('nuevaOperacion-tipo').value;
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
+<<<<<<< HEAD
+=======
   // PUNTOS DECIMALES
+>>>>>>> dee3da6ad0a0f0456e57078130cbe378d586e7f1
   if (!monto.includes('.')) {
     alert('Por favor, introduce el monto con un punto decimal.');
     return;
   }
+<<<<<<< HEAD
+=======
 
   // Convertir el monto a un número
+>>>>>>> dee3da6ad0a0f0456e57078130cbe378d586e7f1
   monto = parseFloat(monto);
 
   const nuevaOperacion = {
@@ -253,7 +273,7 @@ function agregarOperacion(event) {
 
   localStorage.setItem('operaciones', JSON.stringify(operaciones));
 
-  // Redirigir
+
   window.location.href = 'index.html';
 }
 
@@ -301,9 +321,9 @@ function agregarOperacion(event) {
 
               window.location.href = 'operacioneseditar.html';
           });
-btnEditar.addEventListener('click', () => {
-  const indiceOperacion = li.dataset.id;
-  window.location.href = `operacioneseditar.html?index=${indiceOperacion}`;
+        btnEditar.addEventListener('click', () => {
+          const indiceOperacion = li.dataset.id;
+          window.location.href = `operacioneseditar.html?index=${indiceOperacion}`;
 });
 
 
@@ -351,22 +371,8 @@ btnEditar.addEventListener('click', () => {
 
  /* -------------------------------------------------------------- */
 
-  const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
-  const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
-  const seccionSinOperaciones = document.getElementById('operaciones');
-
-  if (operaciones.length > 0) {
-      seccionOperaciones.style.display = 'block';
-      seccionSinOperaciones.style.display = 'none';
-  } else {
-      seccionOperaciones.style.display = 'none';
-      seccionSinOperaciones.style.display = 'block';
-  }
-
-/* -------------------------------------------- */
-/* E D I T A R  O P E R A C I O N E S */
-
+/* BALANCE */
   const gananciasElements = document.querySelectorAll('.ganancias');
   const gastosElements = document.querySelectorAll('.gastos');
   const totalElement = document.querySelector('.total');
@@ -406,41 +412,22 @@ btnEditar.addEventListener('click', () => {
       console.warn('No hay operaciones en localStorage.');
   }
 
-/* --------------------------------------------------------------- */
-function guardarOperacionEditada(indiceOperacion) {
-  const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
-  let monto = document.getElementById('nuevaOperacion-monto').value;
-  const tipo = document.getElementById('nuevaOperacion-tipo').value;
-  const categoria = document.getElementById('nuevaOperacion-categoria').value;
-  const fecha = document.getElementById('nuevaOperacion-fecha').value;
+/* Ocultar y Mostrat filtros */
+const ocultarFiltros = document.getElementById("ocultar-filtros");
+const mostrarFiltros = document.getElementById("mostrar-filtros");
+const panelFiltros = document.getElementById("panel-filtros");
 
-  if (!monto.includes('.')) {
-      alert('Por favor, introduce el monto con un punto decimal.');
-      return;
-  }
-
-  monto = parseFloat(monto);
-
-  const operacionEditada = {
-      descripcion,
-      monto,
-      tipo,
-      categoria,
-      fecha
-  };
-
-  let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-
-  operaciones[indiceOperacion] = operacionEditada;
-
-  localStorage.setItem('operaciones', JSON.stringify(operaciones));
-
-  // Redirig
-  window.location.href = 'index.html';
+function actualizarVisibilidad() {
+    if (panelFiltros.classList.contains("hidden")) {
+        mostrarFiltros.classList.remove("hidden");
+        ocultarFiltros.classList.add("hidden");
+    } else {
+        mostrarFiltros.classList.add("hidden");
+        ocultarFiltros.classList.remove("hidden");
+    }
 }
 
-// //-------------------------------------------------------------------//
-// Reportes
+actualizarVisibilidad();
 
 //
 document.addEventListener("DOMContentLoaded", function() {
