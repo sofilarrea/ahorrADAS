@@ -244,19 +244,13 @@ function agregarOperacion(event) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-<<<<<<< HEAD
-=======
   // PUNTOS DECIMALES
->>>>>>> dee3da6ad0a0f0456e57078130cbe378d586e7f1
   if (!monto.includes('.')) {
     alert('Por favor, introduce el monto con un punto decimal.');
     return;
   }
-<<<<<<< HEAD
-=======
 
   // Convertir el monto a un número
->>>>>>> dee3da6ad0a0f0456e57078130cbe378d586e7f1
   monto = parseFloat(monto);
 
   const nuevaOperacion = {
