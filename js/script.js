@@ -137,6 +137,7 @@ function cargarCategoriasSelect() {
 }
 
 // Función para agregar una nueva operación
+// Función para agregar una nueva operación
 function agregarOperacion(event) {
   event.preventDefault();
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
@@ -163,6 +164,21 @@ function agregarOperacion(event) {
   };
 
   let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  // Verificar duplicados antes de añadir
+  const esDuplicado = operaciones.some(operacion =>
+      operacion.descripcion === nuevaOperacion.descripcion &&
+      operacion.monto === nuevaOperacion.monto &&
+      operacion.tipo === nuevaOperacion.tipo &&
+      operacion.categoria === nuevaOperacion.categoria &&
+      operacion.fecha === nuevaOperacion.fecha
+  );
+
+  if (esDuplicado) {
+      // Puedes eliminar o comentar la línea de alerta para evitar mostrar el mensaje
+      // alert('La operación ya existe.');
+      return;
+  }
 
   operaciones.push(nuevaOperacion);
 
@@ -386,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   }
 
-  window.editarOperacion = function(index) {
+  window.eliminarOperacion = function(index) {
       window.location.href = `operacioneseditar.html?index=${index}`;
   }
 
@@ -460,3 +476,8 @@ function mostrarTarjetaDeOperaciones(operaciones) {
       sinResultados.style.display = 'block';
   }
 }
+const cancelarButton = document.getElementById('cancelar');
+
+cancelarButton.addEventListener('click', function() {
+    window.location.href = 'index.html';
+});
