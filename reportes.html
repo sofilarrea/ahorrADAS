@@ -1,29 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> AhorrADAs </title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
-    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script src="http://cdn.tailwind.css.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend:{
-            colors:{
-              greenBtn: '#48C774',
-            }
-          }
-        }
-      }
-    </script>
 </head>
 <body>
     <header class="navbar-section-reportes">
@@ -34,62 +18,56 @@
             <h1>AhorrADAs</h1>
           </a>
         </div>
-            <div class="nav-icon-controles">
-                <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
-                <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
-            </div>
-            <ul class="navbar-links" id="navbar-links">
-              <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
-              <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
-              <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
-          </ul>
-        </nav>
-    </header>
-    <section id="no-operations-card" class="bg-slate-200 flex justify-center items-center min-h-screen">
-      <div class="bg-contain bg-white rounded-lg mt-12 ml-1 p-2 md:p-6 w-full md:w-9/12 lg:w-8/12 xl:w-7/12 xl:mx-auto flex flex-col">
-          <h1 class="text-4xl font-bold text-center md:text-left">Reportes</h1>
-          <div class="flex flex-col items-center md:items-start">
-              <div class="xl:flex justify-center items-center">
-                  <figure class="flex justify-center md:justify-start mt-10">
-                      <img src="/images/chart.svg" alt="imagen de señor mirando una graficos" class="w-full md:w-4/5">
-                  </figure>
-              </div>
-              <h4 class="text-xl font-semibold mt-6 text-center md:text-left">Operaciones insuficientes</h4>
-              <p class="mt-4 text-center md:text-left">Prueba agregando más operaciones</p>
-          </div>
-      </div>
-  </section>
-        
-    <div id="operations-card" class="bg-gray-100 flex items-center justify-center min-h-screen">
-      <div id="reportes-container" class="bg-white p-12 rounded-lg shadow-lg w-full max-w-md transition-transform transform scale-100">
-          <h3 class="text-4xl font-bold mb-8">Reportes</h3>
+        <div class="nav-icon-controles">
+            <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+            <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
+        </div>
+        <ul class="navbar-links" id="navbar-links">
+          <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
+          <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoría</a></li>
+          <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
+      </ul>
+    </nav>
+</header>
 
-          <div class="mb-8">
-              <h4 class="text-3xl font-bold mb-4">Resumen</h4>
-              <p>Categoría con mayor ganancia: <span id="cat-mayor-ganancia"></span></p>
-              <p>Categoría con mayor gasto: <span id="cat-mayor-gasto"></span></p>
-              <p>Categoría con mayor balance: <span id="cat-mayor-balance"></span></p>
-              <p>Mes con mayor ganancia: <span id="mes-mayor-ganancia"></span></p>
-              <p>Mes con mayor gasto: <span id="mes-mayor-gasto"></span></p>
-          </div>
-
-          <div class="mb-8">
-              <h4 class="text-3xl font-bold mb-4">Totales por Categorías</h4>
-              <ul id="categorias-list" class="list-disc pl-5">
-              </ul>
-          </div>
-
-          <div class="mb-8">
-              <h4 class="text-3xl font-bold mb-4">Totales por Mes</h4>
-              <ul id="meses-list" class="list-disc pl-5">
-              </ul>
-          </div>
-      </div>
+<section id="no-operations-card" class="bg-slate-200 flex justify-center items-center min-h-screen">
+  <div class="bg-white rounded-lg p-4 md:p-8 lg:p-12 w-full md:w-9/12 lg:w-8/12 xl:w-7/12 flex flex-col items-center md:items-start">
+    <h1 class="text-3xl md:text-4xl font-bold text-center md:text-left">Reportes</h1>
+    <div class="flex flex-col items-center md:items-start mt-10">
+      <figure class="flex justify-center md:justify-start mb-6">
+        <img src="/images/chart.svg" alt="imagen de gráfico" class="w-full md:w-4/5">
+      </figure>
+      <h4 class="text-xl font-semibold text-center md:text-left">Operaciones insuficientes</h4>
+      <p class="mt-4 text-center md:text-left">Prueba agregando más operaciones</p>
+    </div>
   </div>
+</section>
 
-  
+<div id="operations-card" class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div id="reportes-container" class="bg-white p-8 md:p-12 rounded-lg shadow-lg w-full max-w-4xl">
+    <h3 class="text-3xl md:text-4xl font-bold mb-8">Reportes</h3>
 
-       <script src="js/main.js"></script>
+    <div class="mb-8">
+      <h4 class="text-2xl md:text-3xl font-bold mb-4">Resumen</h4>
+      <p>Categoría con mayor ganancia: <span id="cat-mayor-ganancia" class="font-semibold"></span></p>
+      <p>Categoría con mayor gasto: <span id="cat-mayor-gasto" class="font-semibold"></span></p>
+      <p>Categoría con mayor balance: <span id="cat-mayor-balance" class="font-semibold"></span></p>
+      <p>Mes con mayor ganancia: <span id="mes-mayor-ganancia" class="font-semibold"></span></p>
+      <p>Mes con mayor gasto: <span id="mes-mayor-gasto" class="font-semibold"></span></p>
+    </div>
+
+    <div class="mb-8">
+      <h4 class="text-2xl md:text-3xl font-bold mb-4">Totales por Categorías</h4>
+      <ul id="categorias-list" class="list-disc pl-5"></ul>
+    </div>
+
+    <div class="mb-8">
+      <h4 class="text-2xl md:text-3xl font-bold mb-4">Totales por Mes</h4>
+      <ul id="meses-list" class="list-disc pl-5"></ul>
+    </div>
+  </div>
+</div>
+
+<script src="js/reportes.js"></script>
 </body>
 </html>
-
