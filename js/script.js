@@ -251,10 +251,10 @@ function crearElementosLista() {
       const spanMonto = document.createElement('span');
       if (operacion.tipo.trim() === 'ingreso') {
         spanMonto.textContent = `+${operacion.monto}`;
-        spanMonto.style.color = 'green'; // Color verde para ingresos
+        spanMonto.style.color = 'red';
     } else if (operacion.tipo.trim() === 'egreso') {
         spanMonto.textContent = `-${operacion.monto}`;
-        spanMonto.style.color = 'red'; // Color rojo para egresos
+        spanMonto.style.color = 'red';
     }
 
 
@@ -493,65 +493,134 @@ cancelarButton.addEventListener('click', function() {
     window.location.href = 'index.html';
 });
 
+operaciones.forEach((operacion, index) => {
+  let signo = operacion.tipo === 'ganancia' ? '+' : '-';
+  let colorClass = operacion.tipo === 'ganancia' ? 'positive' : 'negative';
 
-
-
-
-/* Filtros */
-// Función para filtrar operaciones y actualizar la vista
-function filtrarOperaciones(tipo) {
-  // Obtener operaciones del localStorage
-  let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-
-  // Filtrar operaciones
-  let operacionesFiltradas = operaciones.filter(operacion => operacion.tipo === tipo);
-
-  // Mostrar operaciones filtradas en la lista
-  mostrarOperaciones(operacionesFiltradas);
-}
-
-// Función para mostrar operaciones en la lista
-function mostrarOperaciones(operaciones) {
-  const operacionesList = document.getElementById('operaciones-list');
-  const tableBody = document.querySelector('table tbody');
-
-  // Limpiar las listas
-  operacionesList.innerHTML = '';
-  if (tableBody) tableBody.innerHTML = '';
-
-  operaciones.forEach((operacion, index) => {
-    // Mostrar en la lista
-    const li = document.createElement('li');
-    li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
-    li.dataset.id = index;
-
-    li.innerHTML = `
-      <span>${operacion.descripcion}</span>
-      <span>${operacion.categoria}</span>
-      <span>${operacion.fecha}</span>
-      <span>${(operacion.tipo && operacion.tipo.trim() === 'ganancia') ? `+${operacion.monto}` : `-${operacion.monto}`}</span>
-      <div>
-        <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
+  let li = document.createElement('li');
+  li.innerHTML = `
+    <span>${operacion.descripcion}</span>
+    <span>${operacion.categoria}</span>
+    <span>${formatearFecha(operacion.fecha)}</span>
+    <span class="amount ${colorClass}">
+        ${signo}${operacion.monto.toFixed(2)}
+    </span>
+    <div>
+        <button class="text-blue-500 hover:text-blue-700 mr-2" onclick="editarOperacion(${index})">Editar</button>
         <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
-      </div>
-    `;
+    </div>
+  `;
 
-    operacionesList.appendChild(li);
+  document.getElementById('operaciones-list').appendChild(li);
+});
 
-    // Mostrar en la tabla
-    if (tableBody) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="px-4 py-2">${operacion.descripcion}</td>
-        <td class="px-4 py-2">${operacion.categoria}</td>
-        <td class="px-4 py-2">${operacion.fecha}</td>
-        <td class="px-4 py-2">${operacion.tipo.trim() === 'ganancia' ? `+${operacion.monto}` : `-${operacion.monto}`}</td>
-        <td class="px-4 py-2">
-          <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
-          <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
-        </td>
-      `;
-      tableBody.appendChild(tr);
-    }
-  });
-}
+
+
+
+
+
+
+console.log('Script cargado correctamente');
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Función para calcular los reportes
+  function generarReportes() {
+      const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+      const categorias = {};
+      const meses = {};
+
+      operaciones.forEach(operacion => {
+          const monto = parseFloat(operacion.monto);
+          const categoria = operacion.categoria;
+          const fecha = new Date(operacion.fecha);
+          const mes = `${fecha.getFullYear()}-${fecha.getMonth() + 1}`;
+
+          // Acumulando ganancias y gastos por categoría
+          if (!categorias[categoria]) {
+              categorias[categoria] = { ganancia: 0, gasto: 0 };
+          }
+          if (operacion.tipo === 'ingreso') {
+              categorias[categoria].ganancia += monto;
+          } else if (operacion.tipo === 'egreso') {
+              categorias[categoria].gasto += monto;
+          }
+
+          // Acumulando ganancias y gastos por mes
+          if (!meses[mes]) {
+              meses[mes] = { ganancia: 0, gasto: 0 };
+          }
+          if (operacion.tipo === 'ingreso') {
+              meses[mes].ganancia += monto;
+          } else if (operacion.tipo === 'egreso') {
+              meses[mes].gasto += monto;
+          }
+      });
+
+      // Encontrar la categoría con mayor ganancia
+      let categoriaMayorGanancia = { nombre: '', cantidad: 0 };
+      for (const [categoria, valores] of Object.entries(categorias)) {
+          if (valores.ganancia > categoriaMayorGanancia.cantidad) {
+              categoriaMayorGanancia = { nombre: categoria, cantidad: valores.ganancia };
+          }
+      }
+
+      // Encontrar la categoría con mayor gasto
+      let categoriaMayorGasto = { nombre: '', cantidad: 0 };
+      for (const [categoria, valores] of Object.entries(categorias)) {
+          if (valores.gasto > categoriaMayorGasto.cantidad) {
+              categoriaMayorGasto = { nombre: categoria, cantidad: valores.gasto };
+          }
+      }
+
+      // Encontrar la categoría con el mayor balance
+      let categoriaMayorBalance = { nombre: '', cantidad: 0 };
+      for (const [categoria, valores] of Object.entries(categorias)) {
+          const balance = valores.ganancia - valores.gasto;
+          if (balance > categoriaMayorBalance.cantidad) {
+              categoriaMayorBalance = { nombre: categoria, cantidad: balance };
+          }
+      }
+
+      // Encontrar el mes con mayor ganancia
+      let mesMayorGanancia = { mes: '', cantidad: 0 };
+      for (const [mes, valores] of Object.entries(meses)) {
+          if (valores.ganancia > mesMayorGanancia.cantidad) {
+              mesMayorGanancia = { mes, cantidad: valores.ganancia };
+          }
+      }
+
+      // Encontrar el mes con mayor gasto
+      let mesMayorGasto = { mes: '', cantidad: 0 };
+      for (const [mes, valores] of Object.entries(meses)) {
+          if (valores.gasto > mesMayorGasto.cantidad) {
+              mesMayorGasto = { mes, cantidad: valores.gasto };
+          }
+      }
+
+      // Mostrar los reportes en el DOM
+      document.getElementById('cat-mayor-ganancia').textContent = `${categoriaMayorGanancia.nombre} (${categoriaMayorGanancia.cantidad.toFixed(2)})`;
+      document.getElementById('cat-mayor-gasto').textContent = `${categoriaMayorGasto.nombre} (${categoriaMayorGasto.cantidad.toFixed(2)})`;
+      document.getElementById('cat-mayor-balance').textContent = `${categoriaMayorBalance.nombre} (${categoriaMayorBalance.cantidad.toFixed(2)})`;
+      document.getElementById('mes-mayor-ganancia').textContent = `${mesMayorGanancia.mes} (${mesMayorGanancia.cantidad.toFixed(2)})`;
+      document.getElementById('mes-mayor-gasto').textContent = `${mesMayorGasto.mes} (${mesMayorGasto.cantidad.toFixed(2)})`;
+
+      // Mostrar totales por categoría
+      const categoriasList = document.getElementById('categorias-list');
+      categoriasList.innerHTML = '';
+      for (const [categoria, valores] of Object.entries(categorias)) {
+          const balance = valores.ganancia - valores.gasto;
+          categoriasList.innerHTML += `<li>${categoria}: Ganancia: ${valores.ganancia.toFixed(2)}, Gasto: ${valores.gasto.toFixed(2)}, Balance: ${balance.toFixed(2)}</li>`;
+      }
+
+      // Mostrar totales por mes
+      const mesesList = document.getElementById('meses-list');
+      mesesList.innerHTML = '';
+      for (const [mes, valores] of Object.entries(meses)) {
+          mesesList.innerHTML += `<li>${mes}: Ganancia: ${valores.ganancia.toFixed(2)}, Gasto: ${valores.gasto.toFixed(2)}</li>`;
+      }
+  }
+
+  // Ejecutar la función para generar reportes
+  generarReportes();
+});
