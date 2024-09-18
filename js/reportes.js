@@ -89,3 +89,26 @@ document.addEventListener('DOMContentLoaded', function () {
   // Llamar a la función para generar el reporte
   generarReportes();
 });
+
+function actualizarVista() {
+  // Ejemplo de función para obtener operaciones, reemplázala con tu lógica real
+  function obtenerOperaciones() {
+    // Reemplaza esto con tu lógica para obtener operaciones (p.ej., desde localStorage o una API)
+    return JSON.parse(localStorage.getItem('operaciones')) || [];
+  }
+
+  const operaciones = obtenerOperaciones();
+  const noOperationsCard = document.getElementById('no-operations-card');
+  const operationsCard = document.getElementById('operations-card');
+
+  if (operaciones.length === 0) {
+    noOperationsCard.classList.remove('hidden');
+    operationsCard.classList.add('hidden');
+  } else {
+    noOperationsCard.classList.add('hidden');
+    operationsCard.classList.remove('hidden');
+  }
+}
+
+// Llamada a la función principal para actualizar la vista
+document.addEventListener('DOMContentLoaded', actualizarVista);
