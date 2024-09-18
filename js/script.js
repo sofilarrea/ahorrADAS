@@ -124,10 +124,8 @@ function cargarCategoriasSelect() {
   const categorias = JSON.parse(localStorage.getItem('categorias')) || [];
   const categoriaSelect = document.getElementById('nuevaOperacion-categoria');
 
-  // Limpiar el select antes de llenarlo
   categoriaSelect.innerHTML = '';
 
-  // Crear las opciones para el select
   categorias.forEach(categoria => {
       const option = document.createElement('option');
       option.value = categoria.nombre;
@@ -137,7 +135,6 @@ function cargarCategoriasSelect() {
 }
 
 // Función para agregar una nueva operación
-// Función para agregar una nueva operación
 function agregarOperacion(event) {
   event.preventDefault();
   const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
@@ -146,13 +143,11 @@ function agregarOperacion(event) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // Validar el monto
   if (!monto.includes('.')) {
       alert('Por favor, introduce el monto con un punto decimal.');
       return;
   }
 
-  // Convertir el monto a un número
   monto = parseFloat(monto);
 
   const nuevaOperacion = {
@@ -165,7 +160,6 @@ function agregarOperacion(event) {
 
   let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
-  // Verificar duplicados antes de añadir
   const esDuplicado = operaciones.some(operacion =>
       operacion.descripcion === nuevaOperacion.descripcion &&
       operacion.monto === nuevaOperacion.monto &&
@@ -175,8 +169,7 @@ function agregarOperacion(event) {
   );
 
   if (esDuplicado) {
-      // Puedes eliminar o comentar la línea de alerta para evitar mostrar el mensaje
-      // alert('La operación ya existe.');
+
       return;
   }
 
@@ -257,12 +250,13 @@ function crearElementosLista() {
 
       const spanMonto = document.createElement('span');
       if (operacion.tipo.trim() === 'ingreso') {
-          spanMonto.textContent = `+${operacion.monto}`;
-          spanMonto.style.color = 'green'; // Color verde para ingresos
-      } else if (operacion.tipo.trim() === 'egreso') {
-          spanMonto.textContent = `-${operacion.monto}`;
-          spanMonto.style.color = 'red'; // Color rojo para egresos
-      }
+        spanMonto.textContent = `+${operacion.monto}`;
+        spanMonto.style.color = 'green'; // Color verde para ingresos
+    } else if (operacion.tipo.trim() === 'egreso') {
+        spanMonto.textContent = `-${operacion.monto}`;
+        spanMonto.style.color = 'red'; // Color rojo para egresos
+    }
+
 
       // Botones
       const divAcciones = document.createElement('div');
@@ -418,6 +412,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
   cargarStorage();  // Llamada inicial para cargar y mostrar las operaciones
 });
+// Obtiene las operaciones del localStorage, o un arreglo vacío si no hay operaciones guardadas.
+const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+// Obtiene las referencias a las secciones del DOM
+const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
+const seccionSinOperaciones = document.getElementById('operaciones');
+
+// Verifica si hay operaciones
+if (operaciones.length > 0) {
+    // Si hay operaciones, muestra la sección de operaciones y oculta la sección sin operaciones
+    seccionOperaciones.style.display = 'block';
+    seccionSinOperaciones.style.display = 'none';
+} else {
+    // Si no hay operaciones, muestra la sección sin operaciones y oculta la sección de operaciones
+    seccionOperaciones.style.display = 'none';
+    seccionSinOperaciones.style.display = 'block';
+}
 
 
 /* BALANCE */
@@ -481,3 +492,66 @@ const cancelarButton = document.getElementById('cancelar');
 cancelarButton.addEventListener('click', function() {
     window.location.href = 'index.html';
 });
+
+
+
+
+
+/* Filtros */
+// Función para filtrar operaciones y actualizar la vista
+function filtrarOperaciones(tipo) {
+  // Obtener operaciones del localStorage
+  let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+  // Filtrar operaciones
+  let operacionesFiltradas = operaciones.filter(operacion => operacion.tipo === tipo);
+
+  // Mostrar operaciones filtradas en la lista
+  mostrarOperaciones(operacionesFiltradas);
+}
+
+// Función para mostrar operaciones en la lista
+function mostrarOperaciones(operaciones) {
+  const operacionesList = document.getElementById('operaciones-list');
+  const tableBody = document.querySelector('table tbody');
+
+  // Limpiar las listas
+  operacionesList.innerHTML = '';
+  if (tableBody) tableBody.innerHTML = '';
+
+  operaciones.forEach((operacion, index) => {
+    // Mostrar en la lista
+    const li = document.createElement('li');
+    li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
+    li.dataset.id = index;
+
+    li.innerHTML = `
+      <span>${operacion.descripcion}</span>
+      <span>${operacion.categoria}</span>
+      <span>${operacion.fecha}</span>
+      <span>${(operacion.tipo && operacion.tipo.trim() === 'ganancia') ? `+${operacion.monto}` : `-${operacion.monto}`}</span>
+      <div>
+        <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
+        <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
+      </div>
+    `;
+
+    operacionesList.appendChild(li);
+
+    // Mostrar en la tabla
+    if (tableBody) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="px-4 py-2">${operacion.descripcion}</td>
+        <td class="px-4 py-2">${operacion.categoria}</td>
+        <td class="px-4 py-2">${operacion.fecha}</td>
+        <td class="px-4 py-2">${operacion.tipo.trim() === 'ganancia' ? `+${operacion.monto}` : `-${operacion.monto}`}</td>
+        <td class="px-4 py-2">
+          <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
+          <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    }
+  });
+}
