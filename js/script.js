@@ -445,3 +445,18 @@ if (operacionesString) {
 }
 console.log(localStorage.getItem('operaciones'));
 console.log(localStorage.getItem('categorias'));
+// Función para mostrar la tarjeta adecuada
+function mostrarTarjetaDeOperaciones(operaciones) {
+  const sinResultados = document.getElementById('operaciones');
+  const tablaOperaciones = document.getElementById('operaciones-con-operaciones');
+
+  if (operaciones.length > 0) {
+      // Mostrar la tarjeta de operaciones y ocultar la de "sin resultados"
+      tablaOperaciones.style.display = 'block';
+      sinResultados.style.display = 'none';
+  } else {
+      // Mostrar la tarjeta de "sin resultados" y ocultar la de operaciones
+      tablaOperaciones.style.display = 'none';
+      sinResultados.style.display = 'block';
+  }
+}
