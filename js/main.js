@@ -197,14 +197,6 @@ function cargarCategoria(categorias) {
 
   cargarCategoriasDesdeLocalStorage();
 
-<<<<<<< HEAD
-/* Codigo para mostrar la tarjeta operaciones si hay operaciones..sin o mostrar otra*/
-
-  const operacionesParse = JSON.parse(localStorage.getItem('operaciones')) || [];
-
-  const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
-  const seccionSinOperaciones = document.getElementById('operaciones');
-=======
     if (!categorias) {
         // Categorías por defecto con id y nombre
         const categoriasDefault = [
@@ -223,7 +215,6 @@ function cargarCategoria(categorias) {
 
 // Llamar a cargarStorage al cargar la página
 document.addEventListener("DOMContentLoaded", cargarStorage);
->>>>>>> dee3da6ad0a0f0456e57078130cbe378d586e7f1
 
   if (operacionesParse.length > 0) {
       seccionOperaciones.style.display = 'block';

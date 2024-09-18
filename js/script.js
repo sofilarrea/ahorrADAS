@@ -118,6 +118,7 @@ if (inputEditar && editarBoton && cancelarBoton) {
 
 
 /* Operaciones */
+
 // Función para cargar las categorías en el select
 function cargarCategoriasSelect() {
   const categorias = JSON.parse(localStorage.getItem('categorias')) || [];
@@ -323,7 +324,83 @@ document.addEventListener('DOMContentLoaded', function() {
       crearElementosLista();
   }
 });
+document.addEventListener("DOMContentLoaded", function() {
+  const seccionOperaciones = document.getElementById('operaciones-container');
+  const seccionSinOperaciones = document.getElementById('operations-list');
 
+  function cargarStorage() {
+      const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+      if (operaciones.length > 0) {
+          seccionOperaciones.style.display = 'block';
+          seccionSinOperaciones.style.display = 'none';
+          mostrarOperaciones(operaciones);
+      } else {
+          seccionOperaciones.style.display = 'none';
+          seccionSinOperaciones.style.display = 'block';
+      }
+  }
+
+  function mostrarOperaciones(operaciones) {
+      const operacionesList = document.getElementById('operaciones-list');
+      const tableBody = document.querySelector('table tbody');
+
+      // Limpiar las listas
+      operacionesList.innerHTML = '';
+      if (tableBody) tableBody.innerHTML = '';
+
+      operaciones.forEach((operacion, index) => {
+          // Mostrar en la lista
+          const li = document.createElement('li');
+          li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
+          li.dataset.id = index;
+
+          li.innerHTML = `
+              <span>${operacion.descripcion}</span>
+              <span>${operacion.categoria}</span>
+              <span>${operacion.fecha}</span>
+              <span>${operacion.tipo.trim() === 'ganancia' ? `+${operacion.monto}` : `-${operacion.monto}`}</span>
+              <div>
+                  <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
+                  <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
+              </div>
+          `;
+          operacionesList.appendChild(li);
+
+          // Mostrar en la tabla
+          if (tableBody) {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                  <td class="px-4 py-2">${operacion.descripcion}</td>
+                  <td class="px-4 py-2">${operacion.categoria}</td>
+                  <td class="px-4 py-2">${operacion.fecha}</td>
+                  <td class="px-4 py-2">${operacion.tipo.trim() === 'ganancia' ? `+${operacion.monto}` : `-${operacion.monto}`}</td>
+                  <td class="px-4 py-2">
+                      <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
+                      <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
+                  </td>
+              `;
+              tableBody.appendChild(tr);
+          }
+      });
+  }
+
+  window.editarOperacion = function(index) {
+      window.location.href = `operacioneseditar.html?index=${index}`;
+  }
+
+  window.eliminarOperacion = function(index) {
+      const confirmacion = confirm('¿Estás seguro de que deseas eliminar?');
+      if (confirmacion) {
+          let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+          operaciones.splice(index, 1);
+          localStorage.setItem('operaciones', JSON.stringify(operaciones));
+          cargarStorage();
+      }
+  }
+
+  cargarStorage();  // Llamada inicial para cargar y mostrar las operaciones
+});
 
 
 /* BALANCE */
