@@ -471,70 +471,7 @@ const ordenarPor=document.getElementById("ordenarPor")
 
 
 
-// filtrado por tipo
 
-selectTipo.onchange =() =>{
-   const arrayFiltroTipo = aplicarFiltros();
-   mostrarOperacionesEnHTML(arrayFiltroTipo);
- }
-
-
-// // por categoria
-
-   filtroCategoria.onchange =() =>{
-    const arrayFiltradoFinal = aplicarFiltros();
-    mostrarOperacionesEnHTML(arrayFiltradoFinal);
- }
-
-// // porfecha
-
-  inputFecha.onchange = () => {
-    const FiltradoFecha = nuevasFechas(aplicarFiltros());
-    mostrarOperacionesEnHTML(ordenarFechas(FiltradoFecha));
-  };
-  
-     ordenarPor.onchange =() => {
-    const arrayOrdenadoFinal = filtroPor();
-     mostrarOperacionesEnHTML(arrayOrdenadoFinal)
-   
-   }
-
-
-
-//   const filtroPor =() =>{
-     const orden = ordenarPor.value;
-    let operaciones = aplicarFiltros();
-    if (orden === "aZ"){
-        operaciones = operaciones.sort ((a, b)=>{
-           return a.Descripcion.localeCompare(b.Descripcion);
-cargarStorage()
-      })
-
-
-    }else if (orden === "zA") {
-         operaciones = operaciones.sort ((a, b)=>{
-             return b.Descripcion.localeCompare(a.Descripcion);
-    
-       });
-
-} else if (orden === "mayorMonto"){
-   operaciones = operaciones.sort((a, b)=>{
-        return b.monto - a.monto;
-
-    });
-}else if (orden === "menorMonto"){
-    operaciones = operaciones.sort((a, b)=>{
-        return b.monto - a.monto;
-
-    });
-
-
-} 
-
-
-
-
-// REPORTES
 
 
 
