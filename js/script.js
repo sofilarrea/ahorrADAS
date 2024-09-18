@@ -355,16 +355,17 @@ document.addEventListener("DOMContentLoaded", function() {
           li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
           li.dataset.id = index;
 
-          li.innerHTML = `
-              <span>${operacion.descripcion}</span>
-              <span>${operacion.categoria}</span>
-              <span>${operacion.fecha}</span>
-              <span>${operacion.tipo.trim() === 'ganancia' ? `+${operacion.monto}` : `-${operacion.monto}`}</span>
-              <div>
-                  <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
-                  <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
-              </div>
-          `;
+                li.innerHTML = `
+        <span>${operacion.descripcion}</span>
+        <span>${operacion.categoria}</span>
+        <span>${operacion.fecha}</span>
+        <span>${(operacion.tipo && operacion.tipo.trim() === 'ganancia') ? `+${operacion.monto}` : `-${operacion.monto}`}</span>
+        <div>
+            <button class="text-blue-500 hover:text-blue-700" onclick="editarOperacion(${index})">Editar</button>
+            <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
+        </div>
+      `;
+;
           operacionesList.appendChild(li);
 
           // Mostrar en la tabla
@@ -442,3 +443,5 @@ if (operacionesString) {
 } else {
     console.warn('No hay operaciones en localStorage.');
 }
+console.log(localStorage.getItem('operaciones'));
+console.log(localStorage.getItem('categorias'));

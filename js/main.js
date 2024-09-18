@@ -112,8 +112,8 @@
 
 
       window.location.href = 'categoria.html';
-  });
-});
+  }
+
 
 
 /*Abrir formulario de operacion nueva*/
