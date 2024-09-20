@@ -419,6 +419,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // FILTROS
+
+
 // ocultar panel de filtros
 const ocultarFiltros=document.getElementById ("ocultar-filtros")
 const mostrarFiltros=document.getElementById("mostrar-filtros")
@@ -457,6 +459,7 @@ const inputFecha=document.getElementById("input-fecha")
 const ordenFiltros=document.getElementById("orden-filtros")
 const filtrosTipos=document.getElementById("filtros-tipo")
 const ordenarPor=document.getElementById("ordenarPor")
+const btnOperacion=document.getElementById("btn-operacion")
 
       mostrarFiltros.addEventListener("click" , (e) =>{
         panelTipo.style.display= "block";
@@ -466,6 +469,61 @@ const ordenarPor=document.getElementById("ordenarPor")
 
 
 
+
+//   function  cargarCategoriasSelect (){
+    
+//     const selectTipo=document.getElementById("select-tipo").value;
+//     const seleccionCategoria=document.getElementById("categoriaSelect").value;
+//     const inputFecha=document.getElementById("input-fecha").value;
+//     const ordenarPor=document.getElementById("ordenarPor").value;
+
+//     let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+// const filtrosAplicados = selectTipo !== "todos" || seleccionCategoria || ordenarPor;
+
+// if (filtrosAplicados){
+//     if (selectTipo !== "todos"){
+//         operaciones = operaciones.filter((op) => op.tipo === selectTipo);
+//     }
+//     if (seleccionCategoria && seleccionCategoria !== "todas"){
+//         operaciones = operaciones.filter((op) => op.categoria === seleccionCategoria);
+//     }
+
+//     if (inputFecha) {
+//         const fechaDesde = new date(inputFecha);
+//         operaciones = operaciones.filter((op) => new Date(op.fecha) >= fechaDesde);
+//       }
+
+//       switch (filtroOrdenar) {
+//         case "mas-reciente": operaciones.sort (
+//           (a, b) => new Date(b.fecha) - new Date(a.fecha)
+//         );
+//         break;
+//         case "menos-reciente": operaciones.sort(
+//           (a,b) => new Date(a.fecha) - new Date(b.fecha)
+//         );
+//         break;
+//         case "mayor-monto": operaciones.sort(
+//           (a, b) => b.monto - a.monto);
+//         break;
+//         case "menor-monto": operaciones.sort(
+//           (a, b) => a.monto - b.monto);
+//         break;
+//         case "a-z": operaciones.sort(
+//           (a, b) => a.descripcion.localeCompare(b.descripcion));
+//         break;
+//         case "z-a": operaciones.sort(
+//           (a, b) => b.descripcion.localeCompare(a.descripcion));
+//         break;
+//         default:
+//           break;
+       
+//       }
+//       (operaciones)
+//     } else {
+//      ();
+//     }
+//   }
 
 
 

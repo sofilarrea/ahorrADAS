@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AhorrADAs</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: ' #00D1B2',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <header class="navbar-section-reportes">
+        <nav id="navbar" class="navbar">
+            <div class="navbar-logo">
+                <a href="index.html" class="flex">
+                    <i class="fa-solid fa-wallet" style="color: #ffffff;"></i>
+                    <h1>AhorrADAs</h1>
+                </a>
+            </div>
+            <div class="nav-icon-controles">
+                <a href="#navbar" id="open" class="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+                <a href="#" id="close" class="close"><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></a>
+            </div>
+            <ul class="navbar-links" id="navbar-links">
+                <li><i class="fas fa-chart-line mr-2" aria-hidden="true"></i><a href="index.html">Balance</a></li>
+                <li><i class="fas fa-tag mr-2" aria-hidden="true"></i><a href="categoria.html">Categoria</a></li>
+                <li><i class="fas fa-chart-pie mr-2" aria-hidden="true"></i><a href="reportes.html">Reportes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div id="reportes-container" class="bg-white p-12 rounded-lg shadow-lg w-full max-w-md transition-transform transform scale-100">
+            <h3 class="text-4xl font-bold mb-8">Reportes</h3>
+
+            <div class="mb-8">
+                <h4 class="text-3xl font-bold mb-4">Resumen</h4>
+                <p>Categoría con mayor ganancia: <span id="cat-mayor-ganancia"></span></p>
+                <p>Categoría con mayor gasto: <span id="cat-mayor-gasto"></span></p>
+                <p>Categoría con mayor balance: <span id="cat-mayor-balance"></span></p>
+                <p>Mes con mayor ganancia: <span id="mes-mayor-ganancia"></span></p>
+                <p>Mes con mayor gasto: <span id="mes-mayor-gasto"></span></p>
+            </div>
+
+            <div class="mb-8">
+                <h4 class="text-3xl font-bold mb-4">Totales por Categorías</h4>
+                <ul id="categorias-list" class="list-disc pl-5">
+                </ul>
+            </div>
+
+            <div class="space-y-4 ">
+                <h4 class="text-3xl font-bold mb-4 ">Totales por Mes</h4>
+                
+                <ul id="meses-list" class="list-disc pl-5 ">
+                </ul>
+           
+             
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/reportes.js"></script>
+</body>
+</html>
