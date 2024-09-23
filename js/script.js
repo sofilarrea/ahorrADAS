@@ -245,9 +245,32 @@ function eliminarOperacion(id) {
 function crearElementosLista() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
   const operacionesList = document.getElementById('operaciones-list');
+  const ordenarPor = document.getElementById('ordenarPor').value;
 
   // Limpiar la lista antes de agregar las operaciones
   operacionesList.innerHTML = '';
+
+  // Ordenar las operaciones según la selección
+  switch (ordenarPor) {
+      case 'masReciente':
+          operaciones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+          break;
+      case 'menosReciente':
+          operaciones.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+          break;
+      case 'mayorMonto':
+          operaciones.sort((a, b) => b.monto - a.monto);
+          break;
+      case 'menorMonto':
+          operaciones.sort((a, b) => a.monto - b.monto);
+          break;
+      case 'aZ':
+          operaciones.sort((a, b) => a.descripcion.localeCompare(b.descripcion));
+          break;
+      case 'zA':
+          operaciones.sort((a, b) => b.descripcion.localeCompare(a.descripcion));
+          break;
+  }
 
   operaciones.forEach(function(operacion, index) {
       const li = document.createElement('li');
@@ -262,26 +285,18 @@ function crearElementosLista() {
 
       const spanFecha = document.createElement('span');
       const fechaParts = operacion.fecha.split('-');
-      const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`; // Formato día/mes/año
+      const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
       spanFecha.textContent = fechaFormateada;
 
       const spanMonto = document.createElement('span');
-
-      // Verificar el tipo de operación y asignar el color y el signo adecuados
       if (operacion.tipo.trim() === 'ingreso') {
           spanMonto.textContent = `+$ ${operacion.monto.toFixed(2)}`;
-          spanMonto.style.color = 'green'; // Asignar color verde para ingresos
-      } else if (operacion.tipo.trim() === 'egreso') {
-          spanMonto.textContent = `-$ ${operacion.monto.toFixed(2)}`;
-          spanMonto.style.color = 'red'; // Asignar color rojo para egresos
+          spanMonto.style.color = 'green';
       } else {
-          // Si el tipo de operación no es ni ingreso ni egreso, mostrar un aviso
-          console.warn('Tipo de operación desconocido:', operacion.tipo);
-          spanMonto.textContent = `${operacion.monto.toFixed(2)}`;
-          spanMonto.style.color = 'black'; // Asignar color negro para tipos desconocidos
+          spanMonto.textContent = `-$ ${operacion.monto.toFixed(2)}`;
+          spanMonto.style.color = 'red';
       }
 
-      // Botones de acción
       const divAcciones = document.createElement('div');
       const btnEditar = document.createElement('button');
       btnEditar.textContent = 'Editar';
@@ -300,8 +315,6 @@ function crearElementosLista() {
               if (li) {
                   const elementoId = li.dataset.id;
                   eliminarOperacion(elementoId);
-              } else {
-                  console.error('No se pudo encontrar el elemento a eliminar');
               }
           }
       });
@@ -319,6 +332,8 @@ function crearElementosLista() {
   });
 }
 
+// Evento para actualizar la lista cuando cambie la opción de ordenación
+document.getElementById('ordenarPor').addEventListener('change', crearElementosLista);
 
 // Inicializar la página para editar una operación
 document.addEventListener('DOMContentLoaded', function() {
@@ -501,3 +516,97 @@ function mostrarTarjetaDeOperaciones(operaciones) {
       sinResultados.style.display = 'block';
   }
 }
+
+
+function crearElementosLista() {
+  const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+  const operacionesList = document.getElementById('operaciones-list');
+  const ordenarPor = document.getElementById('ordenarPor').value;
+
+  // Limpiar la lista antes de agregar las operaciones
+  operacionesList.innerHTML = '';
+
+  // Ordenar las operaciones según la selección
+  switch (ordenarPor) {
+      case 'masReciente':
+          operaciones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+          break;
+      case 'menosReciente':
+          operaciones.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+          break;
+      case 'mayorMonto':
+          operaciones.sort((a, b) => b.monto - a.monto);
+          break;
+      case 'menorMonto':
+          operaciones.sort((a, b) => a.monto - b.monto);
+          break;
+      case 'aZ':
+          operaciones.sort((a, b) => a.descripcion.localeCompare(b.descripcion));
+          break;
+      case 'zA':
+          operaciones.sort((a, b) => b.descripcion.localeCompare(a.descripcion));
+          break;
+  }
+
+  operaciones.forEach(function(operacion, index) {
+      const li = document.createElement('li');
+      li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
+      li.dataset.id = index;
+
+      const spanDescripcion = document.createElement('span');
+      spanDescripcion.textContent = operacion.descripcion;
+
+      const spanCategoria = document.createElement('span');
+      spanCategoria.textContent = operacion.categoria;
+
+      const spanFecha = document.createElement('span');
+      const fechaParts = operacion.fecha.split('-');
+      const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
+      spanFecha.textContent = fechaFormateada;
+
+      const spanMonto = document.createElement('span');
+      if (operacion.tipo.trim() === 'ingreso') {
+          spanMonto.textContent = `+$ ${operacion.monto.toFixed(2)}`;
+          spanMonto.style.color = 'green';
+      } else {
+          spanMonto.textContent = `-$ ${operacion.monto.toFixed(2)}`;
+          spanMonto.style.color = 'red';
+      }
+
+      const divAcciones = document.createElement('div');
+      const btnEditar = document.createElement('button');
+      btnEditar.textContent = 'Editar';
+      btnEditar.classList.add('text-blue-500', 'hover:text-blue-700', 'mr-2');
+      btnEditar.addEventListener('click', () => {
+          window.location.href = `operacioneseditar.html?index=${index}`;
+      });
+
+      const btnEliminar = document.createElement('button');
+      btnEliminar.textContent = 'Eliminar';
+      btnEliminar.classList.add('text-red-500', 'hover:text-red-700');
+      btnEliminar.addEventListener('click', (event) => {
+          const confirmacion = confirm('¿Estás seguro de que deseas eliminar?');
+          if (confirmacion) {
+              const li = event.target.closest('li');
+              if (li) {
+                  const elementoId = li.dataset.id;
+                  eliminarOperacion(elementoId);
+              }
+          }
+      });
+
+      divAcciones.appendChild(btnEditar);
+      divAcciones.appendChild(btnEliminar);
+
+      li.appendChild(spanDescripcion);
+      li.appendChild(spanCategoria);
+      li.appendChild(spanFecha);
+      li.appendChild(spanMonto);
+      li.appendChild(divAcciones);
+
+      operacionesList.appendChild(li);
+  });
+}
+
+// Evento para actualizar la lista cuando cambie la opción de ordenación
+document.getElementById('ordenarPor').addEventListener('change', crearElementosLista);
