@@ -118,6 +118,15 @@ if (inputEditar && editarBoton && cancelarBoton) {
 
 
 /* Operaciones */
+  const btnCancelarOperacion = document.getElementById('cancelarr');
+
+  // Verifica si el botón existe antes de agregar el evento
+  if (btnCancelarOperacion) {
+    btnCancelarOperacion.addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+  }
+
 
 // Función para cargar las categorías en el select
 function cargarCategoriasSelect() {
@@ -137,14 +146,22 @@ function cargarCategoriasSelect() {
 // Función para agregar una nueva operación
 function agregarOperacion(event) {
   event.preventDefault();
-  const descripcion = document.getElementById('nuevaOperacion-descripcion').value;
-  let monto = document.getElementById('nuevaOperacion-monto').value;
+
+  const descripcion = document.getElementById('nuevaOperacion-descripcion').value.trim();
+  let monto = document.getElementById('nuevaOperacion-monto').value.trim();
   const tipo = document.getElementById('nuevaOperacion-tipo').value;
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  if (!monto.includes('.')) {
-      alert('Por favor, introduce el monto con un punto decimal.');
+  // Validar que la descripción, monto, tipo, categoría y fecha no estén vacíos
+  if (!descripcion || !monto || !tipo || !categoria || !fecha) {
+      alert('Por favor, completa todos los campos.');
+      return;
+  }
+
+  // Validar el monto
+  if (isNaN(monto) || monto <= 0) {
+      alert('Por favor, introduce un monto válido.');
       return;
   }
 
@@ -160,6 +177,7 @@ function agregarOperacion(event) {
 
   let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
+  // Comprobar si la operación ya existe
   const esDuplicado = operaciones.some(operacion =>
       operacion.descripcion === nuevaOperacion.descripcion &&
       operacion.monto === nuevaOperacion.monto &&
@@ -169,14 +187,17 @@ function agregarOperacion(event) {
   );
 
   if (esDuplicado) {
-
+      alert('La operación fue creada  .');
       return;
   }
 
+  // Añadir la nueva operación al array
   operaciones.push(nuevaOperacion);
 
+  // Guardar las operaciones en localStorage
   localStorage.setItem('operaciones', JSON.stringify(operaciones));
 
+  // Redirigir a la página principal
   window.location.href = 'index.html';
 }
 
@@ -189,16 +210,13 @@ function guardarOperacionEditada(index) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // Validar el monto
   if (!monto.includes('.')) {
       alert('Por favor, introduce el monto con un punto decimal.');
       return;
   }
 
-  // Convertir el monto a un número
   monto = parseFloat(monto);
 
-  // Obtener las operaciones y actualizar la operación editada
   let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
   if (index >= 0 && index < operaciones.length) {
       operaciones[index] = {
@@ -250,13 +268,12 @@ function crearElementosLista() {
 
       const spanMonto = document.createElement('span');
       if (operacion.tipo.trim() === 'ingreso') {
-        spanMonto.textContent = `+${operacion.monto}`;
-        spanMonto.style.color = 'red';
-    } else if (operacion.tipo.trim() === 'egreso') {
-        spanMonto.textContent = `-${operacion.monto}`;
-        spanMonto.style.color = 'red';
-    }
-
+          spanMonto.textContent = `+${operacion.monto}`;
+          spanMonto.style.color = 'red';
+      } else if (operacion.tipo.trim() === 'egreso') {
+          spanMonto.textContent = `-${operacion.monto}`;
+          spanMonto.style.color = 'red';
+      }
 
       // Botones
       const divAcciones = document.createElement('div');
@@ -298,12 +315,10 @@ function crearElementosLista() {
 
 // Inicializar la página para editar una operación
 document.addEventListener('DOMContentLoaded', function() {
-  // Cargar categorías en el select si existe
   if (document.getElementById('nuevaOperacion-categoria')) {
       cargarCategoriasSelect();
   }
 
-  // Cargar datos de la operación si estamos en la página de edición
   const params = new URLSearchParams(window.location.search);
   const indiceOperacion = params.get('index');
 
@@ -312,20 +327,17 @@ document.addEventListener('DOMContentLoaded', function() {
       const operacion = operaciones[indiceOperacion];
 
       if (operacion) {
-          // Cargar los datos de la operación en el formulario
           document.getElementById('nuevaOperacion-descripcion').value = operacion.descripcion;
           document.getElementById('nuevaOperacion-monto').value = operacion.monto;
           document.getElementById('nuevaOperacion-tipo').value = operacion.tipo;
           document.getElementById('nuevaOperacion-categoria').value = operacion.categoria;
           document.getElementById('nuevaOperacion-fecha').value = operacion.fecha;
 
-          // Agregar el evento de envío del formulario para editar la operación
           document.getElementById('transaction-form').addEventListener('submit', function(event) {
               guardarOperacionEditada(indiceOperacion);
           });
       }
   } else {
-      // Si no hay índice en la URL, agregar una operación nueva
       document.getElementById('transaction-form').addEventListener('submit', agregarOperacion);
   }
 
@@ -421,11 +433,9 @@ const seccionSinOperaciones = document.getElementById('operaciones');
 
 // Verifica si hay operaciones
 if (operaciones.length > 0) {
-    // Si hay operaciones, muestra la sección de operaciones y oculta la sección sin operaciones
     seccionOperaciones.style.display = 'block';
     seccionSinOperaciones.style.display = 'none';
 } else {
-    // Si no hay operaciones, muestra la sección sin operaciones y oculta la sección de operaciones
     seccionOperaciones.style.display = 'none';
     seccionSinOperaciones.style.display = 'block';
 }
@@ -478,11 +488,9 @@ function mostrarTarjetaDeOperaciones(operaciones) {
   const tablaOperaciones = document.getElementById('operaciones-con-operaciones');
 
   if (operaciones.length > 0) {
-      // Mostrar la tarjeta de operaciones y ocultar la de "sin resultados"
       tablaOperaciones.style.display = 'block';
       sinResultados.style.display = 'none';
   } else {
-      // Mostrar la tarjeta de "sin resultados" y ocultar la de operaciones
       tablaOperaciones.style.display = 'none';
       sinResultados.style.display = 'block';
   }
@@ -492,7 +500,7 @@ const cancelarButton = document.getElementById('cancelar');
 cancelarButton.addEventListener('click', function() {
     window.location.href = 'index.html';
 });
-
+console.log('a ver si funciona la operacion')
 operaciones.forEach((operacion, index) => {
   let signo = operacion.tipo === 'ganancia' ? '+' : '-';
   let colorClass = operacion.tipo === 'ganancia' ? 'positive' : 'negative';
@@ -512,115 +520,4 @@ operaciones.forEach((operacion, index) => {
   `;
 
   document.getElementById('operaciones-list').appendChild(li);
-});
-
-
-
-
-
-
-
-console.log('Script cargado correctamente');
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Función para calcular los reportes
-  function generarReportes() {
-      const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-
-      const categorias = {};
-      const meses = {};
-
-      operaciones.forEach(operacion => {
-          const monto = parseFloat(operacion.monto);
-          const categoria = operacion.categoria;
-          const fecha = new Date(operacion.fecha);
-          const mes = `${fecha.getFullYear()}-${fecha.getMonth() + 1}`;
-
-          // Acumulando ganancias y gastos por categoría
-          if (!categorias[categoria]) {
-              categorias[categoria] = { ganancia: 0, gasto: 0 };
-          }
-          if (operacion.tipo === 'ingreso') {
-              categorias[categoria].ganancia += monto;
-          } else if (operacion.tipo === 'egreso') {
-              categorias[categoria].gasto += monto;
-          }
-
-          // Acumulando ganancias y gastos por mes
-          if (!meses[mes]) {
-              meses[mes] = { ganancia: 0, gasto: 0 };
-          }
-          if (operacion.tipo === 'ingreso') {
-              meses[mes].ganancia += monto;
-          } else if (operacion.tipo === 'egreso') {
-              meses[mes].gasto += monto;
-          }
-      });
-
-      // Encontrar la categoría con mayor ganancia
-      let categoriaMayorGanancia = { nombre: '', cantidad: 0 };
-      for (const [categoria, valores] of Object.entries(categorias)) {
-          if (valores.ganancia > categoriaMayorGanancia.cantidad) {
-              categoriaMayorGanancia = { nombre: categoria, cantidad: valores.ganancia };
-          }
-      }
-
-      // Encontrar la categoría con mayor gasto
-      let categoriaMayorGasto = { nombre: '', cantidad: 0 };
-      for (const [categoria, valores] of Object.entries(categorias)) {
-          if (valores.gasto > categoriaMayorGasto.cantidad) {
-              categoriaMayorGasto = { nombre: categoria, cantidad: valores.gasto };
-          }
-      }
-
-      // Encontrar la categoría con el mayor balance
-      let categoriaMayorBalance = { nombre: '', cantidad: 0 };
-      for (const [categoria, valores] of Object.entries(categorias)) {
-          const balance = valores.ganancia - valores.gasto;
-          if (balance > categoriaMayorBalance.cantidad) {
-              categoriaMayorBalance = { nombre: categoria, cantidad: balance };
-          }
-      }
-
-      // Encontrar el mes con mayor ganancia
-      let mesMayorGanancia = { mes: '', cantidad: 0 };
-      for (const [mes, valores] of Object.entries(meses)) {
-          if (valores.ganancia > mesMayorGanancia.cantidad) {
-              mesMayorGanancia = { mes, cantidad: valores.ganancia };
-          }
-      }
-
-      // Encontrar el mes con mayor gasto
-      let mesMayorGasto = { mes: '', cantidad: 0 };
-      for (const [mes, valores] of Object.entries(meses)) {
-          if (valores.gasto > mesMayorGasto.cantidad) {
-              mesMayorGasto = { mes, cantidad: valores.gasto };
-          }
-      }
-
-      // Mostrar los reportes en el DOM
-      document.getElementById('cat-mayor-ganancia').textContent = `${categoriaMayorGanancia.nombre} (${categoriaMayorGanancia.cantidad.toFixed(2)})`;
-      document.getElementById('cat-mayor-gasto').textContent = `${categoriaMayorGasto.nombre} (${categoriaMayorGasto.cantidad.toFixed(2)})`;
-      document.getElementById('cat-mayor-balance').textContent = `${categoriaMayorBalance.nombre} (${categoriaMayorBalance.cantidad.toFixed(2)})`;
-      document.getElementById('mes-mayor-ganancia').textContent = `${mesMayorGanancia.mes} (${mesMayorGanancia.cantidad.toFixed(2)})`;
-      document.getElementById('mes-mayor-gasto').textContent = `${mesMayorGasto.mes} (${mesMayorGasto.cantidad.toFixed(2)})`;
-
-      // Mostrar totales por categoría
-      const categoriasList = document.getElementById('categorias-list');
-      categoriasList.innerHTML = '';
-      for (const [categoria, valores] of Object.entries(categorias)) {
-          const balance = valores.ganancia - valores.gasto;
-          categoriasList.innerHTML += `<li>${categoria}: Ganancia: ${valores.ganancia.toFixed(2)}, Gasto: ${valores.gasto.toFixed(2)}, Balance: ${balance.toFixed(2)}</li>`;
-      }
-
-      // Mostrar totales por mes
-      const mesesList = document.getElementById('meses-list');
-      mesesList.innerHTML = '';
-      for (const [mes, valores] of Object.entries(meses)) {
-          mesesList.innerHTML += `<li>${mes}: Ganancia: ${valores.ganancia.toFixed(2)}, Gasto: ${valores.gasto.toFixed(2)}</li>`;
-      }
-  }
-
-  // Ejecutar la función para generar reportes
-  generarReportes();
 });
