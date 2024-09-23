@@ -153,13 +153,12 @@ function agregarOperacion(event) {
   const categoria = document.getElementById('nuevaOperacion-categoria').value;
   const fecha = document.getElementById('nuevaOperacion-fecha').value;
 
-  // Validar que la descripción, monto, tipo, categoría y fecha no estén vacíos
   if (!descripcion || !monto || !tipo || !categoria || !fecha) {
       alert('Por favor, completa todos los campos.');
       return;
   }
 
-  // Validar el monto
+  // Validar  monto
   if (isNaN(monto) || monto <= 0) {
       alert('Por favor, introduce un monto válido.');
       return;
@@ -443,6 +442,10 @@ if (operaciones.length > 0) {
     seccionOperaciones.style.display = 'none';
     seccionSinOperaciones.style.display = 'block';
 }
+// Función para editar una operación
+function editarOperacion(index) {
+  window.location.href = `operacioneseditar.html?index=${index}`;
+}
 
 
 /* BALANCE */
@@ -484,8 +487,7 @@ if (operacionesString) {
 } else {
     console.warn('No hay operaciones en localStorage.');
 }
-console.log(localStorage.getItem('operaciones'));
-console.log(localStorage.getItem('categorias'));
+
 // Función para mostrar la tarjeta adecuada
 function mostrarTarjetaDeOperaciones(operaciones) {
   const sinResultados = document.getElementById('operaciones');
