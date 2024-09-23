@@ -247,7 +247,7 @@ function crearElementosLista() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
   const operacionesList = document.getElementById('operaciones-list');
 
-  // Limpiar la lista
+  // Limpiar la lista antes de agregar las operaciones
   operacionesList.innerHTML = '';
 
   operaciones.forEach(function(operacion, index) {
@@ -267,15 +267,22 @@ function crearElementosLista() {
       spanFecha.textContent = fechaFormateada;
 
       const spanMonto = document.createElement('span');
+
+      // Verificar el tipo de operación y asignar el color y el signo adecuados
       if (operacion.tipo.trim() === 'ingreso') {
-          spanMonto.textContent = `+${operacion.monto}`;
-          spanMonto.style.color = 'red';
+          spanMonto.textContent = `+$ ${operacion.monto.toFixed(2)}`;
+          spanMonto.style.color = 'green'; // Asignar color verde para ingresos
       } else if (operacion.tipo.trim() === 'egreso') {
-          spanMonto.textContent = `-${operacion.monto}`;
-          spanMonto.style.color = 'red';
+          spanMonto.textContent = `-$ ${operacion.monto.toFixed(2)}`;
+          spanMonto.style.color = 'red'; // Asignar color rojo para egresos
+      } else {
+          // Si el tipo de operación no es ni ingreso ni egreso, mostrar un aviso
+          console.warn('Tipo de operación desconocido:', operacion.tipo);
+          spanMonto.textContent = `${operacion.monto.toFixed(2)}`;
+          spanMonto.style.color = 'black'; // Asignar color negro para tipos desconocidos
       }
 
-      // Botones
+      // Botones de acción
       const divAcciones = document.createElement('div');
       const btnEditar = document.createElement('button');
       btnEditar.textContent = 'Editar';
@@ -312,6 +319,7 @@ function crearElementosLista() {
       operacionesList.appendChild(li);
   });
 }
+
 
 // Inicializar la página para editar una operación
 document.addEventListener('DOMContentLoaded', function() {
@@ -367,12 +375,10 @@ document.addEventListener("DOMContentLoaded", function() {
       const operacionesList = document.getElementById('operaciones-list');
       const tableBody = document.querySelector('table tbody');
 
-      // Limpiar las listas
       operacionesList.innerHTML = '';
       if (tableBody) tableBody.innerHTML = '';
 
       operaciones.forEach((operacion, index) => {
-          // Mostrar en la lista
           const li = document.createElement('li');
           li.classList.add('px-4', 'py-2', 'flex', 'justify-between', 'items-center');
           li.dataset.id = index;
@@ -422,12 +428,10 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   }
 
-  cargarStorage();  // Llamada inicial para cargar y mostrar las operaciones
+  cargarStorage();
 });
-// Obtiene las operaciones del localStorage, o un arreglo vacío si no hay operaciones guardadas.
 const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
 
-// Obtiene las referencias a las secciones del DOM
 const seccionOperaciones = document.getElementById('operaciones-con-operaciones');
 const seccionSinOperaciones = document.getElementById('operaciones');
 
@@ -495,29 +499,3 @@ function mostrarTarjetaDeOperaciones(operaciones) {
       sinResultados.style.display = 'block';
   }
 }
-const cancelarButton = document.getElementById('cancelar');
-
-cancelarButton.addEventListener('click', function() {
-    window.location.href = 'index.html';
-});
-console.log('a ver si funciona la operacion')
-operaciones.forEach((operacion, index) => {
-  let signo = operacion.tipo === 'ganancia' ? '+' : '-';
-  let colorClass = operacion.tipo === 'ganancia' ? 'positive' : 'negative';
-
-  let li = document.createElement('li');
-  li.innerHTML = `
-    <span>${operacion.descripcion}</span>
-    <span>${operacion.categoria}</span>
-    <span>${formatearFecha(operacion.fecha)}</span>
-    <span class="amount ${colorClass}">
-        ${signo}${operacion.monto.toFixed(2)}
-    </span>
-    <div>
-        <button class="text-blue-500 hover:text-blue-700 mr-2" onclick="editarOperacion(${index})">Editar</button>
-        <button class="text-red-500 hover:text-red-700" onclick="eliminarOperacion(${index})">Eliminar</button>
-    </div>
-  `;
-
-  document.getElementById('operaciones-list').appendChild(li);
-});
