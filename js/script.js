@@ -522,9 +522,18 @@ function crearElementosLista() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
   const operacionesList = document.getElementById('operaciones-list');
   const ordenarPor = document.getElementById('ordenarPor').value;
+  const categoriaSeleccion = document.getElementById("categoriaSelect").value;
+  const filtroTipo = document.getElementById ("filtro-tipo").value;
+
+
+
+
 
   // Limpiar la lista antes de agregar las operaciones
   operacionesList.innerHTML = '';
+
+
+
 
   // Ordenar las operaciones según la selección
   switch (ordenarPor) {
@@ -610,3 +619,120 @@ function crearElementosLista() {
 
 // Evento para actualizar la lista cuando cambie la opción de ordenación
 document.getElementById('ordenarPor').addEventListener('change', crearElementosLista);
+
+
+
+ // FILTROS
+  
+  
+  // ocultar panel de filtros
+  const ocultarFiltros=document.getElementById ("ocultar-filtros")
+  const mostrarFiltros=document.getElementById("mostrar-filtros")
+  const panelFiltros=document.getElementById ("panel-filtros")
+  const panelTipo=document.getElementById("panel-tipo")
+  
+  
+   ocultarFiltros.addEventListener("click" , () =>{
+  
+      ocultarFiltros.classList.add("hidden")
+       panelFiltros.classList.add("hidden")
+       mostrarFiltros.classList.remove("hidden")
+  
+   })
+  // selec filtros
+      ocultarFiltros.addEventListener("click" , (e) =>{
+  
+       panelTipo.style.display= "none";
+     })
+  
+  // para que aparezcan los filtros nuevamente
+  
+     mostrarFiltros.addEventListener("click" , (e) =>{
+  
+     mostrarFiltros.classList.add("hidden")
+     panelFiltros.classList.remove("hidden")
+     ocultarFiltros.classList.remove("hidden")
+  
+  
+  
+   })
+  
+  const selectTipo=document.getElementById("select-tipo")
+  const filtroCategoria=document.getElementById("filtro-categoria")
+  const inputFecha=document.getElementById("input-fecha")
+  const ordenFiltros=document.getElementById("orden-filtros")
+  const filtrosTipos=document.getElementById("filtros-tipo")
+  const ordenarPor=document.getElementById("ordenarPor")
+  const btnOperacion=document.getElementById("btn-operacion")
+  
+        mostrarFiltros.addEventListener("click" , (e) =>{
+          panelTipo.style.display= "block";
+    })
+  
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    // O P E R A C I O N E S
+  
+  
+  
+  
+    const categoriaSelect =document.getElementById("categoriaSelect")
+  
+    function cargarCategorias(categorias){
+      categorias.forEach((categoria) =>{
+        let nuevaCategoria = document.createElement("option")
+        nuevaCategoria.value = categoria;
+        nuevaCategoria.textContent = categoria
+        console.log("hola desde funcion que no funciona")
+        categoriaSelect.appendChild(nuevaCategoria)
+        console.log(categoriaSelect)
+    
+      })
+    }
+    
+    function cargarStorage() {
+        const categorias = localStorage.getItem("categoria")
+        const operacion = localStorage.getItem("operaciones")
+      
+        if(!categorias) {
+            const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
+            localStorage.setItem("categoria", categoriasDefault)
+            cargarCategorias(categoriasDefault)
+        } else {
+            let nuevaCategoria = ""
+            let nuevasCategoriasArray = []
+            for (let i = 0; i < categorias.length; i++){
+                if (categorias[i] !== ",") {
+                    nuevaCategoria += categorias[i]
+                    if(i === categorias.length - 1){
+                      nuevasCategoriasArray.push(nuevaCategoria)
+                    }
+                } else {
+                    nuevasCategoriasArray.push(nuevaCategoria)
+                    nuevaCategoria = " "
+                }
+            }
+          cargarCategorias(nuevasCategoriasArray)
+        }
+    }
+    cargarStorage ()
+    ;
+    
+
+
+       
