@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
       for (const [categoria, valores] of Object.entries(categorias)) {
           const balance = valores.ganancia - valores.gasto;
           categoriasList.innerHTML += `<li>${categoria}: Ganancia: ${valores.ganancia.toFixed(2)}, Gasto: ${valores.gasto.toFixed(2)}, Balance: ${balance.toFixed(2)}</li>`;
+       
       }
 
       // Mostrar totales por meses
