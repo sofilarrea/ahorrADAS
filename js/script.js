@@ -241,6 +241,12 @@ function eliminarOperacion(id) {
   }
 }
 
+
+
+
+
+
+
 // Función para crear la lista de operaciones
 function crearElementosLista() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
@@ -515,15 +521,79 @@ function mostrarTarjetaDeOperaciones(operaciones) {
       tablaOperaciones.style.display = 'none';
       sinResultados.style.display = 'block';
   }
+};
+
+
+
+
+ function filtrarOperaciones (){ 
+     const filtrosTipos= document.getElementById("filtro-tipo").value;
+    const categoriaSelect = document.getElementById("categoriaSelect").value;
+    const desde = document.getElementById("desde").value;
+    const ordenarPor = document.getElementById("ordenarPor").value;
+    const operacionesList = document.getElementById('operaciones-list');
+  
+
+ 
+     let operacionesFiltradas =operaciones.filter ((operacion) => {
+       return (           (!filtrosTipos === "todos" || operacion.tipo.toLowerCase() === filtrosTipos.toLowerCase())&&
+          (categoriaSelect ===  "todas" || operacion.categoria.toLowerCase() === categoriaSelect.toLowerCase()) &&
+          (!desde || operacion.fecha >= desde)
+       
+        )
+ 
+       
+    
+      
+       
+   });
+   
+
+    mostrarOperacionesFiltradas (operacionesFiltradas)
+
+
+
 }
+
+ function mostrarOperacionesFiltradas(operaciones){
+     const operacionesList = document.getElementById("operaciones-list");
+     operacionesList.innerHTML= "";
+
+    if (operaciones.length === 0){
+         operacionesList.innerHTML= "";
+         return;
+     }
+
+  operaciones.forEach(operacion =>{
+ 
+  
+  })
+
+ }
+
+
+ document.getElementById("filtro-tipo").addEventListener("change", filtrarOperaciones)  
+ document.getElementById("categoriaSelect").addEventListener("change", filtrarOperaciones)
+  document.getElementById("desde").addEventListener("change", filtrarOperaciones)
+ document.getElementById("ordenarPor").addEventListener("change", filtrarOperaciones)
+
+  filtrarOperaciones();
+
+
+
+
+
+
+
+
+
 
 
 function crearElementosLista() {
   const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
   const operacionesList = document.getElementById('operaciones-list');
   const ordenarPor = document.getElementById('ordenarPor').value;
-  const categoriaSeleccion = document.getElementById("categoriaSelect").value;
-  const filtroTipo = document.getElementById ("filtro-tipo").value;
+ 
 
 
 
@@ -533,7 +603,7 @@ function crearElementosLista() {
   operacionesList.innerHTML = '';
 
 
-
+  
 
   // Ordenar las operaciones según la selección
   switch (ordenarPor) {
@@ -556,6 +626,7 @@ function crearElementosLista() {
           operaciones.sort((a, b) => b.descripcion.localeCompare(a.descripcion));
           break;
   }
+
 
   operaciones.forEach(function(operacion, index) {
       const li = document.createElement('li');
@@ -615,6 +686,8 @@ function crearElementosLista() {
 
       operacionesList.appendChild(li);
   });
+
+  
 }
 
 // Evento para actualizar la lista cuando cambie la opción de ordenación
@@ -623,8 +696,9 @@ document.getElementById('ordenarPor').addEventListener('change', crearElementosL
 
 
  // FILTROS
-  
-  
+ 
+
+
   // ocultar panel de filtros
   const ocultarFiltros=document.getElementById ("ocultar-filtros")
   const mostrarFiltros=document.getElementById("mostrar-filtros")
@@ -670,25 +744,9 @@ document.getElementById('ordenarPor').addEventListener('change', crearElementosL
     })
   
  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   
     // O P E R A C I O N E S
-  
-  
   
   
     const categoriaSelect =document.getElementById("categoriaSelect")
@@ -700,7 +758,7 @@ document.getElementById('ordenarPor').addEventListener('change', crearElementosL
         nuevaCategoria.textContent = categoria
         console.log("hola desde funcion que no funciona")
         categoriaSelect.appendChild(nuevaCategoria)
-        console.log(categoriaSelect)
+        
     
       })
     }
@@ -735,4 +793,4 @@ document.getElementById('ordenarPor').addEventListener('change', crearElementosL
     
 
 
-       
+
